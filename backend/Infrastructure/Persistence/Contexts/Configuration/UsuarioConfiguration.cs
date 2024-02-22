@@ -13,7 +13,8 @@ namespace Infrastructure.Persistence.Contexts.Configuration
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            builder.HasKey(e => e.IdUsuario);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).HasColumnName("IdUsuario");
 
             builder.Property(e => e.Apellidos).HasMaxLength(150);
             builder.Property(e => e.Password)

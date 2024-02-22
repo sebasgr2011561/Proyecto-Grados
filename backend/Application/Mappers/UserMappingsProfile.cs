@@ -1,11 +1,9 @@
-﻿using Application.DTOs.User;
+﻿using Application.DTOs.Request;
+using Application.DTOs.Response;
 using AutoMapper;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Infrastructure.Commons.Bases.Response;
+using Utilities.Static;
 
 namespace Application.Mappers
 {
@@ -13,8 +11,28 @@ namespace Application.Mappers
     {
         public UserMappingsProfile()
         {
-            CreateMap<UserRequestDto, Usuario>();
-            CreateMap<TokenRequestDto, Usuario>();
+            CreateMap<Usuario, UserResponseDto>()
+                .ForMember(x => x.IdUsuario, x => x.MapFrom(y => y.Id))
+                .ForMember(x => x.Estado, x => x.MapFrom(y => y.Estado == Convert.ToBoolean(StateTypes.Active) ? "Activo" : "Inactivo"))
+                .ReverseMap();
+
+            CreateMap<UserResponseDto, Usuario>()
+                .ForMember(x => x.Estado, x => x.MapFrom(y => y.Estado == Convert.ToBoolean(StateTypes.Active) ? "Activo" : "Inactivo"))
+                .ReverseMap();
+
+            CreateMap<BaseEntityResponse<Usuario>, BaseEntityResponse<UserResponseDto>>()
+                .ReverseMap();
+
+            CreateMap<UserRequestDto, Usuario>()
+                .ReverseMap();
+
+            CreateMap<Usuario, UserRequestDto>()
+                .ForMember(x => x.IdUsuario, x => x.MapFrom(y => y.Id))
+                .ReverseMap();
+
+            CreateMap<Usuario, UserSelectResponseDto>()
+                .ForMember(x => x.IdUsuario, x => x.MapFrom(y => y.Id))
+                .ReverseMap();
         }
     }
 }

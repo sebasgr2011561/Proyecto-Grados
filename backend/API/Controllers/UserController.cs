@@ -1,5 +1,6 @@
-﻿using Application.DTOs.User;
+﻿using Application.DTOs.Request;
 using Application.Interfaces;
+using Infrastructure.Commons.Bases.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,19 +17,45 @@ namespace API.Controllers
             _userApplication = userApplication;
         }
 
-        [AllowAnonymous]
-        [HttpPost("Register")]
-        public async Task<IActionResult> RegisterUser([FromForm] UserRequestDto requestDto)
+        [HttpPost]
+        public async Task<IActionResult> ListUsers([FromBody] BaseFiltersRequest filtersRequest)
         {
-            var response = await _userApplication.RegisterUser(requestDto);
+            var response = await _userApplication.ListUsers(filtersRequest);
             return Ok(response);
         }
 
-        [AllowAnonymous]
-        [HttpPost("Generate/Token")]
-        public async Task<IActionResult> GenerateToken([FromBody] TokenRequestDto requestDto)
+        [HttpGet("Select")]
+        public async Task<IActionResult> ListSelectUsers()
         {
-            var response = await _userApplication.GenerateToken(requestDto);
+            var response = await _userApplication.ListSelectUsers();
+            return Ok(response);
+        }
+
+        [HttpGet("{userId:int}")]
+        public async Task<IActionResult> GetUserById(int userId)
+        {
+            var response = await _userApplication.GetUserById(userId);
+            return Ok(response);
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> CreateUser([FromBody] UserRequestDto userRequestDto)
+        {
+            var response = await _userApplication.CreateUser(userRequestDto);
+            return Ok(response);
+        }
+
+        [HttpPut("Update/{userId:int}")]
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserRequestDto userRequestDto)
+        {
+            var response = await _userApplication.UpdateUser(userId, userRequestDto);
+            return Ok(response);
+        }
+
+        [HttpPut("Delete/{userId:int}")]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            var response = await _userApplication.DeleteUser(userId);
             return Ok(response);
         }
     }

@@ -1,14 +1,13 @@
 ﻿using Application.Commons.Bases;
-using Application.DTOs.User;
+using Application.DTOs.Request;
+using Application.DTOs.Response;
 using Application.Interfaces;
+using Application.Validators.User;
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Commons.Bases.Request;
+using Infrastructure.Commons.Bases.Response;
 using Infrastructure.Persistence.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Utilities.Static;
 using BC = BCrypt.Net.BCrypt;
 
@@ -18,94 +17,168 @@ namespace Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        private readonly UserValidator _validationRules;
 
-        public UserApplication(IConfiguration configuration, IMapper mapper, IUnitOfWork unitOfWork)
+        public UserApplication(IMapper mapper, IUnitOfWork unitOfWork, UserValidator validationRules)
         {
-            _configuration = configuration;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<bool>> RegisterUser(UserRequestDto requestDto)
+        public async Task<BaseResponse<bool>> CreateUser(UserRequestDto requestDto)
         {
             var response = new BaseResponse<bool>();
+            var validationResult = await _validationRules.ValidateAsync(requestDto);
 
-            try
-            {
-                var account = _mapper.Map<Usuario>(requestDto);
-                account.Password = BC.HashPassword(account.Password);
-                account.Estado = Convert.ToBoolean(StateTypes.Active);
-
-                response.Data = await _unitOfWork.User.RegisterAsync(account);
-
-                if (response.Data)
-                {
-                    response.IsSuccess = true;
-                    response.Message = ReplyMessage.MESSAGE_SAVE;
-                }
-                else
-                {
-                    response.IsSuccess = true;
-                    response.Message = ReplyMessage.MESSAGE_FAILED;
-                }
-            }
-            catch (Exception ex)
+            if (!validationResult.IsValid)
             {
                 response.IsSuccess = false;
-                response.Message = ex.Message;
+                response.Message = ReplyMessage.MESSAGE_VALIDATE;
+                response.Errors = validationResult.Errors;
+                return response;
             }
 
-            return response;
-        }
+            var user = _mapper.Map<Usuario>(requestDto);
+            user.Password = BC.HashPassword(requestDto.Password);
+            response.Data = await _unitOfWork.User.CreateAsync(user);
 
-        public async Task<BaseResponse<string>> GenerateToken(TokenRequestDto requestDto)
-        {
-            var response = new BaseResponse<string>();
-            var account = await _unitOfWork.User.AccountByUserName(requestDto.UserName!);
-
-            if (account is not null)
+            if (response.Data)
             {
-                if (BC.Verify(requestDto.Password, account.Password))
-                {
-                    response.IsSuccess = true;
-                    response.Data = GenerateToken(account);
-                    response.Message = ReplyMessage.MESSAGE_TOKEN;
-                    return response;
-                }
+                response.IsSuccess = true;
+                response.Message = ReplyMessage.MESSAGE_SAVE;
             }
             else
             {
                 response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_TOKEN_ERROR;
+                response.Message = ReplyMessage.MESSAGE_FAILED;
             }
 
             return response;
         }
 
-        private string GenerateToken(Usuario user)
+        public async Task<BaseResponse<bool>> DeleteUser(int idUser)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]!));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new List<Claim>
+            var response = new BaseResponse<bool>();
+            var userUpdate = await GetUserById(idUser);
+
+            if (userUpdate.Data is null)
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.Email!),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.Email!),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.IdUsuario.ToString()!),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, Guid.NewGuid().ToString(), ClaimValueTypes.Integer64)
-            };
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Issuer"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:Expires"]!)),
-                notBefore: DateTime.UtcNow,
-                signingCredentials: credentials
-             );
+                return response;
+            }
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            response.Data = await _unitOfWork.User.DeleteAsync(idUser);
+
+            if (response.Data)
+            {
+                response.IsSuccess = true;
+                response.Message = ReplyMessage.MESSAGE_DELETE;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_FAILED;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<UserResponseDto>> GetUserById(int userId)
+        {
+            var response = new BaseResponse<UserResponseDto>();
+            var user = await _unitOfWork.User.GetByIdAsync(userId);
+
+            if (user is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<UserResponseDto>(user);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<IEnumerable<UserSelectResponseDto>>> ListSelectUsers()
+        {
+            var response = new BaseResponse<IEnumerable<UserSelectResponseDto>>();
+            var users = await _unitOfWork.User.GetAllAsync();
+
+            if (users is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<IEnumerable<UserSelectResponseDto>>(users);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+
+                return response;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<BaseEntityResponse<UserResponseDto>>> ListUsers(BaseFiltersRequest filters)
+        {
+            var response = new BaseResponse<BaseEntityResponse<UserResponseDto>>();
+            var users = await _unitOfWork.User.ListUsers(filters);
+
+            if (users is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<BaseEntityResponse<UserResponseDto>>(users);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+
+                return response;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<bool>> UpdateUser(int idUser, UserRequestDto requestDto)
+        {
+            var response = new BaseResponse<bool>();
+            var userUpdate = await GetUserById(idUser);
+
+            if (userUpdate.Data is null)
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+
+                return response;
+            }
+
+            var user = _mapper.Map<Usuario>(requestDto);
+            user.Id = idUser;
+            response.Data = await _unitOfWork.User.UpdateAsync(user);
+
+            if (response.Data)
+            {
+                response.IsSuccess = true;
+                response.Message = ReplyMessage.MESSAGE_UPDATE;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_FAILED;
+            }
+
+            return response;
         }
     }
 }
