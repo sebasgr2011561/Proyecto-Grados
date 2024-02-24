@@ -6,15 +6,16 @@ namespace Infrastructure.Persistence.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly EDucaTdaContext _context;
-        public IUserRepository User { get; private set; }
-
         public ILoginRepository Login { get; private set; }
+        public IUserRepository User { get; private set; }
+        public ICoursesRepository Courses { get; private set; }
 
         public UnitOfWork(EDucaTdaContext context)
         {
             _context = context;
-            User = new UserRepository(_context);
             Login = new LoginRepository(_context);
+            User = new UserRepository(_context);
+            Courses = new CoursesRepository(_context);
         }
         public void Dispose()
         {

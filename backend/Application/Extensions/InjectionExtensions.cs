@@ -21,8 +21,9 @@ namespace Application.Extensions
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            services.AddScoped<IUserApplication, UserApplication>();
             services.AddScoped<ILoginApplication, LoginApplication>();
+            services.AddScoped<IUserApplication, UserApplication>();
+            services.AddScoped<ICoursesApplication, CoursesApplication>();
 
 
             return services;

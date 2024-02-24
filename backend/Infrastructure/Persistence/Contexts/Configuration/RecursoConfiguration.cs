@@ -13,7 +13,8 @@ namespace Infrastructure.Persistence.Contexts.Configuration
     {
         public void Configure(EntityTypeBuilder<Recurso> builder)
         {
-            builder.HasKey(e => e.IdRecurso);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).HasColumnName("IdRecurso");
 
             builder.Property(e => e.NombreRecurso).HasMaxLength(100);
 
