@@ -1,15 +1,10 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Contexts.Configuration
 {
-    public class CalificacioneConfiguration:IEntityTypeConfiguration<Calificacione>
+    public class CalificacioneConfiguration : IEntityTypeConfiguration<Calificacione>
     {
         public void Configure(EntityTypeBuilder<Calificacione> builder)
         {

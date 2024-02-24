@@ -30,7 +30,7 @@ namespace Application.Services
             var response = new BaseResponse<bool>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
 
-            if(!validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_VALIDATE;

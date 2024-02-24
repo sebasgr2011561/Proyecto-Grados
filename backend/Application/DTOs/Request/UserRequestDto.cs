@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.DTOs.Request
+﻿namespace Application.DTOs.Request
 {
     public class UserRequestDto
     {
@@ -14,6 +8,6 @@ namespace Application.DTOs.Request
         public string Apellidos { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
-        public bool Estado { get; set; } 
+        public bool Estado { get; set; }
     }
 }

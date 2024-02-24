@@ -1,7 +1,6 @@
 ﻿using Application.DTOs.Request;
 using Application.Interfaces;
 using Infrastructure.Commons.Bases.Request;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
