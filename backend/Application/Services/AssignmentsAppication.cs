@@ -2,31 +2,59 @@
 using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Interfaces;
-using Application.Validators.User;
+using Application.Validators.Assignments;
+using Application.Validators.Course;
 using AutoMapper;
 using Domain.Entities;
+using FluentValidation;
 using Infrastructure.Commons.Bases.Request;
 using Infrastructure.Commons.Bases.Response;
 using Infrastructure.Persistence.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Utilities.Static;
-using BC = BCrypt.Net.BCrypt;
 
 namespace Application.Services
 {
-    public class UserApplication : IUserApplication
+    public class AssignmentsAppication : IAssignmentsAppication
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly UserValidator _validationRules;
+        private readonly AssignmentValidator _validationRules;
 
-        public UserApplication(IMapper mapper, IUnitOfWork unitOfWork, UserValidator validationRules)
+        public AssignmentsAppication(AssignmentValidator validationRules, IMapper mapper, IUnitOfWork unitOfWork)
         {
+            _validationRules = validationRules;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<bool>> CreateUser(UserRequestDto requestDto)
+        public async Task<BaseResponse<AssignmentResponseDto>> AssignmentsByStudent(int studentId)
+        {
+            var response = new BaseResponse<AssignmentResponseDto>();
+            var assignments = await _unitOfWork.Assignments.AssignmentsByStudent(studentId);
+
+            if (assignments is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<AssignmentResponseDto>(assignments);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+
+            return response;
+        }
+
+        public async Task<BaseResponse<bool>> CreateAssignment(AssignmentRequestDto requestDto)
         {
             var response = new BaseResponse<bool>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
@@ -39,10 +67,9 @@ namespace Application.Services
                 return response;
             }
 
-            var user = _mapper.Map<Usuario>(requestDto);
-            user.Password = BC.HashPassword(requestDto.Password);
-            user.Estado = Convert.ToBoolean(StateTypes.Active);
-            response.Data = await _unitOfWork.User.CreateAsync(user);
+            var assignment = _mapper.Map<Asignacion>(requestDto);
+            assignment.Estado = Convert.ToBoolean(StateTypes.Active);
+            response.Data = await _unitOfWork.Assignments.CreateAsync(assignment);
 
             if (response.Data)
             {
@@ -58,12 +85,12 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> DeleteUser(int idUser)
+        public async Task<BaseResponse<bool>> DeleteAssignment(int idAssignment)
         {
             var response = new BaseResponse<bool>();
-            var userUpdate = await GetUserById(idUser);
+            var assignmentDelete = await GetAssignmentById(idAssignment);
 
-            if (userUpdate.Data is null)
+            if (assignmentDelete.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -71,7 +98,7 @@ namespace Application.Services
                 return response;
             }
 
-            response.Data = await _unitOfWork.User.DeleteAsync(idUser);
+            response.Data = await _unitOfWork.Assignments.DeleteAsync(idAssignment);
 
             if (response.Data)
             {
@@ -87,15 +114,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<UserResponseDto>> GetUserById(int userId)
+        public async Task<BaseResponse<AssignmentResponseDto>> GetAssignmentById(int assignmentId)
         {
-            var response = new BaseResponse<UserResponseDto>();
-            var user = await _unitOfWork.User.GetByIdAsync(userId);
+            var response = new BaseResponse<AssignmentResponseDto>();
+            var assignment = await _unitOfWork.Assignments.GetByIdAsync(assignmentId);
 
-            if (user is not null)
+            if (assignment is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<UserResponseDto>(user);
+                response.Data = _mapper.Map<AssignmentResponseDto>(assignment);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
             }
             else
@@ -107,37 +134,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<IEnumerable<UserSelectResponseDto>>> ListSelectUsers()
+        public async Task<BaseResponse<BaseEntityResponse<AssignmentResponseDto>>> ListAssignments(BaseFiltersRequest filters)
         {
-            var response = new BaseResponse<IEnumerable<UserSelectResponseDto>>();
-            var users = await _unitOfWork.User.GetAllAsync();
+            var response = new BaseResponse<BaseEntityResponse<AssignmentResponseDto>>();
+            var assignment = await _unitOfWork.Assignments.ListAssignments(filters);
 
-            if (users is not null)
+            if (assignment is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<IEnumerable<UserSelectResponseDto>>(users);
-                response.Message = ReplyMessage.MESSAGE_QUERY;
-
-                return response;
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
-            }
-
-            return response;
-        }
-
-        public async Task<BaseResponse<BaseEntityResponse<UserResponseDto>>> ListUsers(BaseFiltersRequest filters)
-        {
-            var response = new BaseResponse<BaseEntityResponse<UserResponseDto>>();
-            var users = await _unitOfWork.User.ListUsers(filters);
-
-            if (users is not null)
-            {
-                response.IsSuccess = true;
-                response.Data = _mapper.Map<BaseEntityResponse<UserResponseDto>>(users);
+                response.Data = _mapper.Map<BaseEntityResponse<AssignmentResponseDto>>(assignment);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
 
                 return response;
@@ -151,12 +156,34 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> UpdateUser(int idUser, UserRequestDto requestDto)
+        public async Task<BaseResponse<IEnumerable<AssignmentSelectResponseDto>>> ListSelectAssignments()
+        {
+            var response = new BaseResponse<IEnumerable<AssignmentSelectResponseDto>>();
+            var assignments = await _unitOfWork.Assignments.GetAllAsync();
+
+            if (assignments is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<IEnumerable<AssignmentSelectResponseDto>>(assignments);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+
+                return response;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<bool>> UpdateAssignment(int idAssignment, AssignmentRequestDto requestDto)
         {
             var response = new BaseResponse<bool>();
-            var userUpdate = await GetUserById(idUser);
+            var assignmentUpdate = await GetAssignmentById(idAssignment);
 
-            if (userUpdate.Data is null)
+            if (assignmentUpdate.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -164,11 +191,9 @@ namespace Application.Services
                 return response;
             }
 
-            var user = _mapper.Map<Usuario>(requestDto);
-            user.Id = idUser;
-            user.Password = BC.HashPassword(requestDto.Password);
-            user.Estado = Convert.ToBoolean(StateTypes.Active);
-            response.Data = await _unitOfWork.User.UpdateAsync(user);
+            var assignment = _mapper.Map<Asignacion>(requestDto);
+            assignment.Id = idAssignment;
+            response.Data = await _unitOfWork.Assignments.UpdateAsync(assignment);
 
             if (response.Data)
             {

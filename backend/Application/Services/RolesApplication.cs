@@ -2,7 +2,7 @@
 using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Interfaces;
-using Application.Validators.User;
+using Application.Validators.Role;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Commons.Bases.Request;
@@ -13,20 +13,20 @@ using BC = BCrypt.Net.BCrypt;
 
 namespace Application.Services
 {
-    public class UserApplication : IUserApplication
+    public class RolesApplication : IRolesApplication
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly UserValidator _validationRules;
+        private readonly RoleValidator _validationRules;
 
-        public UserApplication(IMapper mapper, IUnitOfWork unitOfWork, UserValidator validationRules)
+        public RolesApplication(IUnitOfWork unitOfWork, IMapper mapper, RoleValidator validationRules)
         {
-            _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
             _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<bool>> CreateUser(UserRequestDto requestDto)
+        public async Task<BaseResponse<bool>> CreateRole(RoleRequestDto requestDto)
         {
             var response = new BaseResponse<bool>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
@@ -39,10 +39,9 @@ namespace Application.Services
                 return response;
             }
 
-            var user = _mapper.Map<Usuario>(requestDto);
-            user.Password = BC.HashPassword(requestDto.Password);
-            user.Estado = Convert.ToBoolean(StateTypes.Active);
-            response.Data = await _unitOfWork.User.CreateAsync(user);
+            var role = _mapper.Map<Role>(requestDto);
+            role.Estado = Convert.ToBoolean(StateTypes.Active);
+            response.Data = await _unitOfWork.Roles.CreateAsync(role);
 
             if (response.Data)
             {
@@ -58,12 +57,12 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> DeleteUser(int idUser)
+        public async Task<BaseResponse<bool>> DeleteRole(int idRole)
         {
             var response = new BaseResponse<bool>();
-            var userUpdate = await GetUserById(idUser);
+            var roleDelete= await GetRoleById(idRole);
 
-            if (userUpdate.Data is null)
+            if (roleDelete.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -71,7 +70,7 @@ namespace Application.Services
                 return response;
             }
 
-            response.Data = await _unitOfWork.User.DeleteAsync(idUser);
+            response.Data = await _unitOfWork.Roles.DeleteAsync(idRole);
 
             if (response.Data)
             {
@@ -87,15 +86,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<UserResponseDto>> GetUserById(int userId)
+        public async Task<BaseResponse<RoleResponseDto>> GetRoleById(int idRole)
         {
-            var response = new BaseResponse<UserResponseDto>();
-            var user = await _unitOfWork.User.GetByIdAsync(userId);
+            var response = new BaseResponse<RoleResponseDto>();
+            var role = await _unitOfWork.Roles.GetByIdAsync(idRole);
 
-            if (user is not null)
+            if (role is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<UserResponseDto>(user);
+                response.Data = _mapper.Map<RoleResponseDto>(role);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
             }
             else
@@ -107,37 +106,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<IEnumerable<UserSelectResponseDto>>> ListSelectUsers()
+        public async Task<BaseResponse<BaseEntityResponse<RoleResponseDto>>> ListRoles(BaseFiltersRequest filters)
         {
-            var response = new BaseResponse<IEnumerable<UserSelectResponseDto>>();
-            var users = await _unitOfWork.User.GetAllAsync();
+            var response = new BaseResponse<BaseEntityResponse<RoleResponseDto>>();
+            var roles = await _unitOfWork.Roles.ListRoles(filters);
 
-            if (users is not null)
+            if (roles is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<IEnumerable<UserSelectResponseDto>>(users);
-                response.Message = ReplyMessage.MESSAGE_QUERY;
-
-                return response;
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
-            }
-
-            return response;
-        }
-
-        public async Task<BaseResponse<BaseEntityResponse<UserResponseDto>>> ListUsers(BaseFiltersRequest filters)
-        {
-            var response = new BaseResponse<BaseEntityResponse<UserResponseDto>>();
-            var users = await _unitOfWork.User.ListUsers(filters);
-
-            if (users is not null)
-            {
-                response.IsSuccess = true;
-                response.Data = _mapper.Map<BaseEntityResponse<UserResponseDto>>(users);
+                response.Data = _mapper.Map<BaseEntityResponse<RoleResponseDto>>(roles);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
 
                 return response;
@@ -151,12 +128,34 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> UpdateUser(int idUser, UserRequestDto requestDto)
+        public async Task<BaseResponse<IEnumerable<RoleSelectResponseDto>>> ListSelectRoles()
+        {
+            var response = new BaseResponse<IEnumerable<RoleSelectResponseDto>>();
+            var roles = await _unitOfWork.Roles.GetAllAsync();
+
+            if (roles is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<IEnumerable<RoleSelectResponseDto>>(roles);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+
+                return response;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<bool>> UpdateRole(int idRole, RoleRequestDto requestDto)
         {
             var response = new BaseResponse<bool>();
-            var userUpdate = await GetUserById(idUser);
+            var roleUpdate = await GetRoleById(idRole);
 
-            if (userUpdate.Data is null)
+            if (roleUpdate.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -164,11 +163,10 @@ namespace Application.Services
                 return response;
             }
 
-            var user = _mapper.Map<Usuario>(requestDto);
-            user.Id = idUser;
-            user.Password = BC.HashPassword(requestDto.Password);
-            user.Estado = Convert.ToBoolean(StateTypes.Active);
-            response.Data = await _unitOfWork.User.UpdateAsync(user);
+            var role = _mapper.Map<Role>(requestDto);
+            role.Id = idRole;
+            role.Estado = Convert.ToBoolean(StateTypes.Active);
+            response.Data = await _unitOfWork.Roles.UpdateAsync(role);
 
             if (response.Data)
             {

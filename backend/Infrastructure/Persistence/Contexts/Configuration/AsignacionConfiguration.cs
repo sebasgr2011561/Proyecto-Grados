@@ -8,7 +8,8 @@ namespace Infrastructure.Persistence.Contexts.Configuration
     {
         public void Configure(EntityTypeBuilder<Asignacion> builder)
         {
-            builder.HasKey(e => e.IdAsignacion).HasName("PK_Asignaciones");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).HasColumnName("IdAsignacion");
 
             builder.ToTable("Asignacion");
 

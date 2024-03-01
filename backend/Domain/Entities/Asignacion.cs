@@ -1,9 +1,7 @@
 ﻿namespace Domain.Entities;
 
-public partial class Asignacion
+public partial class Asignacion: BaseEntity
 {
-    public int IdAsignacion { get; set; }
-
     public int IdEstudiante { get; set; }
 
     public int IdRecurso { get; set; }

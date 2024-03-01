@@ -17,6 +17,7 @@ namespace Application.Mappers
                 .ReverseMap();
 
             CreateMap<CourseResponseDto, Recurso>()
+                .ForMember(x => x.Id, x => x.MapFrom(y => y.IdRecurso))
                 .ForMember(x => x.Estado, x => x.MapFrom(y => y.Estado == Convert.ToBoolean(StateTypes.Active) ? "Activo" : "Inactivo"))
                 .ReverseMap();
 

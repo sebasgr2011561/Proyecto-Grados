@@ -13,11 +13,10 @@ namespace Application.Mappers
         {
             CreateMap<Usuario, UserResponseDto>()
                 .ForMember(x => x.IdUsuario, x => x.MapFrom(y => y.Id))
-                .ForMember(x => x.Estado, x => x.MapFrom(y => y.Estado == Convert.ToBoolean(StateTypes.Active) ? "Activo" : "Inactivo"))
                 .ReverseMap();
 
             CreateMap<UserResponseDto, Usuario>()
-                .ForMember(x => x.Estado, x => x.MapFrom(y => y.Estado == Convert.ToBoolean(StateTypes.Active) ? "Activo" : "Inactivo"))
+                .ForMember(x => x.Id, x => x.MapFrom(y => y.IdUsuario))
                 .ReverseMap();
 
             CreateMap<BaseEntityResponse<Usuario>, BaseEntityResponse<UserResponseDto>>()

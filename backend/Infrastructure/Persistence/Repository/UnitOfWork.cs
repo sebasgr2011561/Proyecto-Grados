@@ -9,6 +9,8 @@ namespace Infrastructure.Persistence.Repository
         public ILoginRepository Login { get; private set; }
         public IUserRepository User { get; private set; }
         public ICoursesRepository Courses { get; private set; }
+        public IAssignmentsRepository Assignments { get; private set; }
+        public IRolesRepository Roles { get; private set; }
 
         public UnitOfWork(EDucaTdaContext context)
         {
@@ -16,6 +18,8 @@ namespace Infrastructure.Persistence.Repository
             Login = new LoginRepository(_context);
             User = new UserRepository(_context);
             Courses = new CoursesRepository(_context);
+            Assignments = new AssignmentsRepository(_context);
+            Roles = new RolesRepository(_context);
         }
         public void Dispose()
         {
