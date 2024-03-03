@@ -7,6 +7,7 @@
         ICoursesRepository Courses { get; }
         IAssignmentsRepository Assignments { get; }
         IRolesRepository Roles { get; }
+        IRoutesRepository Routes { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();

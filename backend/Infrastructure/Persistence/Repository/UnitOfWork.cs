@@ -11,6 +11,7 @@ namespace Infrastructure.Persistence.Repository
         public ICoursesRepository Courses { get; private set; }
         public IAssignmentsRepository Assignments { get; private set; }
         public IRolesRepository Roles { get; private set; }
+        public IRoutesRepository Routes { get; private set; }
 
         public UnitOfWork(EDucaTdaContext context)
         {
@@ -20,6 +21,7 @@ namespace Infrastructure.Persistence.Repository
             Courses = new CoursesRepository(_context);
             Assignments = new AssignmentsRepository(_context);
             Roles = new RolesRepository(_context);
+            Routes = new RoutesRepository(_context);
         }
         public void Dispose()
         {

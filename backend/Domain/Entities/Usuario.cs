@@ -19,4 +19,6 @@ public partial class Usuario : BaseEntity
     public virtual Role IdRolNavigation { get; set; } = null!;
 
     public virtual ICollection<Recurso> Recursos { get; set; } = new List<Recurso>();
+
+    public virtual ICollection<Ruta> Ruta { get; set; } = new List<Ruta>();
 }

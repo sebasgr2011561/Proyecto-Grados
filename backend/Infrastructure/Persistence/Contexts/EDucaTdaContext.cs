@@ -21,6 +21,7 @@ public partial class EDucaTdaContext : DbContext
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
+    public virtual DbSet<Ruta> Rutas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
