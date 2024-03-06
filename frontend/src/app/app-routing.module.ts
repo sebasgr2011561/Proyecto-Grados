@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LoginComponent } from './auth/login/login.component';
+import { IndexComponent } from './pages/index/index.component';
 
 const routes: Routes = [
-  {path:'', redirectTo:'/inicio', pathMatch:'full'},
-  {path:'inicio', component:DashboardComponent},
-  {path:'iniciar-sesion', component:LoginComponent}
-];
+  { path: '',loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

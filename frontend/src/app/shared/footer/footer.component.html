@@ -1,16 +1,57 @@
-<footer class="jumbotron">
-  <div class="text-center text-white">
-    <div class="container-fluid">
-      <div class="row justify-content-center ">
-        <div class="col-lg-8 mt-0.5">
-          <p class="text-center">
-            Creación del proyecto E-learning para la institución universitaria Tecnológico de Antioquia
-          </p>
+<footer class="footer bg-darker pt-5">
+  <div class="container pt-2">
+    <div class="row pb-2">
+      <div class="col-lg-2 col-sm-4 pb-2 mb-4">
+        <div class="mt-n1"><a class="d-inline-block align-middle" href="javascript:void(0);"><img class="d-block mb-4"
+              src="assets/img/logoCercleTdea.png" width="117" alt="Cartzilla"></a></div>
+        <div ngbDropdown class="btn-group dropdown disable-autohide">
+
+          <ul ngbDropdownMenu class="dropdown-menu my-1">
+            @for(item of listLang;track $index){
+            <li (click)="setLanguage(item.text, item.lang, item.flag,item.language)">
+              <a class="dropdown-item pb-1" [ngClass]="{'active': cookieValue === item.lang}"
+                href="javascript:void(0);">
+                <img class="me-2" src="{{item.flag}}" width="20" alt="{{item.text}}">{{item.text}}
+              </a>
+            </li>
+            }
+          </ul>
         </div>
       </div>
+      <div class="col-lg-2 col-sm-4">
+        <div class="widget widget-links widget-light pb-2 mb-4">
+          <h3 class="widget-title text-light">Paginas oficiales</h3>
+          <ul class="widget-list">
+            <li class="widget-list-item"><a class="widget-list-link" href="https://www.tdea.edu.co/" target="_blank">Tecnológico de Antioquia</a></li>
+            <li class="widget-list-item"><a class="widget-list-link" href="https://campus.tdea.edu.co/" target="_blank">Campus TdeA</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <div class="widget widget-links widget-light pb-2 mb-4">
+          <h3 class="widget-title text-light">Redes sociales TdeA</h3>
+          <ul class="widget-list">
+            <li class="widget-list-item">
+              <a class="widget-list-link" href="https://www.facebook.com/tecdeantioquia" target="_blank">Facebook</a>
+            </li>            
+            <li class="widget-list-item"><a class="widget-list-link" href="https://twitter.com/tecdeantioquia?lang=es" target="_blank">Twitter</a></li>
+            <li class="widget-list-item"><a class="widget-list-link" href="https://www.instagram.com/tecnologicodeantioquia/?hl=es-la" target="_blank">Instagram</a></li>
+            <li class="widget-list-item"><a class="widget-list-link" href="https://www.tdearadio.com/emisora/" target="_blank">TdeA Radio</a></li>
+          </ul>
+        </div>
+      </div>
+
     </div>
-    <div class="text-center p-5,5" style="background-color: #919c95;">
-     Sebastian Gutierrez Rios
+    <hr class="hr-light mt-md-2 mb-3">
+    <div class="d-md-flex justify-content-between pt-4 pb-1">
+      <div class="pb-4 fs-xs text-light opacity-50 text-center text-md-start">COPYRIGHT © 2024 TECNOLÓGICO DE ANTIOQUIA. TODOS LOS DERECHOS RESERVADOS. 
+      </div>
     </div>
   </div>
 </footer>
+
+
+<a class="btn-scroll-top" href="javascript:void(0)" [ngxScrollTo]="'#home'" data-scroll>
+  <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Inicio</span>
+  <i class="btn-scroll-top-icon ci-arrow-up"></i>
+</a>
