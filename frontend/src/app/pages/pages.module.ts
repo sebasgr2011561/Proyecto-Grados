@@ -12,6 +12,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CategoryComponent } from './category/category.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { IndexComponent } from './index/index.component';
+import { AccountModule } from './account/account.module';
+
+
 
 import { NgbRatingModule, NgbDropdownModule, NgbTooltipModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -41,7 +44,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     NgbTooltipModule,
+    AccountModule,
     NgbProgressbarModule,
+    
     ScrollToModule.forRoot()
   ],
 })
