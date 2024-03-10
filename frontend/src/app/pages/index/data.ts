@@ -1,23 +1,23 @@
 const categoryData = [
 {
     img:'assets/img/food-delivery/category/01.jpg',
-    title:'Burgers & Fries'
+    title:'Desarrollo Web Front-End'
 },
 {
     img:'assets/img/food-delivery/category/02.jpg',
-    title:'Noodles'
+    title:'Desarrollo Web Back'
 },
 {
     img:'assets/img/food-delivery/category/03.jpg',
-    title:'Sushi & Rolls'
+    title:'Bases de Datos'
 },
 {
     img:'assets/img/food-delivery/category/04.jpg',
-    title:'Pizza & Pasta'
+    title:'Bootstap'
 },
 {
     img:'assets/img/food-delivery/category/05.jpg',
-    title:'Coffee & Desserts'
+    title:'Logica de programacion'
 },
 {
     img:'assets/img/food-delivery/category/06.jpg',

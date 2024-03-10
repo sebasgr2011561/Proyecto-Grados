@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { cartdata } from 'src/app/pages/cart/data';
-
+import { MenuItem } from './menu.model';
+import { MENU1 } from './menu';
 
 @Component({
   selector: 'app-header',
@@ -23,10 +24,10 @@ export class HeaderComponent implements OnInit {
   submitted = false;
   signupsubmit = false;
   selectedLocation: any;
-  carts: any;
-  total: any = 0;
   term:any;
-  
+  menu: any;
+  menuItems: MenuItem[] = [];
+
   constructor(public formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     public translate: TranslateService,
@@ -36,9 +37,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.selectedLocation = 'New York',
-      this.carts = cartdata
-
+      this.menuItems = MENU1;
 
     // Validation
     this.formData = this.formBuilder.group({
@@ -53,15 +52,6 @@ export class HeaderComponent implements OnInit {
       password: ['', [Validators.required]]
     });
 
-  }
-
-  // calculate cart total
-  calculatetotal(total: any) {
-    this.total = 0
-    this.carts.forEach((element: any) => {
-      this.total += parseFloat(element.price)
-    });
-    return this.total.toFixed(2)
   }
 
   // set location
@@ -136,12 +126,36 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  // remove from cart
-  removecart(i: any) {
-    this.total -= parseFloat(this.carts[i].price)
-    this.total = this.total.toFixed(2)
-    this.carts.splice(i, 1)
-  }
-  
+    // Menu Link Active
+    updateActive(event: any) {
+      this.activateParentDropdown(event.target);
+    }
+
+    // remove active items of two-column-menu
+    activateParentDropdown(item: any) { // navbar-nav menu add active
+      item.classList.add("active");
+      let parentCollapseDiv = item.closest(".dropdown-menu");
+      if (parentCollapseDiv) {
+        parentCollapseDiv.parentElement.children[0].classList.add("active")
+      }
+      return false;
+    }
+
+    setmenuactive() {
+      setTimeout(() => {
+        const pathName = window.location.pathname;
+        const ul = document.getElementById("navbar-nav");
+        if (ul) {
+          const items = Array.from(ul.querySelectorAll("a.sublink"));
+          let activeItems = items.filter((x: any) => x.classList.contains("active"));
+          let matchingMenuItem = items.find((x: any) => {
+            return x.pathname === pathName;
+          });
+          this.activateParentDropdown(matchingMenuItem);
+        }
+      }, 0);
+    }
+
+
 
 }

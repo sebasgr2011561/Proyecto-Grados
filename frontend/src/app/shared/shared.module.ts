@@ -12,6 +12,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SignmodalComponent } from './signmodal/signmodal.component';
 import { LanguageService } from '../services/language.service';
+import { AccountBreadcrumbsComponent } from './account-breadcrumbs/account-breadcrumbs.component';
+import { AcountSidemenuComponent } from './acount-sidemenu/acount-sidemenu.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -19,7 +21,9 @@ import { TranslateModule } from '@ngx-translate/core';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    SignmodalComponent
+    SignmodalComponent,
+    AccountBreadcrumbsComponent,
+    AcountSidemenuComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +40,8 @@ import { TranslateModule } from '@ngx-translate/core';
   exports: [
     HeaderComponent,
     FooterComponent,
+    AccountBreadcrumbsComponent,
+    AcountSidemenuComponent
   ]
 })
 export class SharedModule { }

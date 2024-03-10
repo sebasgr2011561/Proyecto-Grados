@@ -1,21 +1,22 @@
 <app-header></app-header>
 <!-- Hero section-->
 <section class="bg-darker bg-size-cover bg-position-center py-5 py-lg-10" style="background-image: url(assets/img/food-delivery/hero-bg.png);">
-    <div class="container pb-10">
-        <div class="row justify-content-center pb-5">
+    <div class="container pb-1">
+        <div class="row justify-content-center pb-1">
             <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 text-center">
                 <div class="h2 text-light mb-3 pb-4">Plataforma E-learning para el Estudio &amp; Repaso de temas en ingenieria de software
                     <div class="dropdown d-inline-block ms-1"><a class="dropdown-toggle" href="javascript:void(0);" data-bs-toggle="dropdown">T-Educa</a>
                            </div>
-                </div><a class="btn btn-primary" href="javascript:void(0)" [ngxScrollTo]="'#cuisine'" data-scroll>Recursos de Estudio</a>
+                </div>
+                <a class="btn btn-primary" href="javascript:void(0)" [ngxScrollTo]="'#cuisine'" data-scroll>Recursos de Estudio</a>
             </div>
         </div>
     </div>
 </section>
 <!-- Categories (cuisine) grid-->
 <section class="container py-4 my-lg-3 py-sm-5" id="cuisine">
-    <h2 class="text-center pt-4 pt-sm-3">Trending food in your city</h2>
-    <p class="text-muted text-center mb-5">Choose what you want and we dilever it to you</p>
+    <h2 class="text-center pt-4 pt-sm-3">Categorias de recursos de estudiantiles</h2>
+    <p class="text-muted text-center mb-5">Encontraras diferentes contenidos educativos para facilitar mas tu comprencion de los temas</p>
     <div class="row">
         @for(cat of category;track $index){
         <div class="col-md-4 col-sm-6 mb-grid-gutter">
@@ -44,39 +45,7 @@
         </div>
     </div>
 </section>
-<!-- Become Courier / Partner CTA-->
-<section class="container pb-4 pt-lg-5 pb-sm-5">
-    <div class="row pt-4 mt-2 mt-lg-3 mb-md-2">
-        <div class="col-lg-6 mb-grid-gutter">
-            <div class="d-block d-sm-flex justify-content-between align-items-center bg-faded-info rounded-3">
-                <div class="pt-5 py-sm-5 px-4 ps-md-5 pe-md-0 text-center text-sm-start">
-                    <h2>Become a Courier</h2>
-                    <p class="text-muted pb-2">Earn competitive salary as delivery courier working flexible schedule.
-                    </p><a class="btn btn-primary" href="javascript:void(0);">Start earning</a>
-                </div><img class="d-block mx-auto mx-sm-0" src="assets/img/food-delivery/courier.png" width="272" alt="Become a Courier">
-            </div>
-        </div>
-        <div class="col-lg-6 mb-grid-gutter">
-            <div class="d-block d-sm-flex justify-content-between align-items-center bg-faded-warning rounded-3">
-                <div class="pt-5 py-sm-5 px-4 ps-md-5 pe-md-0 text-center text-sm-start">
-                    <h2>Become a Partner</h2>
-                    <p class="text-muted pb-2">Grow your business by reaching new customers.</p><a class="btn btn-primary" href="javascript:void(0);">Partner with us</a>
-                </div><img class="d-block mx-auto mx-sm-0" src="assets/img/food-delivery/chef.png" width="269" alt="Become a Partner">
-            </div>
-        </div>
-    </div>
-</section>
 <!-- Popular restaurants logo grid-->
-<section class="container pb-4 pt-2 pt-sm-0 pt-md-2 pb-sm-5">
-    <h2 class="text-center">Popular restaurants in your city</h2>
-    <p class="text-muted pb-4 text-center">Check the best restaurants near you</p>
-    <div class="row pb-2 pb-sm-0 pb-md-3">
-        @for(resto of restaurants;track $index){
-        <div class="col-md-3 col-sm-4 col-6"><a class="d-block bg-white shadow-sm rounded-3 py-3 py-sm-4 mb-grid-gutter" href="javascript:void(0);" routerLink="/category"><img class="d-block mx-auto" src="{{resto.img}}" style="width: 150px;" alt="Brand"></a>
-        </div>
-    }
-    </div>
-</section>
 <!-- Reviews-->
 <section class="bg-secondary py-5">
     <div class="container py-md-4 pt-3 pb-0 py-sm-3">
