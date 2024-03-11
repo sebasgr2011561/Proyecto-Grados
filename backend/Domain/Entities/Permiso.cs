@@ -1,9 +1,7 @@
 ﻿namespace Domain.Entities;
 
-public partial class Permiso
+public partial class Permiso:BaseEntity
 {
-    public int IdPermiso { get; set; }
-
     public int IdRol { get; set; }
 
     public string Permiso1 { get; set; } = null!;

@@ -1,9 +1,7 @@
 ﻿namespace Domain.Entities;
 
-public partial class Calificacione
+public partial class Calificacione:BaseEntity
 {
-    public int IdCalificacion { get; set; }
-
     public int IdUsuario { get; set; }
 
     public int IdRecurso { get; set; }

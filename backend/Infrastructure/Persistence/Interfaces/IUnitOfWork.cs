@@ -8,6 +8,8 @@
         IAssignmentsRepository Assignments { get; }
         IRolesRepository Roles { get; }
         IRoutesRepository Routes { get; }
+        IPermitsRepository Permits { get; }
+        IQualificationsRepository Qualifications { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();
