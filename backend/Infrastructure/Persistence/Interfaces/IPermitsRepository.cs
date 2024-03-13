@@ -1,8 +1,5 @@
-﻿using System;
-namespace Infrastructure.Persistence.Interfaces
+﻿namespace Infrastructure.Persistence.Interfaces
 {
-	public interface IPermitsRepository
-	{
-	}
+    public interface IPermitsRepository { }
 }
 

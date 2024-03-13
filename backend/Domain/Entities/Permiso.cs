@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public partial class Permiso:BaseEntity
+public partial class Permiso : BaseEntity
 {
     public int IdRol { get; set; }
 

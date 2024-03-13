@@ -3,18 +3,11 @@ using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Interfaces;
 using Application.Validators.Assignments;
-using Application.Validators.Course;
 using AutoMapper;
 using Domain.Entities;
-using FluentValidation;
 using Infrastructure.Commons.Bases.Request;
 using Infrastructure.Commons.Bases.Response;
 using Infrastructure.Persistence.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities.Static;
 
 namespace Application.Services

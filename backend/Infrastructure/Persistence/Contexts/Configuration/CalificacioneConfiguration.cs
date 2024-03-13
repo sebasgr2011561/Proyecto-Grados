@@ -8,7 +8,8 @@ namespace Infrastructure.Persistence.Contexts.Configuration
     {
         public void Configure(EntityTypeBuilder<Calificacione> builder)
         {
-            builder.HasKey(e => e.IdCalificacion);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).HasColumnName("IdRecurso");
 
             builder.HasOne(d => d.IdRecursoNavigation).WithMany(p => p.Calificaciones)
                 .HasForeignKey(d => d.IdRecurso)

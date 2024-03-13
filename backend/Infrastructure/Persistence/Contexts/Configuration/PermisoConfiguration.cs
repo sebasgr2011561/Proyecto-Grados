@@ -8,7 +8,8 @@ namespace Infrastructure.Persistence.Contexts.Configuration
     {
         public void Configure(EntityTypeBuilder<Permiso> builder)
         {
-            builder.HasKey(e => e.IdPermiso);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).HasColumnName("IdPermiso");
 
             builder.Property(e => e.Permiso1)
                 .HasMaxLength(50)

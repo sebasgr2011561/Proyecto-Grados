@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public partial class Calificacione:BaseEntity
+public partial class Calificacione : BaseEntity
 {
     public int IdUsuario { get; set; }
 

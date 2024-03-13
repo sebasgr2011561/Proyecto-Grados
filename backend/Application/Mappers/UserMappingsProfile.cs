@@ -3,7 +3,6 @@ using Application.DTOs.Response;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Commons.Bases.Response;
-using Utilities.Static;
 
 namespace Application.Mappers
 {

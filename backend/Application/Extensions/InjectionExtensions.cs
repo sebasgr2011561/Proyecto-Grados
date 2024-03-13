@@ -27,6 +27,7 @@ namespace Application.Extensions
             services.AddScoped<IAssignmentsAppication, AssignmentsAppication>();
             services.AddScoped<IRolesApplication, RolesApplication>();
             services.AddScoped<IRouteApplication, RouteApplication>();
+            services.AddScoped<IQualificationsApplication, QualificationsApplication>();
 
 
             return services;
