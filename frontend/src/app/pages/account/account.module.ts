@@ -12,6 +12,8 @@ import { MyItemComponent } from './my-item/my-item.component';
 import { MyCollectionComponent } from './my-collection/my-collection.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { NotificationComponent } from './notification/notification.component';
+import { UsuariosComponent } from './Usuarios/usuarios.component';
+import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
 
 
 
@@ -21,7 +23,9 @@ import { NotificationComponent } from './notification/notification.component';
     MyItemComponent,
     MyCollectionComponent,
     FavoriteComponent,
-    NotificationComponent
+    NotificationComponent,
+    UsuariosComponent,
+    crearUsuarioComponent
   ],
   imports: [
     CommonModule,

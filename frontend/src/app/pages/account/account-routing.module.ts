@@ -7,6 +7,10 @@ import { MyItemComponent } from './my-item/my-item.component';
 import { MyCollectionComponent } from './my-collection/my-collection.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { NotificationComponent } from './notification/notification.component';
+import { UsuariosComponent } from './Usuarios/usuarios.component';
+import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
+
+
 
 const routes: Routes = [
   {
@@ -23,7 +27,14 @@ const routes: Routes = [
   },
   {
     path: 'notification', component: NotificationComponent
-  }
+  },
+  {
+    path: 'usuarios', component: UsuariosComponent
+  },
+  {
+    path: 'crearUsuario', component: crearUsuarioComponent
+  },
+
 ];
 
 @NgModule({

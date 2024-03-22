@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, Validators } from '@angular/forms';
 
+
 @Component({
-  selector: 'app-settings',
-  templateUrl: './setting.component.html',
-  styleUrls: ['./setting.component.scss']
+  selector: 'app-my-item',
+  templateUrl: './crearUsuario.component.html',
+  styleUrls: ['./crearUsuario.component.scss']
 })
 
 // Setting Component
-export class SettingComponent implements OnInit {
+export class crearUsuarioComponent implements OnInit {
 
   breadCrumbItems!: any;
   submitted = false;
