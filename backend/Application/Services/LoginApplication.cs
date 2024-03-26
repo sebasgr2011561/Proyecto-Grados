@@ -73,6 +73,13 @@ namespace Application.Services
                     response.Message = ReplyMessage.MESSAGE_TOKEN;
                     return response;
                 }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Data = null;
+                    response.Message = ReplyMessage.MESSAGE_TOKEN_ERROR;
+                    return response;
+                }
             }
             else
             {
