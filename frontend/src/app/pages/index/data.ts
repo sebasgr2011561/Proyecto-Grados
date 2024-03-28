@@ -1,26 +1,26 @@
 const categoryData = [
 {
-    img:'assets/img/food-delivery/category/01.jpg',
+    img:'assets/img/food-delivery/category/02.jpg',
     title:'Desarrollo Web Front-End'
 },
 {
-    img:'assets/img/food-delivery/category/02.jpg',
+    img:'assets/img/food-delivery/category/07.jpg',
     title:'Desarrollo Web Back'
 },
 {
-    img:'assets/img/food-delivery/category/03.jpg',
+    img:'assets/img/food-delivery/category/01.png',
     title:'Bases de Datos'
 },
 {
-    img:'assets/img/food-delivery/category/04.jpg',
+    img:'assets/img/food-delivery/category/03.jpg',
     title:'Bootstap'
 },
 {
-    img:'assets/img/food-delivery/category/05.jpg',
+    img:'assets/img/food-delivery/category/06.jpg',
     title:'Logica de programacion'
 },
 {
-    img:'assets/img/food-delivery/category/06.jpg',
+    img:'assets/img/food-delivery/category/05.jpg',
     title:'Healthy & Food'
 },
 

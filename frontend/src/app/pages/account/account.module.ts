@@ -1,3 +1,4 @@
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,6 +15,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { NotificationComponent } from './notification/notification.component';
 import { UsuariosComponent } from './Usuarios/usuarios.component';
 import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
+import {AddproductComponent} from './addproduct/addproduct.component';
 
 
 
@@ -25,7 +27,8 @@ import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
     FavoriteComponent,
     NotificationComponent,
     UsuariosComponent,
-    crearUsuarioComponent
+    crearUsuarioComponent,
+    AddproductComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
     FormsModule,
     ReactiveFormsModule,
     NgbNavModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    NgxDropzoneModule
   ]
 })
 export class AccountModule { }
