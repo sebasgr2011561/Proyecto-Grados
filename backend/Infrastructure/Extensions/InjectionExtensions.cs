@@ -13,10 +13,22 @@ namespace Infrastructure.Extensions
         {
             var assembly = typeof(EDucaTdaContext).Assembly.FullName;
 
-            services.AddDbContext<EDucaTdaContext>(
+            var azureDB = Convert.ToBoolean(Convert.ToInt32(configuration.GetConnectionString("AzureDB")));
+
+            if (!azureDB)
+            {
+                services.AddDbContext<EDucaTdaContext>(
                 option => option.UseSqlServer(
                     configuration.GetConnectionString("PersitenceConnection"),
                     b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
+            }
+            else
+            {
+                services.AddDbContext<EDucaTdaContext>(
+                option => option.UseSqlServer(
+                    configuration.GetConnectionString("AzureConnection"),
+                    b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
+            }
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
