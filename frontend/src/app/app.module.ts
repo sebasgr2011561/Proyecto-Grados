@@ -38,7 +38,8 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbCollapseModule,
     NgbNavModule,
     NgbDropdownModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })

@@ -8,40 +8,40 @@ export const MENU1: MenuItem[] = [
         subItems: [
             {
                 id: 2,
-                label: 'Configuracion de perfil',
+                label: 'Configuraciones',
                 link: '/setting',
                 parentId: 11
             },
             {
                 id: 3,
-                label: 'Creacion de usuarios',
+                label: 'Crear Usuarios',
                 link: '/crearUsuario',
                 parentId: 11
             },
             {
                 id: 4,
-                label: 'Vizualizacion de usuarios  ',
+                label: 'Usuarios',
                 link: '/usuarios',
                 parentId: 11
             },
             {
                 id: 5,
-                label: 'Favorites',
-                link: '/favorite',
+                label: 'Crear Recurso',
+                link: '/addproduct',
                 parentId: 11
             },
             {
                 id: 6,
-                label: 'Cracion de recursos',
-                link: '/addproduct',
+                label: 'Notificaciones',
+                link: '/notification',
                 parentId: 11
             },
         ]
     },
-    {
-        id: 17,
-        label: 'Back to main demo',
-        link: '/',
-        isTitle: true
-    }
+    // {
+    //     id: 17,
+    //     label: 'Back to main demo',
+    //     link: '/',
+    //     isTitle: true
+    // }
 ]
