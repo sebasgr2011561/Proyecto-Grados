@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 // Language
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -37,6 +38,7 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbCollapseModule,
     NgbNavModule,
     NgbDropdownModule,
+    NgxDropzoneModule,
     HttpClientModule
   ],
   bootstrap: [AppComponent]

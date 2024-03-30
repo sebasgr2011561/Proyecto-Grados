@@ -11,10 +11,12 @@ import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
   {
-    path: '', component: IndexComponent
+    path: '',
+    component: IndexComponent
   },
   {
-    path: 'category', component: CategoryComponent
+    path: 'category',
+    component: CategoryComponent
   },
   {
     path: 'restaurants', component: RestaurantsComponent

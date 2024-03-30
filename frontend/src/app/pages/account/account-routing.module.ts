@@ -11,6 +11,7 @@ import { UsuariosComponent } from './Usuarios/usuarios.component';
 import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
 
 
+import {AddproductComponent} from './addproduct/addproduct.component';
 
 const routes: Routes = [
   {
@@ -34,7 +35,9 @@ const routes: Routes = [
   {
     path: 'crearUsuario', component: crearUsuarioComponent
   },
-
+  {
+    path: 'addproduct', component: AddproductComponent
+  }
 ];
 
 @NgModule({

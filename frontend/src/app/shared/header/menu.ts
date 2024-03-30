@@ -1,3 +1,4 @@
+import { AddproductComponent } from './../../pages/account/addproduct/addproduct.component';
 import { MenuItem } from './menu.model';
 
 export const MENU1: MenuItem[] = [
@@ -13,20 +14,20 @@ export const MENU1: MenuItem[] = [
             },
             {
                 id: 3,
-                label: 'Mis recursos',
-                link: '/miscursos',
+                label: 'Crear Usuarios',
+                link: '/crearUsuario',
                 parentId: 11
             },
             {
                 id: 4,
-                label: 'Mis colecciones',
-                link: '/misrutas',
+                label: 'Usuarios',
+                link: '/usuarios',
                 parentId: 11
             },
             {
                 id: 5,
-                label: 'Favoritos',
-                link: '/favorite',
+                label: 'Crear Recurso',
+                link: '/addproduct',
                 parentId: 11
             },
             {
