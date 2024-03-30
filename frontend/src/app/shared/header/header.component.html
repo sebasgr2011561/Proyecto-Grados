@@ -9,9 +9,14 @@
             <a class="navbar-tool d-none d-lg-flex" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#searchBox" role="button" aria-expanded="false" aria-controls="searchBox"><span class="navbar-tool-tooltip">Buscar</span>
             <div class="navbar-tool-icon-box" (click)="collapse.toggle()"><i class="navbar-tool-icon ci-search"></i></div>
              </a>
-            <a class="navbar-tool ms-2" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#showModal" (click)="openModal()"><span class="navbar-tool-tooltip">Cuenta</span>
-            <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
-             </a>
+             @if(token === null) {
+              <a class="navbar-tool ms-2" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#showModal" (click)="openModal()"><span class="navbar-tool-tooltip">Cuenta</span>
+                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
+              </a>
+             } @else {
+              <label for="">{{ userName }}</label>
+             }
+            
       </div>
 
       <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse me-4 order-lg-2 flex-row-reverse" id="navbarCollapse">
@@ -24,32 +29,34 @@
         </div>
 
         <!-- Location dropdown aplico un | -->
-        <ul class="navbar-nav" id="navbar-nav">
-          @for(item of menuItems;track $index){
-              @if(item.isTitle){
-                  <li class="nav-item">
-                      <a class="nav-link sublink" routerLink="/" routerLinkActive (click)="updateActive($event)">
-                          {{item.label}}
-                      </a>
-                  </li>
-              } @else{
-                  <li ngbDropdown class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle sublink" data-bs-toggle="dropdown" ngbDropdownToggle>
-                          {{item.label}}
-                      </a>
-                      <ul ngbDropdownMenu class="dropdown-menu">
-                          @for(subitem of item.subItems;track $index){
-                          <li>
-                              <a class="dropdown-item sublink" [routerLink]="subitem.link" (click)="updateActive($event)">
-                                  {{subitem.label}}
-                              </a>
-                          </li>
-                          }
-                      </ul>
-                  </li>
-                }
-           }
-        </ul>
+        @if(token !== null){
+          <ul class="navbar-nav" id="navbar-nav">
+            @for(item of menuItems;track $index){
+                @if(item.isTitle){
+                    <li class="nav-item">
+                        <a class="nav-link sublink" routerLink="/" routerLinkActive (click)="updateActive($event)">
+                            {{item.label}}
+                        </a>
+                    </li>
+                } @else{
+                    <li ngbDropdown class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle sublink" data-bs-toggle="dropdown" ngbDropdownToggle>
+                            {{item.label}}
+                        </a>
+                        <ul ngbDropdownMenu class="dropdown-menu">
+                            @for(subitem of item.subItems;track $index){
+                            <li>
+                                <a class="dropdown-item sublink" [routerLink]="subitem.link" (click)="updateActive($event)">
+                                    {{subitem.label}}
+                                </a>
+                            </li>
+                            }
+                        </ul>
+                    </li>
+                  }
+             }
+          </ul>
+        }
         <!-- opciones Menu principal-->
         <ul class="navbar-nav" id="navbar-nav">
           <li  ngbDropdown class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="javascript:void(0);" data-bs-toggle="dropdown" ngbDropdownToggle>{{ "MENUITEMS.CUISINE.TEXT" | translate }}</a>

@@ -63,14 +63,27 @@
               <form (ngSubmit)="signup()" [formGroup]="signupformData" class="needs-validation tab-pane fade show"
                 autocomplete="off" novalidate id="signup-tab">
                 <div class="mb-3">
-                  <label class="form-label" for="su-name">Nombre completo</label>
-                  <input class="form-control" type="text" id="su-name" placeholder="Sebastian Gutierrez" formControlName="name"
+                  <label class="form-label" for="su-name">Nombres</label>
+                  <input class="form-control" type="text" id="su-name" placeholder="" formControlName="name"
                     [ngClass]="{ 'is-invalid': signupsubmit && signupform['name'].errors }">
 
                     @if(signupsubmit && signupform['name'].errors){
                     <div class="invalid-feedback">
                       @if(signupform['name'].errors['required']){
-                    <span>Please fill in your name.</span>
+                    <span>Por favor, introduzca su(s) nombre(s).</span>
+                      }
+                  </div>
+                }
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="su-name">Apellidos</label>
+                  <input class="form-control" type="text" id="su-lastname" placeholder="" formControlName="lastname"
+                    [ngClass]="{ 'is-invalid': signupsubmit && signupform['lastname'].errors }">
+
+                    @if(signupsubmit && signupform['lastname'].errors){
+                    <div class="invalid-feedback">
+                      @if(signupform['lastname'].errors['required']){
+                    <span>Por favor, introduzca su(s) apellido(s).</span>
                       }
                   </div>
                 }

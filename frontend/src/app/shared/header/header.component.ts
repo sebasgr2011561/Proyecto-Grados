@@ -27,17 +27,21 @@ export class HeaderComponent implements OnInit {
   term:any;
   menu: any;
   menuItems: MenuItem[] = [];
+  token: any;
+  userName: any;
 
   constructor(public formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     public translate: TranslateService,
     public router: Router) {
       translate.setDefaultLang('en');
+      this.token = localStorage.getItem("Token");
+      this.userName = localStorage.getItem("userName");
   }
 
   ngOnInit(): void {
-
-      this.menuItems = MENU1;
+    
+    this.menuItems = MENU1;
 
     // Validation
     this.formData = this.formBuilder.group({
@@ -128,6 +132,7 @@ export class HeaderComponent implements OnInit {
 
     // Menu Link Active
     updateActive(event: any) {
+      console.log("Evento: ", event.target)
       this.activateParentDropdown(event.target);
     }
 

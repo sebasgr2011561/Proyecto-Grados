@@ -8,8 +8,8 @@ export const MENU1: MenuItem[] = [
         subItems: [
             {
                 id: 2,
-                label: 'Configuraciones',
-                link: '/setting',
+                label: 'Configuración',
+                link: '/editar',
                 parentId: 11
             },
             {
@@ -36,6 +36,12 @@ export const MENU1: MenuItem[] = [
                 link: '/notification',
                 parentId: 11
             },
+            {
+                id: 7,
+                label: 'Cerrar sesión',
+                link: '/',
+                parentId: 11
+            }
         ]
     },
     // {

@@ -15,13 +15,13 @@ import {AddproductComponent} from './addproduct/addproduct.component';
 
 const routes: Routes = [
   {
-    path: 'setting', component: SettingComponent
+    path: 'editar', component: SettingComponent
   },
   {
-    path: 'myitem', component: MyItemComponent
+    path: 'miscursos', component: MyItemComponent
   },
   {
-    path: 'mycollection', component: MyCollectionComponent
+    path: 'misrutas', component: MyCollectionComponent
   },
   {
     path: 'favorite', component: FavoriteComponent

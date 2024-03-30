@@ -5,7 +5,7 @@
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="d-lg-block collapse" id="account-menu">
         <ul class="list-unstyled mb-0">
             <li class="border-bottom mb-0">
-                <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/setting">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/editar">
                     <i class="ci-settings opacity-60 me-2"></i>Profile
                     Settings
                 </a>
@@ -20,6 +20,12 @@
                     <i class="ci-view-list opacity-60 me-2"></i>Usuarios
                 </a>
             </li>
+          <li class="border-bottom mb-0">
+            <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/miscursos">
+                    <i class="ci-image opacity-60 me-2"></i>My Items
+                    <span class="fs-sm text-muted ms-auto">{{myitems.length}}</span>
+            </a>
+          </li>
             <li class="border-bottom mb-0">
               <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/addproduct">
                   <i class="ci-cloud-upload opacity-60 me-2"></i>

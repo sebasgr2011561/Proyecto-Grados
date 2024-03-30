@@ -96,9 +96,10 @@ namespace Application.Services
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.Email!),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.Email!),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.Id.ToString()!),
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()!),
+                new Claim(JwtRegisteredClaimNames.Name, user.Nombres!),
+                new Claim(JwtRegisteredClaimNames.GivenName, user.Apellidos!),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email!),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, Guid.NewGuid().ToString(), ClaimValueTypes.Integer64)
             };
