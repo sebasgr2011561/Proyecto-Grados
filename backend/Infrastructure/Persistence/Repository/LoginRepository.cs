@@ -2,6 +2,7 @@
 using Infrastructure.Persistence.Contexts;
 using Infrastructure.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Utilities.Static;
 
 namespace Infrastructure.Persistence.Repository
 {
@@ -18,7 +19,7 @@ namespace Infrastructure.Persistence.Repository
         {
             var userAccount = await _context.Usuarios!
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Email.Equals(userName));
+                .FirstOrDefaultAsync(x => x.Email.Equals(userName) && x.Estado.Equals(Convert.ToBoolean((int)StateTypes.Active)));
 
             return userAccount!;
         }

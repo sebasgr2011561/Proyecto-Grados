@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-settings',
@@ -13,8 +14,11 @@ export class SettingComponent implements OnInit {
   breadCrumbItems!: any;
   submitted = false;
   userForm!: UntypedFormGroup;
+  userId: any;
 
-  constructor(private formBuilder: UntypedFormBuilder) { }
+  constructor(private formBuilder: UntypedFormBuilder, private api: ApiService) {
+    this.userId = localStorage.getItem("userId");
+  }
 
   ngOnInit(): void {
 
@@ -44,16 +48,24 @@ export class SettingComponent implements OnInit {
    * Form Validation
    */
     this.userForm = this.formBuilder.group({
-      name: ['Robert Fox'],
+      name: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      uid: ['374702749', [Validators.required]],
-      email: ['example@gmail.com', [Validators.required]],
+      uid: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       bio: ['', [Validators.required]],
       website: ['', [Validators.required]],
       twitter: ['', [Validators.required]],
       facebook: ['', [Validators.required]],
       insta: ['', [Validators.required]]
     });
+
+    this.consultarUsuario();
+  }
+
+  consultarUsuario() {
+    this.api.getDataById('User',  parseInt(this.userId)).subscribe((data) => {
+      console.log('Respuesta Usuario: ', data.data)
+    })
   }
 
   /**
