@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class crearUsuarioComponent implements OnInit {
   submitted = false;
   userForm!: UntypedFormGroup;
 
-  constructor(private formBuilder: UntypedFormBuilder) { }
+  constructor(private formBuilder: UntypedFormBuilder, private api: ApiService) { }
 
   ngOnInit(): void {
 
@@ -45,10 +47,11 @@ export class crearUsuarioComponent implements OnInit {
    * Form Validation
    */
     this.userForm = this.formBuilder.group({
-      name: ['Robert Fox'],
-      username: ['', [Validators.required]],
-      uid: ['374702749', [Validators.required]],
-      email: ['example@gmail.com', [Validators.required]],
+      uid: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      cellular: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       bio: ['', [Validators.required]],
       website: ['', [Validators.required]],
       twitter: ['', [Validators.required]],
@@ -65,6 +68,41 @@ export class crearUsuarioComponent implements OnInit {
   }
 
   saveUser() {
+
+    let dataCreate = {
+      idUsuario: 0,
+      idRol: 1,
+      nombres: this.userForm.controls['name'].value,
+      apellidos: this.userForm.controls['lastname'].value,
+      email: this.userForm.controls['email'].value,
+      password: this.userForm.controls['name'].value,
+      estado: true
+    }
+
+    Swal.fire({
+      title: "¿Deseas guardar los cambios?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      denyButtonText: `No guardar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.createData('User', dataCreate).subscribe((data) => {
+          if (data.isSuccess) {
+            Swal.fire(data.message, "", "success");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.message
+            });
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire("No se guardaron los cambios", "", "info");
+      }
+    })
+
     this.submitted = true
   }
 

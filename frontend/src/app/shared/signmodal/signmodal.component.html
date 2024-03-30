@@ -12,13 +12,13 @@
                 id="signin-tab">
                 <div class="mb-3">
                   <label class="form-label" for="si-email">Correo Electronico</label>
-                  <input class="form-control" type="email" id="si-email" placeholder="sebas@tdea.edu.co"
+                  <input class="form-control" type="email" id="si-email"
                     formControlName="email" [ngClass]="{ 'is-invalid': submitted && form['email'].errors }">
 
                     @if(submitted && form['email'].errors){
                     <div class="invalid-feedback">
                       @if(form['email'].errors['required']){
-                    <span>Please provide a valid email address.</span>
+                    <span>Por favor, introduzca su correo electronico.</span>
                       }
                   </div>
                 }
@@ -32,12 +32,12 @@
                       @if(submitted && form['password'].errors){
                       <div class="invalid-feedback">
                         @if(form['password'].errors['required']){
-                      <span>Please provide a valid password.</span>
+                      <span>Por favor, introduzca su contraseña.</span>
                         }
                     </div>
                   }
                     <label class="password-toggle-btn" aria-label="Show/hide password">
-                      <!-- <i class="mdi mdi-eye"></i> -->
+                      <i class="mdi mdi-eye"></i>
                       <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"
                         [ngClass]="fieldTextType ? 'mdi-eye-off-outline':'mdi-eye-off-outline'"
                         (click)="toggleFieldTextType()"></span>
@@ -97,7 +97,7 @@
                   @if(signupsubmit && signupform['email'].errors){
                   <div class="invalid-feedback">
                     @if(signupform['email'].errors['required']){
-                    <span>Please provide a valid email address.</span>
+                    <span>Por favor, introduzca su correo electronico.</span>
                     }
                   </div>
                 }

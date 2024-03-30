@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +16,7 @@ export class SettingComponent implements OnInit {
   submitted = false;
   userForm!: UntypedFormGroup;
   userId: any;
+  roles: any;
 
   constructor(private formBuilder: UntypedFormBuilder, private api: ApiService) {
     this.userId = localStorage.getItem("userId");
@@ -48,9 +50,10 @@ export class SettingComponent implements OnInit {
    * Form Validation
    */
     this.userForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      username: ['', [Validators.required]],
       uid: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      cellular: ['', [Validators.required]],
       email: ['', [Validators.required]],
       bio: ['', [Validators.required]],
       website: ['', [Validators.required]],
@@ -59,12 +62,25 @@ export class SettingComponent implements OnInit {
       insta: ['', [Validators.required]]
     });
 
+    this.consultarRoles();
     this.consultarUsuario();
+
+  }
+
+  consultarRoles() {
+    this.api.getFullData('Role').subscribe((data) => {
+      this.roles = data.data;
+    })
   }
 
   consultarUsuario() {
     this.api.getDataById('User',  parseInt(this.userId)).subscribe((data) => {
       console.log('Respuesta Usuario: ', data.data)
+      this.userForm.controls['uid'].setValue(data.data.idUsuario);
+      this.userForm.controls['name'].setValue(data.data.nombres);
+      this.userForm.controls['lastname'].setValue(data.data.apellidos);
+      this.userForm.controls['cellular'].setValue('');
+      this.userForm.controls['email'].setValue(data.data.email);
     })
   }
 
@@ -76,6 +92,42 @@ export class SettingComponent implements OnInit {
   }
 
   saveUser() {
+
+    let dataUpdate = {
+      idUsuario: this.userId,
+      idRol: 1,
+      nombres: this.userForm.controls['name'].value,
+      apellidos: this.userForm.controls['lastname'].value,
+      email: this.userForm.controls['email'].value,
+      password: this.userForm.controls['name'].value,
+      estado: true
+    }
+
+    Swal.fire({
+      title: "¿Deseas guardar los cambios?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      denyButtonText: `No guardar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.updateData('User', this.userId, dataUpdate).subscribe((data) => {
+          console.log("Actualizar Perfil: ", data)
+          if (data.isSuccess) {
+            Swal.fire(data.message, "", "success");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.message
+            });
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire("No se guardaron los cambios", "", "info");
+      }
+    })
+
     this.submitted = true
   }
 

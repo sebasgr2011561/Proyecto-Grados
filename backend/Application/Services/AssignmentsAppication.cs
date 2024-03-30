@@ -43,8 +43,6 @@ namespace Application.Services
             }
 
             return response;
-
-            return response;
         }
 
         public async Task<BaseResponse<bool>> CreateAssignment(AssignmentRequestDto requestDto)
