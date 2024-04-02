@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Domain.Entities;
 
 public partial class Permiso : BaseEntity
 {
@@ -7,6 +10,8 @@ public partial class Permiso : BaseEntity
     public string Permiso1 { get; set; } = null!;
 
     public string? Descripcion { get; set; }
+
+    public bool? Estado { get; set; }
 
     public virtual Role IdRolNavigation { get; set; } = null!;
 }

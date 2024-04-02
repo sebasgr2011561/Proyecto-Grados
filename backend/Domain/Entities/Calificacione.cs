@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Domain.Entities;
 
 public partial class Calificacione : BaseEntity
 {
@@ -9,6 +12,8 @@ public partial class Calificacione : BaseEntity
     public int? Calificacion { get; set; }
 
     public string? Comentario { get; set; }
+
+    public bool? Estado { get; set; }
 
     public virtual Recurso IdRecursoNavigation { get; set; } = null!;
 

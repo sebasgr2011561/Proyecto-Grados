@@ -14,14 +14,17 @@ public partial class EDucaTdaContext : DbContext
 
     public virtual DbSet<Calificacione> Calificaciones { get; set; }
 
+    public virtual DbSet<Categorium> Categoria { get; set; }
+
     public virtual DbSet<Permiso> Permisos { get; set; }
 
     public virtual DbSet<Recurso> Recursos { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Usuario> Usuarios { get; set; }
     public virtual DbSet<Ruta> Rutas { get; set; }
+
+    public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
