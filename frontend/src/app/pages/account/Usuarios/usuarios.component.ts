@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { USUARIOS, Usuario } from './data';
 
@@ -6,6 +6,10 @@ import { USUARIOS, Usuario } from './data';
 import { items } from './data';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { SettingComponent } from '../setting/setting.component';
+import { FormControl } from '@angular/forms';
+import { SharingDataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-my-item',
@@ -33,7 +37,7 @@ export class UsuariosComponent implements OnInit {
   solditem: any = [];
   listaUsuarios: any = [];
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private route: Router, private dataService: SharingDataService) { }
 
   ngOnInit(): void {
 
@@ -88,7 +92,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   actualizarUsuario(id: number) {
-    
+    this.route.navigate(['/editar']);
+    this.dataService.setIdUsuarioEdit(id);
   }
 
   eliminarUsuario(id: number) {

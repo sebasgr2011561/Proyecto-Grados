@@ -36,7 +36,7 @@ export class ApiService {
     }
 
     createData(controller: string, data: any) : Observable<any> { 
-        const url = this.apiUrl + this.api + controller + '/';
+        const url = this.apiUrl + this.api + controller + '/Register';
         return this.http.post<any>(url, data);
     }
 

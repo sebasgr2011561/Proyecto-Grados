@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 
@@ -16,8 +17,9 @@ export class crearUsuarioComponent implements OnInit {
   breadCrumbItems!: any;
   submitted = false;
   userForm!: UntypedFormGroup;
+  roles: any[] = [];
 
-  constructor(private formBuilder: UntypedFormBuilder, private api: ApiService) { }
+  constructor(private formBuilder: UntypedFormBuilder, private api: ApiService, private route: Router) { }
 
   ngOnInit(): void {
 
@@ -48,16 +50,22 @@ export class crearUsuarioComponent implements OnInit {
    */
     this.userForm = this.formBuilder.group({
       uid: ['', [Validators.required]],
+      rol: ['', [Validators.required]],
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       cellular: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      bio: ['', [Validators.required]],
-      website: ['', [Validators.required]],
-      twitter: ['', [Validators.required]],
-      facebook: ['', [Validators.required]],
-      insta: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      bio: ['', [Validators.required]]
     });
+
+    this.cargarRoles();
+  }
+
+  cargarRoles() {
+    this.api.getFullData('Role').subscribe((data) => {
+      this.roles = data.data;
+    })
   }
 
   /**
@@ -70,12 +78,14 @@ export class crearUsuarioComponent implements OnInit {
   saveUser() {
 
     let dataCreate = {
-      idUsuario: 0,
-      idRol: 1,
+      idRol: this.userForm.controls['rol'].value,
       nombres: this.userForm.controls['name'].value,
       apellidos: this.userForm.controls['lastname'].value,
+      celular: this.userForm.controls['cellular'].value,
       email: this.userForm.controls['email'].value,
-      password: this.userForm.controls['name'].value,
+      password: this.userForm.controls['password'].value,
+      biografia: this.userForm.controls['bio'].value,
+      imagen: '',
       estado: true
     }
 
@@ -90,6 +100,7 @@ export class crearUsuarioComponent implements OnInit {
         this.api.createData('User', dataCreate).subscribe((data) => {
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success");
+            this.route.navigate(['/usuarios'])
           } else {
             Swal.fire({
               icon: "error",

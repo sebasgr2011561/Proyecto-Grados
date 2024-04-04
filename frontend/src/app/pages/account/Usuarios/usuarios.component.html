@@ -18,7 +18,7 @@
           <table class="styled-table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th></th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Celular</th>
@@ -28,10 +28,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let usuario of listaUsuarios.items">
-                <td>{{ usuario.idUsuario }}</td>
+                <td></td>
                 <td>{{ usuario.nombres }}</td>
                 <td>{{ usuario.apellidos }}</td>
-                <td>{{ usuario.celularUsuario }}</td>
+                <td>{{ usuario.celular }}</td>
                 <td>{{ usuario.email }}</td>
                 <td>
                     <button style="margin: 10px;" type="button" class="btn btn-outline-warning" (click)="actualizarUsuario(usuario.idUsuario)"><i class="fa-solid fa-pen-to-square"></i></button>

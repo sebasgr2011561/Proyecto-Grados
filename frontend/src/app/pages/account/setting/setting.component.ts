@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SharingDataService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,8 +20,14 @@ export class SettingComponent implements OnInit {
   userId: any;
   roles: any;
 
-  constructor(private formBuilder: UntypedFormBuilder, private api: ApiService) {
-    this.userId = localStorage.getItem("userId");
+  constructor(private formBuilder: UntypedFormBuilder, 
+    private api: ApiService, 
+    private dataService: SharingDataService,
+    private route: Router) {
+    
+    this.userId = this.dataService.idUsuarioEdit == 0 ? localStorage.getItem("userId") : this.dataService.idUsuarioEdit
+
+    console.log('IDUsuario: ', this.userId)
   }
 
   ngOnInit(): void {
@@ -51,15 +59,14 @@ export class SettingComponent implements OnInit {
    */
     this.userForm = this.formBuilder.group({
       uid: ['', [Validators.required]],
+      rol: ['', [Validators.required]],
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       cellular: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
       bio: ['', [Validators.required]],
-      website: ['', [Validators.required]],
-      twitter: ['', [Validators.required]],
-      facebook: ['', [Validators.required]],
-      insta: ['', [Validators.required]]
+      status: ['', [Validators.required]]
     });
 
     this.consultarRoles();
@@ -79,8 +86,10 @@ export class SettingComponent implements OnInit {
       this.userForm.controls['uid'].setValue(data.data.idUsuario);
       this.userForm.controls['name'].setValue(data.data.nombres);
       this.userForm.controls['lastname'].setValue(data.data.apellidos);
-      this.userForm.controls['cellular'].setValue('');
+      this.userForm.controls['cellular'].setValue(data.data.celular);
       this.userForm.controls['email'].setValue(data.data.email);
+      this.userForm.controls['password'].setValue(data.data.password);
+      this.userForm.controls['bio'].setValue(data.data.biografia);
     })
   }
 
@@ -92,14 +101,15 @@ export class SettingComponent implements OnInit {
   }
 
   saveUser() {
-
     let dataUpdate = {
-      idUsuario: this.userId,
-      idRol: 1,
+      idRol: this.userForm.controls['rol'].value,
       nombres: this.userForm.controls['name'].value,
       apellidos: this.userForm.controls['lastname'].value,
+      celular: this.userForm.controls['cellular'].value,
       email: this.userForm.controls['email'].value,
-      password: this.userForm.controls['name'].value,
+      password: this.userForm.controls['password'].value,
+      biografia: this.userForm.controls['bio'].value,
+      imagen: '',
       estado: true
     }
 
@@ -115,6 +125,7 @@ export class SettingComponent implements OnInit {
           console.log("Actualizar Perfil: ", data)
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success");
+            this.route.navigate(['/usuarios']);
           } else {
             Swal.fire({
               icon: "error",
