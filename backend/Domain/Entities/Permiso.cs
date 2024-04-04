@@ -11,7 +11,5 @@ public partial class Permiso : BaseEntity
 
     public string? Descripcion { get; set; }
 
-    public bool? Estado { get; set; }
-
     public virtual Role IdRolNavigation { get; set; } = null!;
 }

@@ -11,8 +11,6 @@ public partial class Asignacion : BaseEntity
 
     public DateTime FechaAsignacion { get; set; }
 
-    public bool? Estado { get; set; }
-
     public virtual Usuario IdEstudianteNavigation { get; set; } = null!;
 
     public virtual Recurso IdRecursoNavigation { get; set; } = null!;

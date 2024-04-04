@@ -9,8 +9,6 @@ public partial class Ruta : BaseEntity
 
     public int IdRecurso { get; set; }
 
-    public bool Estado { get; set; }
-
     public virtual Usuario IdEstudianteNavigation { get; set; } = null!;
 
     public virtual Recurso IdRecursoNavigation { get; set; } = null!;

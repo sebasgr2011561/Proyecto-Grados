@@ -87,6 +87,10 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
+  actualizarUsuario(id: number) {
+    
+  }
+
   eliminarUsuario(id: number) {
     this.api.deleteData('User', id).subscribe((data) => {
       if (data.isSuccess) {

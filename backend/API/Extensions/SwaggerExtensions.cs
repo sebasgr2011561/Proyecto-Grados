@@ -9,9 +9,9 @@ namespace API.Extensions
         {
             var openApi = new OpenApiInfo
             {
-                Title = "POS API",
+                Title = "E-ducaTdeA API",
                 Version = "v1",
-                Description = "Punto de Venta API 2023",
+                Description = "E-duca TdeA API 2023",
                 TermsOfService = new Uri("https://opensource.org/licenses/NIT"),
                 Contact = new OpenApiContact
                 {

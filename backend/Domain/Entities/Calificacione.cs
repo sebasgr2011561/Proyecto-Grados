@@ -13,8 +13,6 @@ public partial class Calificacione : BaseEntity
 
     public string? Comentario { get; set; }
 
-    public bool? Estado { get; set; }
-
     public virtual Recurso IdRecursoNavigation { get; set; } = null!;
 
     public virtual Usuario IdUsuarioNavigation { get; set; } = null!;

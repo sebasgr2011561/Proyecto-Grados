@@ -25,7 +25,6 @@ namespace Application.Mappers
                 .ReverseMap();
 
             CreateMap<Usuario, UserRequestDto>()
-                .ForMember(x => x.IdUsuario, x => x.MapFrom(y => y.Id))
                 .ReverseMap();
 
             CreateMap<Usuario, UserSelectResponseDto>()

@@ -21,8 +21,6 @@ public partial class Usuario : BaseEntity
 
     public string? Imagen { get; set; }
 
-    public bool Estado { get; set; }
-
     public virtual ICollection<Asignacion> Asignacions { get; set; } = new List<Asignacion>();
 
     public virtual ICollection<Calificacione> Calificaciones { get; set; } = new List<Calificacione>();

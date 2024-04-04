@@ -15,7 +15,8 @@ namespace Application.Mappers
                 .ReverseMap();
 
             CreateMap<AssignmentResponseDto, Asignacion>()
-                    .ReverseMap();
+                .ForMember(x => x.Id, x => x.MapFrom(y => y.IdAsignacion))
+                .ReverseMap();
 
             CreateMap<BaseEntityResponse<Asignacion>, BaseEntityResponse<AssignmentResponseDto>>()
                     .ReverseMap();
