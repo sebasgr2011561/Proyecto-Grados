@@ -9,19 +9,19 @@ const categoryData = [
 },
 {
     img:'assets/img/food-delivery/category/01.png',
-    title:'Bases de Datos'
+    title:'Bases de datos'
 },
 {
     img:'assets/img/food-delivery/category/03.jpg',
-    title:'Bootstap'
+    title:'Boostrap'
 },
 {
     img:'assets/img/food-delivery/category/06.jpg',
-    title:'Logica de programacion'
+    title:'Logica de programación'
 },
 {
     img:'assets/img/food-delivery/category/05.jpg',
-    title:'Healthy & Food'
+    title:'IA'
 },
 
 ];
