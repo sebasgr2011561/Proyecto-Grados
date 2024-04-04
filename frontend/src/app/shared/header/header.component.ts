@@ -166,10 +166,10 @@ export class HeaderComponent implements OnInit {
       localStorage.clear();
       console.log('HostName: ', );
 
-      if (window.location.pathname === '/index') {
+      if (window.location.pathname === '/') {
         window.location.reload();
       } else {
-        this.router.navigate(['/index']);
+        this.router.navigate(['']);
       }
     }
 

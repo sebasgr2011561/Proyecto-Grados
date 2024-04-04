@@ -41,6 +41,15 @@
                         <div class="row gy-3 mb-4 pb-md-3 mb-2">
                             <div class="col-sm-6">
                                 <label class="form-label" for="profile-name">
+                                    Rol
+                                </label>
+                                <select id="profile-rol" class="form-control" formControlName="rol">
+                                    <option value="">-- Selecciona un Rol --</option>
+                                    <option *ngFor="let item of roles" [value]="item.idRol" >{{ item.descripcion }}</option>
+                                  </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="profile-name">
                                     Nombre
                                 </label>
                                 <input class="form-control" formControlName="name" id="profile-name" type="text"
@@ -67,16 +76,17 @@
                                 <input class="form-control" id="profile-email" formControlName="email" type="email"
                                     value="example@gmail.com">
                             </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="profile-password">
+                                    Contraseña
+                                </label>
+                                <input class="form-control" id="profile-password" formControlName="password" type="password">
+                            </div>
                             <div class="col-12">
                                 <label class="form-label" for="profile-bio">
-                                    Short bio
+                                    Biografia
                                 </label>
-                                <textarea class="form-control" id="profile-bio" rows="4" formControlName="bio"
-                                    placeholder="Tell about yourself in few words"></textarea>
-                                <span class="form-text">
-                                    0
-                                    of 500 characters used.
-                                </span>
+                                <textarea class="form-control" id="profile-bio" rows="4" formControlName="bio" placeholder=""></textarea>
                             </div>
                         </div>
 
