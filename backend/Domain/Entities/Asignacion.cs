@@ -1,6 +1,9 @@
-﻿namespace Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public partial class Asignacion: BaseEntity
+namespace Domain.Entities;
+
+public partial class Asignacion : BaseEntity
 {
     public int IdEstudiante { get; set; }
 

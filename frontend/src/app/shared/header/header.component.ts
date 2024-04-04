@@ -161,6 +161,16 @@ export class HeaderComponent implements OnInit {
       }, 0);
     }
 
+    cerrarSession() {
+      console.log("Cerrar Sessión")
+      localStorage.clear();
+      console.log('HostName: ', );
 
+      if (window.location.pathname === '/index') {
+        window.location.reload();
+      } else {
+        this.router.navigate(['/index']);
+      }
+    }
 
 }

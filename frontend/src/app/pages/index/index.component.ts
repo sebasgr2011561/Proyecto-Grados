@@ -24,7 +24,7 @@ export class IndexComponent implements OnInit {
     // this.restaurants = resturants
     // this.review = Reviews
 
-    this.api.getFullData('Course', 'Select').subscribe((data) => {
+    this.api.getFullData('Course').subscribe((data) => {
       if (data.isSuccess) {
         this.courses = data.data;
       } else {

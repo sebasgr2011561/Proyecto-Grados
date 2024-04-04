@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Domain.Entities;
 
 public partial class Usuario : BaseEntity
 {
@@ -8,9 +11,15 @@ public partial class Usuario : BaseEntity
 
     public string Apellidos { get; set; } = null!;
 
+    public string? Celular { get; set; }
+
+    public string? Biografia { get; set; }
+
     public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+    public string? Imagen { get; set; }
 
     public virtual ICollection<Asignacion> Asignacions { get; set; } = new List<Asignacion>();
 

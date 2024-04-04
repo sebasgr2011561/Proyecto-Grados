@@ -4,6 +4,8 @@ import { USUARIOS, Usuario } from './data';
 
 // Data Get
 import { items } from './data';
+import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-my-item',
@@ -29,8 +31,9 @@ export class UsuariosComponent implements OnInit {
   livelength: any;
   liveitem: any = [];
   solditem: any = [];
+  listaUsuarios: any = [];
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
 
@@ -56,6 +59,16 @@ export class UsuariosComponent implements OnInit {
         this.liveitem.push(item)
       }
     })
+
+    this.cargarUsuarios();
+  }
+
+  cargarUsuarios() {
+    this.api.getData('User').subscribe((data) => {
+      console.log("Usuarios: ", data)
+      console.log("lista Usuarios: ", data.data)
+      this.listaUsuarios = data.data;
+    })
   }
 
   /**
@@ -74,5 +87,22 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
+  actualizarUsuario(id: number) {
+    
+  }
 
+  eliminarUsuario(id: number) {
+    this.api.deleteData('User', id).subscribe((data) => {
+      if (data.isSuccess) {
+        Swal.fire(data.message, "", "success");
+        this.cargarUsuarios();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message
+        });
+      }
+    })
+  }
 }

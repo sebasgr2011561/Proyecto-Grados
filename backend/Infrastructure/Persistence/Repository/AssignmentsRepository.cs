@@ -20,9 +20,6 @@ namespace Infrastructure.Persistence.Repository
         public async Task<BaseEntityResponse<AssignmentDto>> AssignmentsByStudent(int studentId)
         {
             var response = new BaseEntityResponse<AssignmentDto>();
-            //var data1 = await _context.Asignacions.ToListAsync();
-            //var data2 = await _context.Recursos.ToListAsync();
-            //var data3 = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id.Equals(studentId));
 
             var assignmentsByStudent = (from a in _context.Asignacions.ToList()
                                         join c in _context.Recursos.ToList() on a.IdRecurso equals c.Id
@@ -46,15 +43,6 @@ namespace Infrastructure.Persistence.Repository
             var response = new BaseEntityResponse<Asignacion>();
             var assignments = GetEntityQuery();
 
-            //if (request.NumFilter is not null && !string.IsNullOrEmpty(request.TextFilter))
-            //{
-            //    switch (request.NumFilter)
-            //    {
-            //        case 1:
-            //            assignments = assignments.Where(x => x. == idUsuario);
-            //            break;
-            //    }
-            //}
 
             if (request.StateFilter is not null)
             {

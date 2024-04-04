@@ -3,8 +3,8 @@
     public class AssignmentResponseDto
     {
         public int IdAsignacion { get; set; }
-        public string? NombreRecurso { get; set; }
-        public string? Descripcion { get; set; }
+        public int IdEstudiante { get; set; }
+        public int IdRecurso { get; set; }
         public DateTime? FechaAsignacion { get; set; }
     }
 }

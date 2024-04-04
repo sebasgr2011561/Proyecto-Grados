@@ -4,6 +4,7 @@ using Infrastructure.Commons.Bases.Response;
 using Infrastructure.Persistence.Contexts;
 using Infrastructure.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Utilities.Static;
 
 namespace Infrastructure.Persistence.Repository
 {
@@ -14,7 +15,7 @@ namespace Infrastructure.Persistence.Repository
         public async Task<BaseEntityResponse<Usuario>> ListUsers(BaseFiltersRequest filtersRequest)
         {
             var response = new BaseEntityResponse<Usuario>();
-            var users = GetEntityQuery();
+            var users = GetEntityQuery().Where(x => x.Estado.Equals(Convert.ToBoolean(Convert.ToInt32(StateTypes.Active))));
 
             if (filtersRequest.NumFilter is not null && !string.IsNullOrEmpty(filtersRequest.TextFilter))
             {

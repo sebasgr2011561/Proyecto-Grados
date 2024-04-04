@@ -4,7 +4,7 @@ import { IndexComponent } from './pages/index/index.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'index',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
   }
 ];
