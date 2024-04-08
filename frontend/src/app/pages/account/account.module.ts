@@ -15,7 +15,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { NotificationComponent } from './notification/notification.component';
 import { UsuariosComponent } from './Usuarios/usuarios.component';
 import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
-import {AddproductComponent} from './addproduct/addproduct.component';
+import { AddproductComponent } from './addproduct/addproduct.component';
 
 
 

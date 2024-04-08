@@ -24,11 +24,11 @@ namespace Application.Extensions
             services.AddScoped<ILoginApplication, LoginApplication>();
             services.AddScoped<IUserApplication, UserApplication>();
             services.AddScoped<ICoursesApplication, CoursesApplication>();
-            services.AddScoped<IAssignmentsAppication, AssignmentsAppication>();
+            services.AddScoped<IAssignmentsApplication, AssignmentsAppication>();
             services.AddScoped<IRolesApplication, RolesApplication>();
             services.AddScoped<IRouteApplication, RouteApplication>();
             services.AddScoped<IQualificationsApplication, QualificationsApplication>();
-
+            services.AddScoped<ICategoryApplication, CategoryApplication>();
 
             return services;
         }

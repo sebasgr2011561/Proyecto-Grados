@@ -9,9 +9,9 @@ namespace API.Controllers
     [ApiController]
     public class AssignmentController : ControllerBase
     {
-        private readonly IAssignmentsAppication _assignmentsAppication;
+        private readonly IAssignmentsApplication _assignmentsAppication;
 
-        public AssignmentController(IAssignmentsAppication assignmentsAppication)
+        public AssignmentController(IAssignmentsApplication assignmentsAppication)
         {
             _assignmentsAppication = assignmentsAppication;
         }

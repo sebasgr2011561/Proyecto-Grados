@@ -2,45 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.DTOs.Request;
+using Application.Interfaces;
+using Infrastructure.Commons.Bases.Request;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace API.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
-    public class CategoryController : Controller
+    public class CategoryController : ControllerBase
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ICategoryApplication _categoryApplication;
+
+        public CategoryController(ICategoryApplication categoryApplication)
         {
-            return new string[] { "value1", "value2" };
+            _categoryApplication = categoryApplication;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<IActionResult> ListCategories([FromBody] BaseFiltersRequest filtersRequest)
         {
+            var response = await _categoryApplication.ListCategories(filtersRequest);
+            return Ok(response);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpGet("Select")]
+        public async Task<IActionResult> ListSelectCategories()
         {
+            var response = await _categoryApplication.ListSelectCategories();
+            return Ok(response);
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpGet("{categoryId:int}")]
+        public async Task<IActionResult> GetCategoryById(int categoryId)
         {
+            var response = await _categoryApplication.GetCategoryById(categoryId);
+            return Ok(response);
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryRequestDto categoryRequestDto)
+        {
+            var response = await _categoryApplication.CreateCategory(categoryRequestDto);
+            return Ok(response);
+        }
+
+        [HttpPut("Update/{categoryId:int}")]
+        public async Task<IActionResult> UpdateCategory(int categoryId, [FromBody] CategoryRequestDto categoryRequestDto)
+        {
+            var response = await _categoryApplication.UpdateCategory(categoryId, categoryRequestDto);
+            return Ok(response);
+        }
+
+        [HttpPut("Delete/{categoryId:int}")]
+        public async Task<IActionResult> DeleteCategory(int categoryId)
+        {
+            var response = await _categoryApplication.DeleteCategory(categoryId);
+            return Ok(response);
         }
     }
 }

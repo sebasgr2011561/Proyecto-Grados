@@ -6,7 +6,7 @@ using Infrastructure.Commons.Bases.Response;
 
 namespace Application.Interfaces
 {
-    public interface IAssignmentsAppication
+    public interface IAssignmentsApplication
     {
         Task<BaseResponse<BaseEntityResponse<AssignmentResponseDto>>> ListAssignments(BaseFiltersRequest filters);
         Task<BaseResponse<IEnumerable<AssignmentSelectResponseDto>>> ListSelectAssignments();
