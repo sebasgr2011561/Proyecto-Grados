@@ -1,23 +1,35 @@
 <app-header></app-header>
 <!-- Page title-->
-<section class="bg-darker bg-size-cover bg-position-center py-5"
-  style="background-image: url(assets/img/food-delivery/restaurants/single/pt-bg.jpg);">
-  <div class="container py-md-4">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-        <li class="breadcrumb-item"><a class="text-nowrap" href="javascript:void(0);" routerLink="/"><i class="ci-home"></i>Home</a>
-        </li>
-        <li class="breadcrumb-item text-nowrap"><a href="javascript:void(0);">Restaurants</a>
-        </li>
-        <li class="breadcrumb-item text-nowrap active" aria-current="page">Domino's Pizza</li>
-      </ol>
-    </nav>
-    <h1 class="text-light text-center text-lg-start py-3">Domino's Pizza</h1>
+<section class="bg-darker bg-size-cover bg-position-center py-5 py-lg-5" style="background-image: url(assets/img/food-delivery/hero-bg.png);">
+  <div class="container pb-1">
+    <div class="container py-md-4">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
+          <li class="breadcrumb-item"><a class="text-nowrap" href="javascript:void(0);" routerLink="/"><i class="ci-home"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item text-nowrap"><a href="javascript:void(0);">Cursos</a>
+          </li>
+          <li class="breadcrumb-item text-nowrap active" aria-current="page">Todos los Recursos</li>
+        </ol>
+      </nav>
+    </div>
+      <div class="row justify-content-center pb-1">
+          <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 text-center">
+              <div class="h2 text-light mb-3 pb-4">Plataforma E-learning para el Estudio &amp; Repaso de temas en ingenieria de software
+                  <div class="dropdown d-inline-block ms-1"><a class="dropdown-toggle" href="javascript:void(0);" data-bs-toggle="dropdown">T-Educa</a>
+                         </div>
+              </div>
+              <!--<a class="btn btn-primary" href="javascript:void(0)" [ngxScrollTo]="'#cuisine'" data-scroll>Recursos de Estudio</a>
+                -->
+              </div>
+      </div>
   </div>
 </section>
+
 <!-- Page navigation-->
 <nav class="container mt-n5">
-  <div class="d-flex align-items-center bg-white rounded-3 shadow-lg py-2 ps-sm-2 pe-4 pe-lg-2"><img
+  <div class="d-flex align-items-center bg-white rounded-3 shadow-lg py-2 ps-sm-2 pe-4 pe-lg-2">
+    <img
       class="d-block rounded-3" src="assets/img/food-delivery/restaurants/logos/02.png" width="150" alt="Brand">
     <div class="ps-lg-3 w-100 text-end">
       <!-- For desktop-->
@@ -41,13 +53,14 @@
   </div>
 </nav>
 <!-- Menu (Products grid)-->
-<section class="container tab-content py-4 py-sm-5">
-  <h2 class="text-center pt-2 pt-sm-0 mb-sm-5">Pizza</h2>
+<section class="container tab-content py-4 py-sm-4">
+  <h2 class="text-center pt-2 pt-sm-0 mb-sm-5">Cursos</h2>
   <div class="row pt-3 pt-sm-0">
     <!-- Item-->
     @for(item of products;track $index){
     <div class="col-lg-3 col-md-4 col-sm-6 mb-grid-gutter">
-      <div class="card product-card border pb-2"><a class="d-block" data-bs-target="#quick-view" data-bs-toggle="modal"
+      <div class="card product-card border pb-2">
+        <a class="d-block" data-bs-target="#quick-view" data-bs-toggle="modal"
           (click)="openModal(content,$index)"><img class="card-img-top" src="{{item.img}}" alt="Pizza"></a>
         <div class="card-body pt-1 pb-2">
           <h3 class="product-title fs-md"><a href="#quick-view" data-bs-toggle="modal">{{item.title}}</a></h3>

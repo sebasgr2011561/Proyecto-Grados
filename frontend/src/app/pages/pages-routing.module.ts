@@ -27,6 +27,9 @@ const routes: Routes = [
   {
     path: 'checkout', component: CheckoutComponent
   },
+  {
+    path: 'restaurants', component: RestaurantsComponent
+  }
 ];
 
 @NgModule({
