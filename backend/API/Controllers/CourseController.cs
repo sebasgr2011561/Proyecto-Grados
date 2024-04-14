@@ -30,6 +30,13 @@ namespace API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("SelectByProfesorId/{profesorId:int}")]
+        public async Task<IActionResult> ListSelectByProfesorId(int profesorId)
+        {
+            var response = await _coursesApplication.ListSelectByProfesorId(profesorId);
+            return Ok(response);
+        }
+
         [HttpGet("{courseId:int}")]
         public async Task<IActionResult> GetCourseById(int courseId)
         {

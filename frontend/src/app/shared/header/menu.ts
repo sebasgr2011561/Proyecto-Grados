@@ -1,15 +1,22 @@
 import { AddproductComponent } from './../../pages/account/addproduct/addproduct.component';
 import { MenuItem } from './menu.model';
 
-export const MENU1: MenuItem[] = [
+// Menu Administrador
+export const MENU_ADMIN: MenuItem[] = [
     {
         id: 1,
         label: 'Cuenta',
         subItems: [
             {
-                id: 2,
-                label: 'Configuración',
+                id: 1,
+                label: 'Mi perfil',
                 link: '/editar',
+                parentId: 11
+            },
+            {
+                id: 2,
+                label: 'Roles',
+                link: '/roles',
                 parentId: 11
             },
             {
@@ -20,28 +27,84 @@ export const MENU1: MenuItem[] = [
             },
             {
                 id: 4,
-                label: 'Crear Recurso',
-                link: '/addproduct',
+                label: 'Categorias',
+                link: '/categories',
                 parentId: 11
             },
             {
                 id: 5,
-                label: 'Notificaciones',
-                link: '/notification',
+                label: 'Rutas',
+                link: '/routes',
                 parentId: 11
             },
             {
                 id: 6,
-                label: 'Cerrar sesión',
-                link: '/',
+                label: 'Recursos',
+                link: '/courses',
                 parentId: 11
             }
         ]
-    },
-    // {
-    //     id: 17,
-    //     label: 'Back to main demo',
-    //     link: '/',
-    //     isTitle: true
-    // }
+    }
+]
+
+// Menu Docente
+export const MENU_DOC: MenuItem[] = [
+    {
+        id: 1,
+        label: 'Cuenta',
+        subItems: [
+            {
+                id: 1,
+                label: 'Mi perfil',
+                link: '/editar',
+                parentId: 11
+            },
+            {
+                id: 2,
+                label: 'Categorias',
+                link: '',
+                parentId: 11
+            },
+            {
+                id: 3,
+                label: 'Rutas',
+                link: '',
+                parentId: 11
+            },
+            {
+                id: 4,
+                label: 'Recursos',
+                link: '',
+                parentId: 11
+            }
+        ]
+    }
+]
+
+// Menu Estudiante
+export const MENU_EST: MenuItem[] = [
+    {
+        id: 1,
+        label: 'Cuenta',
+        subItems: [
+            {
+                id: 1,
+                label: 'Mi perfil',
+                link: '/editar',
+                parentId: 11
+            },
+            {
+                id: 2,
+                label: 'Mis aprendizajes',
+                link: '',
+                parentId: 11
+            },
+            {
+                id: 3,
+                label: 'Mis rutas de aprendizaje',
+                link: '',
+                parentId: 11
+            }
+        ]
+    }
 ]

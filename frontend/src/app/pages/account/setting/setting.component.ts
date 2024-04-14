@@ -88,7 +88,7 @@ export class SettingComponent implements OnInit {
       this.userForm.controls['lastname'].setValue(data.data.apellidos);
       this.userForm.controls['cellular'].setValue(data.data.celular);
       this.userForm.controls['email'].setValue(data.data.email);
-      this.userForm.controls['password'].setValue(data.data.password);
+      this.userForm.controls['password'].setValue('');
       this.userForm.controls['bio'].setValue(data.data.biografia);
     })
   }

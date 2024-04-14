@@ -32,7 +32,7 @@ export class RolesComponent implements OnInit {
   }
 
   cargarRoles() {
-    this.api.getData('Rol').subscribe((data) => {
+    this.api.getData('Role').subscribe((data) => {
       this.listRoles = data.data;
     })
   }

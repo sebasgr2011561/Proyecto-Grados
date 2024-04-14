@@ -5,9 +5,9 @@ import { SignmodalComponent } from '../signmodal/signmodal.component';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { cartdata } from 'src/app/pages/cart/data';
 import { MenuItem } from './menu.model';
-import { MENU1 } from './menu';
+import { MENU_ADMIN, MENU_DOC, MENU_EST } from './menu';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-header',
@@ -29,19 +29,27 @@ export class HeaderComponent implements OnInit {
   menuItems: MenuItem[] = [];
   token: any;
   userName: any;
+  userData: any;
+  RolesEnum: any;
 
   constructor(public formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     public translate: TranslateService,
-    public router: Router) {
+    public router: Router,
+    private api: ApiService) {
       translate.setDefaultLang('en');
       this.token = localStorage.getItem("Token");
       this.userName = localStorage.getItem("userName");
   }
 
   ngOnInit(): void {
-    
-    this.menuItems = MENU1;
+    this.cargarUsuario();
+
+    this.RolesEnum = {
+      Administrador: 1,
+      Docente: 2,
+      Estudiante: 3
+    }
 
     // Validation
     this.formData = this.formBuilder.group({
@@ -55,7 +63,30 @@ export class HeaderComponent implements OnInit {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
 
+  cargarUsuario() {
+    let usuarioId = localStorage.getItem('userId');
+    this.api.getDataById('User',  +usuarioId!).subscribe((data) => {
+      debugger;
+      this.userData = data.data;
+      if (this.userData !== null) {
+        this.cargarMenu();
+      }
+    })
+  }
+
+  cargarMenu() {
+    
+    debugger;
+
+    if (this.userData.idRol === this.RolesEnum.Administrador) {
+      this.menuItems = MENU_ADMIN; 
+    } else if (this.userData.idRol === this.RolesEnum.Docente) {
+      this.menuItems = MENU_DOC;
+    } else {
+      this.menuItems = MENU_EST;
+    }
   }
 
   // set location

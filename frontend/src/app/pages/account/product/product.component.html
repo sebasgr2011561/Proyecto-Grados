@@ -23,6 +23,9 @@
               Tus Recursos
               <span class="badge bg-faded-accent fs-sm text-body align-middle ms-2">{{products.length}}</span>
             </h2>
+            <a class="btn btn-accent" routerLink="/addproduct">
+              Crear nuevo recurso
+            </a>
           </div>
           <!-- Product -->
           @for(data of products;track $index){
