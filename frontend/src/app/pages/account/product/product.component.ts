@@ -3,6 +3,7 @@ import { product } from './data';
 
 // Sweet Alert
 import Swal from 'sweetalert2';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,7 @@ export class ProductComponent implements OnInit {
   sortfilter: any;
   isDesc: boolean = false;
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
 
@@ -28,6 +29,13 @@ export class ProductComponent implements OnInit {
     this.sortfilter = 'title';
 
     // set small decimal point
+    this.cargarRecursos();
+  }
+
+  cargarRecursos() {
+    this.api.getFullDataById('Course', 3).subscribe((data) => {
+      console.log('Cursos: ', data.data)
+    })
   }
 
   //remove from products

@@ -10,6 +10,7 @@ namespace Application.Interfaces
     {
         Task<BaseResponse<BaseEntityResponse<CourseResponseDto>>> ListCourses(BaseFiltersRequest filters);
         Task<BaseResponse<IEnumerable<CourseSelectResponseDto>>> ListSelectCourses();
+        Task<BaseResponse<IEnumerable<CourseSelectResponseDto>>> ListSelectByProfesorId(int profesorId);
         Task<BaseResponse<CourseResponseDto>> GetCourseById(int CourseId);
         Task<BaseResponse<bool>> CreateCourse(CourseRequestDto requestDto);
         Task<BaseResponse<bool>> UpdateCourse(int idCourse, CourseRequestDto requestDto);

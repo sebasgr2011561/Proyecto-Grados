@@ -127,6 +127,30 @@ namespace Application.Services
             return response;
         }
 
+        public async Task<BaseResponse<IEnumerable<CourseSelectResponseDto>>> ListSelectByProfesorId(int profesorId)
+        {
+            var response = new BaseResponse<IEnumerable<CourseSelectResponseDto>>();
+            var courses = await _unitOfWork.Courses.GetAllAsync();
+
+            var coursesByProfesor = courses.Where(x => x.IdProfesor == profesorId);
+
+            if (coursesByProfesor is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<IEnumerable<CourseSelectResponseDto>>(coursesByProfesor);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+
+                return response;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
         public async Task<BaseResponse<IEnumerable<CourseSelectResponseDto>>> ListSelectCourses()
         {
             var response = new BaseResponse<IEnumerable<CourseSelectResponseDto>>();
