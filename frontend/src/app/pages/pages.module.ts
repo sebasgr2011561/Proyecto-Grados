@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 // page routing
 import { PagesRoutingModule } from './pages-routing.module';
@@ -14,7 +14,7 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { IndexComponent } from './index/index.component';
 import { AccountModule } from './account/account.module';
 
-import { NgbRatingModule, NgbDropdownModule, NgbTooltipModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule, NgbDropdownModule, NgbTooltipModule, NgbProgressbarModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 // scroll package
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
@@ -32,6 +32,7 @@ import { CategoryModule } from './categories/category.module';
     IndexComponent,
     CartComponent,
     CheckoutComponent,
+    RestaurantsComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +42,7 @@ import { CategoryModule } from './categories/category.module';
     NgbNavModule,
     NgbRatingModule,
     NgbDropdownModule,
+    NgbPagination,
     FormsModule,
     ReactiveFormsModule,
     AccountModule,

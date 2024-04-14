@@ -1,120 +1,125 @@
-const categories = [
+const product = [
     {
-        title:'Noodles',
-        img:'assets/img/food-delivery/icons/noodles.svg'
+        id: '1',
+        image: 'assets/img/marketplace/products/02.jpg',
+        by: 'Themesbrand',
+        in: 'Graphics',
+        title: 'Floating Phone and Tablet Mockup',
+        sale: '109',
+        price: '15.00',
+        rate: '1'
     },
     {
-        title:'Pizza & Pasta',
-        img:'assets/img/food-delivery/icons/pizza.svg'
+        id: '2',
+        image: 'assets/img/marketplace/products/03.jpg',
+        by: 'Themesbrand',
+        in: 'Graphics',
+        title: 'Project Devices Showcase (PSD)',
+        sale: '95',
+        price: '18.00',
+        rate: '4'
     },
     {
-        title:'Grill & Steaks',
-        img:'assets/img/food-delivery/icons/steak.svg'
+        id: '3',
+        image: 'assets/img/marketplace/products/08.jpg',
+        by: 'pixels',
+        in: 'Graphics',
+        title: 'Business Card Branding Mockup',
+        sale: '316',
+        price: '17.00',
+        rate: '3.5'
     },
     {
-        title:'Fish & Seafood',
-        img:'assets/img/food-delivery/icons/fish.svg'
+        id: '4',
+        image: 'assets/img/marketplace/products/07.jpg',
+        by: 'pixels',
+        in: 'Graphics',
+        title: 'Gravity Device Mockups (PSD)',
+        sale: '234',
+        price: '16.00',
+        rate: '4'
     },
     {
-        title:'Healthy Food',
-        img:'assets/img/food-delivery/icons/healthy.svg'
+        id: '5',
+        image: 'assets/img/marketplace/products/01.jpg',
+        by: 'Themesbrand',
+        in: 'Graphics',
+        title: 'Square Style Mobile UI Kit (Sketch)',
+        sale: '153',
+        price: '24.00',
+        rate: '2.5'
     },
     {
-        title:'Haute Cuisine',
-        img:'assets/img/food-delivery/icons/cuisine.svg'
+        id: '6',
+        image: 'assets/img/marketplace/products/04.jpg',
+        by: 'Themesbrand',
+        in: 'Graphics',
+        title: 'Flat-line E-Commerce Icons (AI)',
+        sale: '26',
+        price: '18.00',
+        rate: '5'
     },
     {
-        title:'Chicken & Snaks',
-        img:'assets/img/food-delivery/icons/chicken.svg'
+        id: '7',
+        image: 'assets/img/marketplace/products/09.jpg',
+        by: 'pixels',
+        in: 'Graphics',
+        title: 'Isometric Device Mockups (PSD)',
+        sale: '36',
+        price: '16.00',
+        rate: '4'
     },
     {
-        title:'Coffee & Desserts',
-        img:'assets/img/food-delivery/icons/coffee.svg'
+        id: '8',
+        image: 'assets/img/marketplace/products/10.jpg',
+        by: 'theDesigner',
+        in: 'Graphics',
+        title: 'Coffe Paper Cup Mockup',
+        sale: '57',
+        price: '10.00',
+        rate: '3'
     },
+    {
+        id: '9',
+        image: 'assets/img/marketplace/products/06.jpg',
+        by: 'Themesbrand',
+        in: 'Graphics',
+        title: 'Travel & Landmark Icon Pack (AI)',
+        sale: '21',
+        price: '17.00',
+        rate: '5'
+    },
+    {
+        id: '10',
+        image: 'assets/img/marketplace/products/05.jpg',
+        by: 'Themesbrand',
+        in: 'Graphics',
+        title: 'Minimal Mobile App UI Kit (Sketch)',
+        sale: '117',
+        price: '23.00',
+        rate: '4'
+    },
+    {
+        id: '11',
+        image: 'assets/img/marketplace/products/11.jpg',
+        by: 'pixels',
+        in: 'Graphics',
+        title: 'Printed T-Shirt Mockup (PSD)',
+        sale: '94',
+        price: '12.00',
+        rate: '3.5'
+    },
+    {
+        id: '12',
+        image: 'assets/img/marketplace/products/12.jpg',
+        by: 'pixels',
+        in: 'Graphics',
+        title: 'Corporate Branding Mockup (PSD)',
+        sale: '122',
+        price: '18.00',
+        rate: '4'
+    },
+
 ]
 
-const Items = [
-    {
-        coverimg:"assets/img/food-delivery/restaurants/01.jpg",
-        price:'AMC: $17.00',
-        logo:'assets/img/food-delivery/restaurants/logos/01.png',
-        brand:"McDonald's",
-        menu:'Burgers, Salads, French fries, Drinks',
-        type:'Noodles',
-         color:'success',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/02.jpg",
-        price:'AMC: $25.00',
-        logo:'assets/img/food-delivery/restaurants/logos/04.png',
-        brand:"Kentucky Fried Chicken",
-        menu:'Fried chicken, Burgers, Sandwiches, French fries',
-        type:'Pizza & Pasta',
-         color:'info',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/03.jpg",
-        price:'AMC: $18.00',
-        logo:'assets/img/food-delivery/restaurants/logos/07.png',
-        brand:"Burger King",
-        menu:'Burgers, Salads, French fries, Drinks',
-        type:'Haute Cuisine',
-         color:'success',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/04.jpg",
-        price:'AMC: $27.00',
-        logo:'assets/img/food-delivery/restaurants/logos/06.png',
-        brand:"Logan's Roadhouse",
-        menu:'Grill, Steaks, Burgers, Salads, French fries, Drinks',
-        type:'Pizza & Pasta',
-         color:'info',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/05.jpg",
-        price:'AMC: $40.00',
-        logo:'assets/img/food-delivery/restaurants/logos/10.png',
-        brand:"Carrabba's",
-        menu:'Grill, Steaks, Burgers, Salads, French fries, Drinks',
-        type:'Grill & Steaks',
-         color:'danger',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/06.jpg",
-        price:'AMC: $26.00',
-        logo:'assets/img/food-delivery/restaurants/logos/08.png',
-        brand:"Bonefish Grill",
-        menu:'Grill, Fish, Burgers, Salads, French fries, Drinks',
-        type:'Fish & Seafood',
-         color:'info',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/07.jpg",
-        price:'AMC: $19.00',
-        logo:'assets/img/food-delivery/restaurants/logos/02.png',
-        brand:"Domino's Pizza",
-        menu:'Pizza, Burgers, Salads, French fries, Drinks',
-        type:'Noodles',
-         color:'success',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/08.jpg",
-        price:'AMC: $17.00',
-        logo:'assets/img/food-delivery/restaurants/logos/13.png',
-        brand:"Hardee's",
-        menu:'Burgers, Salads, French fries, Drinks',
-        type:'Noodles',
-         color:'success',
-    },
-    {
-        coverimg:"assets/img/food-delivery/restaurants/09.jpg",
-        price:'AMC: $34.00',
-        logo:'assets/img/food-delivery/restaurants/logos/09.png',
-        name:"Ruth's Chris Steak House",
-        menu:'Grill, Steaks, Burgers, Salads, French fries, Drinks',
-        type:'Chicken & Snaks',
-         color:'danger',
-    },
-]
-
-export {categories, Items}
+export { product }

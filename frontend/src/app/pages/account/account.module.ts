@@ -15,6 +15,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { NotificationComponent } from './notification/notification.component';
 import { UsuariosComponent } from './Usuarios/usuarios.component';
 import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
+import {AddproductComponent} from './addproduct/addproduct.component';
+import { ProductComponent } from './product/product.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 
 
@@ -28,7 +30,8 @@ import { AddproductComponent } from './addproduct/addproduct.component';
     NotificationComponent,
     UsuariosComponent,
     crearUsuarioComponent,
-    AddproductComponent
+    AddproductComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,

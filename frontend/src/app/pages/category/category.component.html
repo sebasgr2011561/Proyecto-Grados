@@ -1,52 +1,156 @@
+<!-- Header -->
 <app-header></app-header>
-<!-- Page title-->
-<section class="bg-darker bg-size-cover bg-position-center py-5"
-    style="background-image: url(assets/img/food-delivery/category/pt-bg.jpg);">
+
+<!-- Page Title -->
+<section class="bg-darker bg-size-cover bg-position-center py-5 py-lg-5" style="background-image: url(assets/img/food-delivery/hero-bg.png);">
+  <div class="container pb-1">
     <div class="container py-md-4">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                <li class="breadcrumb-item"><a class="text-nowrap" href="javascript:void(0);" routerLink=""><i class="ci-home"></i>Home</a>
-                </li>
-                <li class="breadcrumb-item text-nowrap"><a href="javascript:void(0);" routerLink="">All categories</a>
-                </li>
-                <li class="breadcrumb-item text-nowrap active" aria-current="page">sasaa &amp; Fries</li>
-            </ol>
-        </nav>
-        <h1 class="text-light text-center text-lg-start pt-3">Burgers &amp; Fries</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
+          <li class="breadcrumb-item"><a class="text-nowrap" href="javascript:void(0);" routerLink="/"><i class="ci-home"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item text-nowrap"><a href="javascript:void(0);">Cursos</a>
+          </li>
+          <li class="breadcrumb-item text-nowrap active" aria-current="page">Todos los Recursos</li>
+        </ol>
+      </nav>
     </div>
+      <div class="row justify-content-center pb-1">
+          <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 text-center">
+              <div class="h2 text-light mb-3 pb-4">Plataforma E-learning para el Estudio &amp; Repaso de temas en ingenieria de software
+                  <div class="dropdown d-inline-block ms-1"><a class="dropdown-toggle" href="javascript:void(0);" data-bs-toggle="dropdown">T-Educa</a>
+                         </div>
+              </div>
+              <!--<a class="btn btn-primary" href="javascript:void(0)" [ngxScrollTo]="'#cuisine'" data-scroll>Recursos de Estudio</a>
+                -->
+              </div>
+      </div>
+  </div>
 </section>
-<!-- Categories-->
-<section class="bg-secondary py-4">
-    <div class="container" data-simplebar>
-        <div class="d-flex justify-content-between">
-            @for(category of categories;track $index){
-            <a class="d-block py-3 pe-sm-3 pe-lg-5 me-5"
-                href="javascript:void(0);" (click)="selectcategory(category.title)"><img class="d-block mx-auto mb-3" src="{{category.img}}" width="60"
-                    alt="Noodles">
-                <h6 class="fs-base text-center text-nowrap">{{category.title}}</h6>
-            </a>
-        }
+<!-- Content -->
+<div class="container pb-5 mb-2 mb-md-4">
+  <!-- Toolbar -->
+  <div class="bg-light shadow-lg rounded-3 mt-n5 mb-4">
+    <div class="d-flex align-items-center ps-2">
+      <!-- Search -->
+      <div class="input-group">
+        <i class="ci-search position-absolute top-50 start-0 translate-middle-y fs-md ms-3"></i>
+        <input class="form-control border-0 shadow-none" type="text" [(ngModel)]="service.searchTerm" placeholder="Search in this category...">
+      </div>
+      <!-- Sort -->
+      <div class="d-flex align-items-center">
+        <div ngbDropdown class="dropdown py-4 border-start">
         </div>
+      </div>
+      <!-- Pagination -->
+      <ngb-pagination [collectionSize]="(total | async)!" [(page)]="service.page" [directionLinks]="false">
+        <ng-template ngbPaginationPages let-page let-pages="pages">
+          @if(pages.length > 0){
+          <li>
+            <div class="d-none d-md-flex align-items-center border-start ps-4">
+              <span class="fs-md text-nowrap me-4">
+                Pages&nbsp; {{service.page}} / {{pages.length}}
+              </span>
+              <a class="nav-link-style p-4 border-start" href="javascript:void(0)">
+                <span class="d-inline-block py-1">
+                  <i class="ci-arrow-left"></i>
+                </span>
+              </a>
+              <a class="nav-link-style p-4 border-start" href="javascript:void(0)">
+                <span class="d-inline-block py-1">
+                  <i class="ci-arrow-right"></i>
+                </span>
+              </a>
+            </div>
+          </li>
+          }
+        </ng-template>
+        <ng-template ngbPaginationPrevious let-page let-pages="pages">
+          <i class="ci-arrow-left me-2"></i>
+        </ng-template>
+        <ng-template ngbPaginationNext>
+          <i class="ci-arrow-right ms-2"></i>
+        </ng-template>
+      </ngb-pagination>
     </div>
-</section>
-<!-- Items grid-->
-<section class="container py-4 py-sm-5">
-    <div class="row pt-3 pt-sm-0">
-        @for(item of items;track $index){
-        <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card product-card h-100 border-0 shadow pb-2"
-                routerLink="/restaurants"><span class="badge badge-end badge-shadow bg-{{item.color}} fs-md fw-medium"
-                    data-bs-toggle="tooltip" placement="top" ngbTooltip="Average meal cost">{{item.price}}</span><img
-                    class="card-img-top" src="{{item.coverimg}}" alt="McDonald's">
-                <div class="bg-white rounded-3 pt-1 px-2 mx-auto mt-n5" style="width: 175px;"><img
-                        class="d-block rounded-3 mx-auto" src="{{item.logo}}" width="150"
-                        alt="Brand"></div>
-                <div class="card-body text-center pt-3 pb-4">
-                    <h3 class="h5 mb-2">{{item.brand}}</h3>
-                    <div class="fs-ms text-muted">{{item.menu}}</div>
-                </div>
+  </div>
+  <!-- Products grid -->
+  <div class="row pt-3 mx-n2">
+    <!-- Product -->
+    @for(cat of products;track $index){
+    <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-grid-gutter">
+      <div class="card product-card-alt">
+        <div class="product-thumb">
+          <button class="btn-wishlist btn-sm" type="button" ngbTooltip="Add to wishlist">
+            <i class="ci-heart"></i>
+          </button>
+          <div class="product-card-actions">
+            <a class="btn btn-light btn-icon btn-shadow fs-base mx-2" href="javascript:void(0)" ngbTooltip="View" routerLink="/single">
+              <i class="ci-eye"></i>
             </a>
+            <button class="btn btn-light btn-icon btn-shadow fs-base mx-2" type="button" ngbTooltip="Add to cart">
+              <i class="ci-cart"></i>
+            </button>
+          </div>
+          <a class="product-thumb-overlay" href="javascript:void(0)" routerLink="/single"></a>
+          <img src="{{cat.image}}" alt="Product">
         </div>
+        <div class="card-body">
+          <div class="d-flex flex-wrap justify-content-between align-items-start pb-2">
+            <div class="text-muted fs-xs me-1">
+              by
+              <a class="product-meta fw-medium" href="javascript:void(0)">
+                {{cat.by}}
+              </a>
+              in
+              <a class="product-meta fw-medium" href="javascript:void(0)">
+                {{cat.in}}
+              </a>
+            </div>
+            <div class="star-rating me-2">
+              <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">
+                    ★
+                  </span>
+                  ☆
+                </span>
+              </ng-template>
+              <ngb-rating class="d-inline-flex stars align-middle star-rating" [(rate)]="cat.rate" [starTemplate]="t" [readonly]="true" [max]="5">
+              </ngb-rating>
+            </div>
+          </div>
+          <h3 class="product-title fs-sm mb-2">
+            <a href="javascript:void(0)">{{cat.title}}</a>
+          </h3>
+          <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <div class="fs-sm me-2">
+              <i class="ci-download text-muted me-1"></i>
+              {{cat.sale}}
+              <span class="fs-xs ms-1">Sales</span>
+            </div>
+            <div class="bg-faded-accent text-accent rounded-1 py-1 px-2 price">${{cat.price}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
     }
-    </div>
-</section>
+
+  </div>
+  <hr class="my-3">
+  <!-- Pagination -->
+
+  <ngb-pagination class="d-flex justify-content-center pt-2" [collectionSize]="(total | async)!" [(page)]="service.page" [pageSize]="service.pageSize" aria-label="Custom pagination">
+    <ng-template ngbPaginationPrevious let-page let-pages="pages">
+      <i class="ci-arrow-left me-2"></i>
+      Prev
+    </ng-template>
+    <ng-template ngbPaginationNext>
+      Next
+      <i class="ci-arrow-right ms-2"></i>
+    </ng-template>
+  </ngb-pagination>
+</div>
+
+<!-- Footer -->
 <app-footer></app-footer>

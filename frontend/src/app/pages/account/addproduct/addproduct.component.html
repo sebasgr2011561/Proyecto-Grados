@@ -57,7 +57,7 @@
               <label class="form-label" for="unp-product-description">
                 Descripcion del recurso
               </label>
-              <textarea class="form-control" rows="6" id="unp-product-description" formControlName="description"></textarea>
+              <textarea class="form-control" rows="3" id="unp-product-description" formControlName="description"></textarea>
             </div>
 
             <div class="mb-md-5 mb-4 pb-md-0 pb-2">
@@ -74,6 +74,28 @@
                   </div>
               </div>
             </div>
+
+            <div class="tab-pane fade mb-4 pb-2 show" id="price-fix" role="tabpanel">
+              <!-- Properties-->
+              <h3 class="h5 mb-4">Lecciones y modulos <span class='fw-normal text-muted'></span>
+              </h3>
+              @for(size of getItemFormControls();track $index){
+              <div class="row gy-md-4 gy-3 mb-3">
+                  <div class="col-sm-5">
+                      <input class="form-control" type="text" placeholder="Modulo 1" formControlName="sizes">
+                  </div>
+                  <div class="col-sm-5">
+                      <input class="form-control" type="text" placeholder="Link Referencia" formControlName="sizes">
+                  </div>
+                  <div class="col-sm-2 d-flex align-items-center">
+                      <a href="javascripts:void(0);" (click)="removeItem($index)"><i class="ci-trash me-2"></i><ins>Delete</ins></a>
+                  </div>
+              </div>
+              }
+              <a href="javascripts:void(0);" (click)="addItem()"><i class="ci-add me-2"></i><ins>Add
+                      more</ins></a>
+
+          </div>
 
             <div class="mb-3 pb-2">
               <label class="form-label" for="unp-product-files">
