@@ -19,13 +19,16 @@ const routes: Routes = [
     component: CategoryComponent
   },
   {
-    path: 'restaurants', component: RestaurantsComponent
+    path: 'restaurants', 
+    component: RestaurantsComponent
   },
   {
-    path: 'cart', component: CartComponent
+    path: 'cart', 
+    component: CartComponent
   },
   {
-    path: 'checkout', component: CheckoutComponent
+    path: 'checkout', 
+    component: CheckoutComponent
   },
   {
     path: 'restaurants', component: RestaurantsComponent

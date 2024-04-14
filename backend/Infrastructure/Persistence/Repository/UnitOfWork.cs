@@ -14,6 +14,7 @@ namespace Infrastructure.Persistence.Repository
         public IRoutesRepository Routes { get; private set; }
         public IPermitsRepository Permits { get; set; }
         public IQualificationsRepository Qualifications { get; set; }
+        public ICategoryRepository Categories { get; private set; }
 
         public UnitOfWork(EDucaTdaContext context)
         {
@@ -26,6 +27,7 @@ namespace Infrastructure.Persistence.Repository
             Routes = new RoutesRepository(_context);
             Permits = new PermitsRepository(_context);
             Qualifications = new QualificationsRepository(context);
+            Categories = new CategoriesRepository(context);
         }
         public void Dispose()
         {

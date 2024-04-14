@@ -17,6 +17,7 @@ import { UsuariosComponent } from './Usuarios/usuarios.component';
 import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
 import {AddproductComponent} from './addproduct/addproduct.component';
 import { ProductComponent } from './product/product.component';
+import { AddproductComponent } from './addproduct/addproduct.component';
 
 
 

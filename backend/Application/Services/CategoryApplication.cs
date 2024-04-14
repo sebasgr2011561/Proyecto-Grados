@@ -2,7 +2,7 @@
 using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Interfaces;
-using Application.Validators.Assignments;
+using Application.Validators.Category;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Commons.Bases.Request;
@@ -12,40 +12,20 @@ using Utilities.Static;
 
 namespace Application.Services
 {
-    public class AssignmentsAppication : IAssignmentsApplication
+    public class CategoryApplication : ICategoryApplication
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly AssignmentValidator _validationRules;
+        private readonly CategoryValidator _validationRules;
 
-        public AssignmentsAppication(AssignmentValidator validationRules, IMapper mapper, IUnitOfWork unitOfWork)
+        public CategoryApplication(IUnitOfWork unitOfWork, IMapper mapper, CategoryValidator validationRules)
         {
-            _validationRules = validationRules;
-            _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<AssignmentResponseDto>> AssignmentsByStudent(int studentId)
-        {
-            var response = new BaseResponse<AssignmentResponseDto>();
-            var assignments = await _unitOfWork.Assignments.AssignmentsByStudent(studentId);
-
-            if (assignments is not null)
-            {
-                response.IsSuccess = true;
-                response.Data = _mapper.Map<AssignmentResponseDto>(assignments);
-                response.Message = ReplyMessage.MESSAGE_QUERY;
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
-            }
-
-            return response;
-        }
-
-        public async Task<BaseResponse<bool>> CreateAssignment(AssignmentRequestDto requestDto)
+        public async Task<BaseResponse<bool>> CreateCategory(CategoryRequestDto requestDto)
         {
             var response = new BaseResponse<bool>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
@@ -58,9 +38,9 @@ namespace Application.Services
                 return response;
             }
 
-            var assignment = _mapper.Map<Asignacion>(requestDto);
-            assignment.Estado = Convert.ToBoolean(StateTypes.Active);
-            response.Data = await _unitOfWork.Assignments.CreateAsync(assignment);
+            var category = _mapper.Map<Categorium>(requestDto);
+            category.Estado = Convert.ToBoolean(StateTypes.Active);
+            response.Data = await _unitOfWork.Categories.CreateAsync(category);
 
             if (response.Data)
             {
@@ -76,12 +56,12 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> DeleteAssignment(int idAssignment)
+        public async Task<BaseResponse<bool>> DeleteCategory(int idCategory)
         {
             var response = new BaseResponse<bool>();
-            var assignmentDelete = await GetAssignmentById(idAssignment);
+            var categoryUpdate = await GetCategoryById(idCategory);
 
-            if (assignmentDelete.Data is null)
+            if (categoryUpdate.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -89,7 +69,7 @@ namespace Application.Services
                 return response;
             }
 
-            response.Data = await _unitOfWork.Assignments.DeleteAsync(idAssignment);
+            response.Data = await _unitOfWork.Categories.DeleteAsync(idCategory);
 
             if (response.Data)
             {
@@ -105,15 +85,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<AssignmentResponseDto>> GetAssignmentById(int assignmentId)
+        public async Task<BaseResponse<CategoryResponseDto>> GetCategoryById(int categoryId)
         {
-            var response = new BaseResponse<AssignmentResponseDto>();
-            var assignment = await _unitOfWork.Assignments.GetByIdAsync(assignmentId);
+            var response = new BaseResponse<CategoryResponseDto>();
+            var course = await _unitOfWork.Categories.GetByIdAsync(categoryId);
 
-            if (assignment is not null)
+            if (course is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<AssignmentResponseDto>(assignment);
+                response.Data = _mapper.Map<CategoryResponseDto>(course);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
             }
             else
@@ -125,37 +105,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<BaseEntityResponse<AssignmentResponseDto>>> ListAssignments(BaseFiltersRequest filters)
+        public async Task<BaseResponse<BaseEntityResponse<CategoryResponseDto>>> ListCategories(BaseFiltersRequest filters)
         {
-            var response = new BaseResponse<BaseEntityResponse<AssignmentResponseDto>>();
-            var assignment = await _unitOfWork.Assignments.ListAssignments(filters);
+            var response = new BaseResponse<BaseEntityResponse<CategoryResponseDto>>();
+            var courses = await _unitOfWork.Categories.ListCategories(filters);
 
-            if (assignment is not null)
+            if (courses is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<BaseEntityResponse<AssignmentResponseDto>>(assignment);
-                response.Message = ReplyMessage.MESSAGE_QUERY;
-
-                return response;
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
-            }
-
-            return response;
-        }
-
-        public async Task<BaseResponse<IEnumerable<AssignmentSelectResponseDto>>> ListSelectAssignments()
-        {
-            var response = new BaseResponse<IEnumerable<AssignmentSelectResponseDto>>();
-            var assignments = await _unitOfWork.Assignments.GetAllAsync();
-
-            if (assignments is not null)
-            {
-                response.IsSuccess = true;
-                response.Data = _mapper.Map<IEnumerable<AssignmentSelectResponseDto>>(assignments);
+                response.Data = _mapper.Map<BaseEntityResponse<CategoryResponseDto>>(courses);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
 
                 return response;
@@ -169,12 +127,34 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> UpdateAssignment(int idAssignment, AssignmentRequestDto requestDto)
+        public async Task<BaseResponse<IEnumerable<CategorySelectResponseDto>>> ListSelectCategories()
+        {
+            var response = new BaseResponse<IEnumerable<CategorySelectResponseDto>>();
+            var courses = await _unitOfWork.Categories.GetAllAsync();
+
+            if (courses is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<IEnumerable<CategorySelectResponseDto>>(courses);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+
+                return response;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<bool>> UpdateCategory(int idCategory, CategoryRequestDto requestDto)
         {
             var response = new BaseResponse<bool>();
-            var assignmentUpdate = await GetAssignmentById(idAssignment);
+            var courseUpdate = await GetCategoryById(idCategory);
 
-            if (assignmentUpdate.Data is null)
+            if (courseUpdate.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -182,9 +162,9 @@ namespace Application.Services
                 return response;
             }
 
-            var assignment = _mapper.Map<Asignacion>(requestDto);
-            assignment.Id = idAssignment;
-            response.Data = await _unitOfWork.Assignments.UpdateAsync(assignment);
+            var course = _mapper.Map<Recurso>(requestDto);
+            course.Id = idCategory;
+            response.Data = await _unitOfWork.Courses.UpdateAsync(course);
 
             if (response.Data)
             {

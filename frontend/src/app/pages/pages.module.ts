@@ -22,6 +22,8 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RoleModule } from './roles/roles.module';
+import { CategoryModule } from './categories/category.module';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     AccountModule,
+    RoleModule,
+    CategoryModule,
     NgbTooltipModule,
     NgbProgressbarModule,
     ScrollToModule.forRoot()

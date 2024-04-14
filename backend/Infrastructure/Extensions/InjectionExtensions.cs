@@ -13,17 +13,27 @@ namespace Infrastructure.Extensions
         {
             var assembly = typeof(EDucaTdaContext).Assembly.FullName;
 
-            var azureDB = Convert.ToBoolean(Convert.ToInt32(configuration.GetConnectionString("AzureDB")));
+            var ConnectionId = Convert.ToInt32(configuration.GetConnectionString("ConnectionId"));
 
-            if (!azureDB)
+            if (ConnectionId == 0)
             {
+                // PersistenceConnection
                 services.AddDbContext<EDucaTdaContext>(
                 option => option.UseSqlServer(
                     configuration.GetConnectionString("PersitenceConnection"),
                     b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
             }
+            else if (ConnectionId == 1)
+            {
+                // LocalConnection
+                services.AddDbContext<EDucaTdaContext>(
+                option => option.UseSqlServer(
+                    configuration.GetConnectionString("LocalConnection"),
+                    b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
+            } 
             else
             {
+                // AzureConnection
                 services.AddDbContext<EDucaTdaContext>(
                 option => option.UseSqlServer(
                     configuration.GetConnectionString("AzureConnection"),

@@ -14,30 +14,24 @@ export const MENU1: MenuItem[] = [
             },
             {
                 id: 3,
-                label: 'Crear Usuarios',
-                link: '/crearUsuario',
-                parentId: 11
-            },
-            {
-                id: 4,
                 label: 'Usuarios',
                 link: '/usuarios',
                 parentId: 11
             },
             {
-                id: 5,
+                id: 4,
                 label: 'Crear Recurso',
                 link: '/addproduct',
                 parentId: 11
             },
             {
-                id: 6,
+                id: 5,
                 label: 'Notificaciones',
                 link: '/notification',
                 parentId: 11
             },
             {
-                id: 7,
+                id: 6,
                 label: 'Cerrar sesión',
                 link: '/',
                 parentId: 11

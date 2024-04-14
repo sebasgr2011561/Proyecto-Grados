@@ -5,7 +5,7 @@
         <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs card-header-tabs" role="tablist">
           <li class="nav-item" [ngbNavItem]="1">
             <a ngbNavLink class="nav-link fw-medium" href="javascript:void(0);" data-bs-toggle="tab" role="tab"
-              aria-selected="true"><i class="ci-unlocked me-2 mt-n1"></i>Iniciar sesión</a>
+              aria-selected="true" style="text-align: center;"><i class="ci-unlocked me-2 mt-n1"></i>Iniciar sesión</a>
             <ng-template ngbNavContent>
 
               <form (ngSubmit)="signin()" [formGroup]="formData" class="needs-validation tab-pane fade show"
@@ -26,7 +26,7 @@
                 <div class="mb-3">
                   <label class="form-label" for="si-password">Contraseña</label>
                   <div class="password-toggle">
-                    <input class="form-control" [type]="fieldTextType ? 'password' : '*******'" id="si-password"
+                    <input class="form-control" [type]="fieldTextType ? 'text' : '*******'" id="si-password"
                       formControlName="password" [ngClass]="{ 'is-invalid': submitted && form['password'].errors }">
 
                       @if(submitted && form['password'].errors){
@@ -43,88 +43,8 @@
                         (click)="toggleFieldTextType()"></span>
                     </label>
                   </div>
-
-                </div>
-                <div class="mb-3 d-flex flex-wrap justify-content-between">
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="si-remember">
-                    <label class="form-check-label" for="si-remember">Recuerdame</label>
-                  </div><a class="fs-sm" href="javascript:void(0);">¿Has olvidado tu contraseña?</a>
                 </div>
                 <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Iniciar</button>
-              </form>
-            </ng-template>
-          </li>
-          <li class="nav-item" [ngbNavItem]="2">
-            <a ngbNavLink class="nav-link fw-medium" href="javascript:void(0);" data-bs-toggle="tab" role="tab"
-              aria-selected="false"><i class="ci-user me-2 mt-n1"></i>Registrarse</a>
-
-            <ng-template ngbNavContent>
-              <form (ngSubmit)="signup()" [formGroup]="signupformData" class="needs-validation tab-pane fade show"
-                autocomplete="off" novalidate id="signup-tab">
-                <div class="mb-3">
-                  <label class="form-label" for="su-name">Nombres</label>
-                  <input class="form-control" type="text" id="su-name" placeholder="" formControlName="name"
-                    [ngClass]="{ 'is-invalid': signupsubmit && signupform['name'].errors }">
-
-                    @if(signupsubmit && signupform['name'].errors){
-                    <div class="invalid-feedback">
-                      @if(signupform['name'].errors['required']){
-                    <span>Por favor, introduzca su(s) nombre(s).</span>
-                      }
-                  </div>
-                }
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="su-name">Apellidos</label>
-                  <input class="form-control" type="text" id="su-lastname" placeholder="" formControlName="lastname"
-                    [ngClass]="{ 'is-invalid': signupsubmit && signupform['lastname'].errors }">
-
-                    @if(signupsubmit && signupform['lastname'].errors){
-                    <div class="invalid-feedback">
-                      @if(signupform['lastname'].errors['required']){
-                    <span>Por favor, introduzca su(s) apellido(s).</span>
-                      }
-                  </div>
-                }
-                </div>
-                <div class="mb-3">
-                  <label for="su-email">Direccion correo electronico</label>
-                  <!-- <input class="form-control" type="email" id="su-email" placeholder="johndoe@example.com" required> -->
-                  <input class="form-control" type="email" id="si-email" placeholder="sgutiere@correo.tdea.edu.com"
-                    formControlName="email" [ngClass]="{ 'is-invalid': signupsubmit && signupform['email'].errors }"
-                    required>
-                  @if(signupsubmit && signupform['email'].errors){
-                  <div class="invalid-feedback">
-                    @if(signupform['email'].errors['required']){
-                    <span>Por favor, introduzca su correo electronico.</span>
-                    }
-                  </div>
-                }
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="su-password">Contraseña</label>
-                  <div class="password-toggle">
-                    <input class="form-control" [type]="signupPassfield ? 'text' : 'Contraseña'" id="su-password" required
-                      formControlName="password"
-                      [ngClass]="{ 'is-invalid': signupsubmit && signupform['password'].errors }">
-                    <label class="password-toggle-btn" aria-label="Show/hide password">
-                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"
-                        [ngClass]="{'mdi-eye-off-outline': !signupPassfield, 'mdi-eye-outline': fieldTextType
-                    }" (click)="togglesignupPassfield()"></span>
-                    </label>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="su-password-confirm">Confirme su contraseña</label>
-                  <div class="password-toggle">
-                    <input class="form-control" type="password" id="su-password-confirm" required>
-                    <label class="password-toggle-btn" aria-label="Show/hide password">
-                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                    </label>
-                  </div>
-                </div>
-                <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Registrarse</button>
               </form>
             </ng-template>
           </li>

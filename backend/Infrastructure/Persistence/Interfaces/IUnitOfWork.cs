@@ -10,6 +10,7 @@
         IRoutesRepository Routes { get; }
         IPermitsRepository Permits { get; }
         IQualificationsRepository Qualifications { get; }
+        ICategoryRepository Categories { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();
