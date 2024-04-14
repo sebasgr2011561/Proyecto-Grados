@@ -12,6 +12,7 @@ import { crearUsuarioComponent } from './crearUsuario/crearUsuario.component';
 
 
 import {AddproductComponent} from './addproduct/addproduct.component';
+import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   },
   {
     path: 'addproduct', component: AddproductComponent
+  }
+  ,
+  {
+    path: 'product', component: ProductComponent
   }
 ];
 

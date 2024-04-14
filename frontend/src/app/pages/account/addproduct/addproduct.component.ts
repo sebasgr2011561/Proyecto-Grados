@@ -16,8 +16,19 @@ export class AddproductComponent implements OnInit {
   productForm!: UntypedFormGroup;
   submitted = false;
 
-  constructor(private formBuilder: UntypedFormBuilder) {
+  userForm: UntypedFormGroup;
+  selectedcategory: any;
+  itemData!: UntypedFormGroup;
 
+
+  constructor(private formBuilder: UntypedFormBuilder) {
+    this.selectedcategory = 'ETH'
+
+    this.userForm = this.formBuilder.group({
+      sizes: this.formBuilder.array([
+        this.formBuilder.control(null)
+      ])
+    })
   }
 
   ngOnInit(): void {
@@ -84,4 +95,29 @@ export class AddproductComponent implements OnInit {
   onRemove(event: any) {
     this.files.splice(this.files.indexOf(event), 1);
   }
+  getItemFormControls(): AbstractControl[] {
+    return (<UntypedFormArray>this.userForm.get('sizes')).controls
+  }
+
+  createitem() {
+    if (this.itemData.valid) {
+    }
+    this.submitted = true;
+  }
+  changeprice(event: any) {
+    this.selectedcategory = event.target.closest('span')?.innerHTML
+  }
+
+  // Add Item
+  addItem(): void {
+    (this.userForm.get('sizes') as UntypedFormArray).push(
+      this.formBuilder.control(null)
+    );
+  }
+
+  // Delete Item
+  removeItem(index: any) {
+    (this.userForm.get('sizes') as UntypedFormArray).removeAt(index);
+  }
+
 }
