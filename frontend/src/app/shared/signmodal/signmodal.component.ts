@@ -94,18 +94,14 @@ export class SignmodalComponent implements OnInit {
         if (data.isSuccess) {
           let token = data.data;
           this.jwtDecode = jwtDecode(token);
-          console.log('Token User: ', this.jwtDecode)
-
+          
           let message = 'Bienvenido ' + this.jwtDecode.name;
           Swal.fire(message);
-          
-          console.log('jwtDecode: ', this.jwtDecode)
+
           localStorage.setItem("Token", token);
           localStorage.setItem("userId", this.jwtDecode.nameid);
           localStorage.setItem("userName", this.jwtDecode.name);
           localStorage.setItem("idRol", this.jwtDecode.sid);
-
-          console.log('jwt Decode: ', this.jwtDecode)
           
           this.modalService.dismissAll();
 

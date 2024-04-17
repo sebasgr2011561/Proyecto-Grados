@@ -62,18 +62,10 @@ export class AddproductComponent implements OnInit {
   imageURL: string | undefined;
   fileChange(event: any) {
     let fileList: any = event.target as HTMLInputElement;
-    console.log(fileList)
     let file: File = fileList.files[0];
-    console.log(file)
-    // document.getElementById('');
-    // this.productForm.patchValue({
-    //   salefile: file.name
-    // });
-    // console.log( this.productForm)
     const reader = new FileReader();
     reader.onload = () => {
       this.imageURL = reader.result as string;
-      console.log(this.imageURL)
     }
     reader.readAsDataURL(file);
   }
