@@ -26,8 +26,6 @@ export class SettingComponent implements OnInit {
     private route: Router) {
     
     this.userId = this.dataService.idUsuarioEdit == 0 ? localStorage.getItem("userId") : this.dataService.idUsuarioEdit
-
-    console.log('IDUsuario: ', this.userId)
   }
 
   ngOnInit(): void {
@@ -82,7 +80,6 @@ export class SettingComponent implements OnInit {
 
   consultarUsuario() {
     this.api.getDataById('User',  parseInt(this.userId)).subscribe((data) => {
-      console.log('Respuesta Usuario: ', data.data)
       this.userForm.controls['uid'].setValue(data.data.idUsuario);
       this.userForm.controls['name'].setValue(data.data.nombres);
       this.userForm.controls['lastname'].setValue(data.data.apellidos);
@@ -122,7 +119,6 @@ export class SettingComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.updateData('User', this.userId, dataUpdate).subscribe((data) => {
-          console.log("Actualizar Perfil: ", data)
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success");
             this.route.navigate(['/usuarios']);

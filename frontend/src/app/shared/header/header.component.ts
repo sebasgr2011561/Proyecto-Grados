@@ -163,7 +163,6 @@ export class HeaderComponent implements OnInit {
 
     // Menu Link Active
     updateActive(event: any) {
-      console.log("Evento: ", event.target)
       this.activateParentDropdown(event.target);
     }
 
@@ -193,9 +192,7 @@ export class HeaderComponent implements OnInit {
     }
 
     cerrarSession() {
-      console.log("Cerrar Sessión")
       localStorage.clear();
-      console.log('HostName: ', );
 
       if (window.location.pathname === '/') {
         window.location.reload();

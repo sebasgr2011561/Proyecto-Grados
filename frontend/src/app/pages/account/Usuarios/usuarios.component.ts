@@ -69,8 +69,6 @@ export class UsuariosComponent implements OnInit {
 
   cargarUsuarios() {
     this.api.getData('User').subscribe((data) => {
-      console.log("Usuarios: ", data)
-      console.log("lista Usuarios: ", data.data)
       this.listaUsuarios = data.data;
     })
   }
