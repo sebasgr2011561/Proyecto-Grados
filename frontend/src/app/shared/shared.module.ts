@@ -15,6 +15,7 @@ import { LanguageService } from '../services/language.service';
 import { AccountBreadcrumbsComponent } from './account-breadcrumbs/account-breadcrumbs.component';
 import { AcountSidemenuComponent } from './acount-sidemenu/acount-sidemenu.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FooterComponent,
     SignmodalComponent,
     AccountBreadcrumbsComponent,
+    BreadcrumbsComponent,
     AcountSidemenuComponent
   ],
   imports: [
@@ -41,7 +43,8 @@ import { TranslateModule } from '@ngx-translate/core';
     HeaderComponent,
     FooterComponent,
     AccountBreadcrumbsComponent,
-    AcountSidemenuComponent
+    AcountSidemenuComponent,
+    BreadcrumbsComponent
   ]
 })
 export class SharedModule { }

@@ -8,6 +8,10 @@ import { CategoryComponent } from './category/category.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AuctionLiveComponent } from './auction-live/auction-live.component';
+
+
+
 
 const routes: Routes = [
   {
@@ -32,7 +36,11 @@ const routes: Routes = [
   },
   {
     path: 'restaurants', component: RestaurantsComponent
+  },
+  {
+    path: 'recurso', component: AuctionLiveComponent
   }
+
 ];
 
 @NgModule({
