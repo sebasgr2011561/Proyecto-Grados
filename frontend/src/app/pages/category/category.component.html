@@ -98,7 +98,7 @@
           <div class="d-flex flex-wrap justify-content-between align-items-start pb-2">
             <div class="text-muted fs-xs me-1">
               Creado Por:
-              <a class="product-meta fw-medium" href="javascript:void(0)" routerLink="/auctionlive">
+              <a class="product-meta fw-medium" href="javascript:void(0)">
                 {{cat.by}}
               </a>
             </div>
@@ -116,7 +116,7 @@
             </div>
           </div>
           <h3 class="product-title fs-sm mb-2">
-            <a href="javascript:void(0)">{{cat.title}}</a>
+            <a href="javascript:void(0)" (click)="redirectToAuctionLive()">{{cat.title}}</a>
           </h3>
           <div class="d-flex flex-wrap justify-content-between align-items-center">
             <div class="fs-sm me-2">

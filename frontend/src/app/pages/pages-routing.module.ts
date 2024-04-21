@@ -23,15 +23,15 @@ const routes: Routes = [
     component: CategoryComponent
   },
   {
-    path: 'restaurants', 
+    path: 'restaurants',
     component: RestaurantsComponent
   },
   {
-    path: 'cart', 
+    path: 'cart',
     component: CartComponent
   },
   {
-    path: 'checkout', 
+    path: 'checkout',
     component: CheckoutComponent
   },
   {
