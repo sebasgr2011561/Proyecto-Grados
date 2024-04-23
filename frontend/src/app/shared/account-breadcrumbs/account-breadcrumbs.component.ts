@@ -9,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 // AccountBreadcrumbs Component
 export class AccountBreadcrumbsComponent implements OnInit {
 
+  userName: String = '';
+
   constructor() { }
 
   ngOnInit(): void {
+    this.userName = localStorage.getItem('userName')!;
   }
 }
