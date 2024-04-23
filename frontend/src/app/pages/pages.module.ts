@@ -24,6 +24,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleModule } from './roles/roles.module';
 import { CategoryModule } from './categories/category.module';
+import { AuctionLiveComponent } from './auction-live/auction-live.component';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { CategoryModule } from './categories/category.module';
     IndexComponent,
     CartComponent,
     CheckoutComponent,
+    AuctionLiveComponent,
     RestaurantsComponent
   ],
   imports: [

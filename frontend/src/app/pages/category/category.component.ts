@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 //Data Get
 import { product } from './data';
 import { CategoryService } from './category.service';
 import { CategoryModel } from './category.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //import { cart } from '../cart/data';
 
 
@@ -19,6 +21,9 @@ import { CategoryModel } from './category.model';
 // Category Component
 export class CategoryComponent implements OnInit {
 
+
+  productdetail: any;
+
   breadCrumbItems!: Array<{}>;
   products: any;
   selectedCategory: any;
@@ -29,11 +34,14 @@ export class CategoryComponent implements OnInit {
   CategoryList!: Observable<CategoryModel[]>;
   total: Observable<number>;
 
-  constructor(public service: CategoryService) {
+  constructor(public service: CategoryService,private modalService: NgbModal,private router: Router) {
     this.CategoryList = service.countries$;
     this.total = service.total$;
   }
 
+  redirectToAuctionLive() {
+    this.router.navigate(['/recurso']);
+}
   ngOnInit(): void {
 
     // When the user clicks on the button, scroll to the top of the document
@@ -71,6 +79,12 @@ export class CategoryComponent implements OnInit {
       })
     }, 0);
   }
+
+  openModal(content: any, i: any) {
+    this.productdetail = this.products[i]
+    this.modalService.open(content, { size: 'lg', centered: true });
+  }
+
 
   //filter dropdown
   Changecategory(item: any, icon: any, property: any) {

@@ -13,6 +13,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
+
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -40,6 +41,7 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbDropdownModule,
     NgxDropzoneModule,
     HttpClientModule
+    
   ],
   bootstrap: [AppComponent]
 })
