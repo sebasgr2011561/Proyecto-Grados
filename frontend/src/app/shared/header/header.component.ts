@@ -68,7 +68,6 @@ export class HeaderComponent implements OnInit {
   cargarUsuario() {
     let usuarioId = localStorage.getItem('userId');
     this.api.getDataById('User',  +usuarioId!).subscribe((data) => {
-      debugger;
       this.userData = data.data;
       if (this.userData !== null) {
         this.cargarMenu();
@@ -77,9 +76,6 @@ export class HeaderComponent implements OnInit {
   }
 
   cargarMenu() {
-    
-    debugger;
-
     if (this.userData.idRol === this.RolesEnum.Administrador) {
       this.menuItems = MENU_ADMIN; 
     } else if (this.userData.idRol === this.RolesEnum.Docente) {

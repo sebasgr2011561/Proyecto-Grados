@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SharingDataService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,7 +13,9 @@ export class RolesComponent implements OnInit {
 
   listRoles: any = [];
 
-  constructor(private api: ApiService, private route: Router) { }
+  constructor(private api: ApiService, private route: Router, private dataService: SharingDataService) { 
+    
+  }
 
   ngOnInit(): void {
 
@@ -32,13 +35,14 @@ export class RolesComponent implements OnInit {
   }
 
   cargarRoles() {
-    this.api.getData('Role').subscribe((data) => {
+    this.api.getFullData('Role').subscribe((data) => {
       this.listRoles = data.data;
     })
   }
 
   actualizarRol(id: number) {
-    this.route.navigate(['/editRoles', id]);
+    this.route.navigate(['editRoles']);
+    this.dataService.setIdUsuarioEdit(id);
   }
 
   eliminarRol(id: number) {

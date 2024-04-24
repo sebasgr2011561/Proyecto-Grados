@@ -12,7 +12,7 @@ const routes: Routes = [
         path: 'newCategory', component: AddCategoriesComponent
     },
     {
-        path: 'editCategory/{id}', component: AddCategoriesComponent
+        path: 'editCategory', component: AddCategoriesComponent
     }
 ]
 

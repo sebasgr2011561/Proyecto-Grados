@@ -44,7 +44,7 @@ namespace Infrastructure.Persistence.Repository
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             var getAll = await _entity
-                .Where(x => x.Estado == Convert.ToBoolean(StateTypes.Active))
+                .Where(x => x.Estado == Convert.ToBoolean(Convert.ToInt32(StateTypes.Active)))
                 .AsNoTracking()
                 .ToListAsync();
 

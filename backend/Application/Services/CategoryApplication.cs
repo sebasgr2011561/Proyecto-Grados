@@ -162,9 +162,9 @@ namespace Application.Services
                 return response;
             }
 
-            var course = _mapper.Map<Recurso>(requestDto);
+            var course = _mapper.Map<Categorium>(requestDto);
             course.Id = idCategory;
-            response.Data = await _unitOfWork.Courses.UpdateAsync(course);
+            response.Data = await _unitOfWork.Categories.UpdateAsync(course);
 
             if (response.Data)
             {

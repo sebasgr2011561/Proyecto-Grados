@@ -11,7 +11,7 @@ const routes: Routes = [
         path: 'newRoles', component: AddRolesComponent
     },
     {
-        path: 'editRoles/{id}', component: AddRolesComponent
+        path: 'editRoles', component: AddRolesComponent
     }
 ]
 

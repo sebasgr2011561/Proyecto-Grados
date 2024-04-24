@@ -68,7 +68,10 @@ export class SettingComponent implements OnInit {
     });
 
     this.consultarRoles();
-    this.consultarUsuario();
+    
+    if (this.userId !== 0) {
+      this.consultarUsuario();
+    }
 
   }
 

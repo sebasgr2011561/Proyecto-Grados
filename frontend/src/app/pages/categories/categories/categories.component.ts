@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SharingDataService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,7 +12,8 @@ import Swal from 'sweetalert2';
 export class CategoriesComponent implements OnInit {
   listCategories: any = [];
 
-  constructor(private api: ApiService, private route: Router) { }
+  constructor(private api: ApiService, private route: Router,
+    private dataService: SharingDataService) { }
 
   ngOnInit(): void {
 
@@ -37,7 +39,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   actualizarCategory(id: number) {
-    this.route.navigate(['/editCategory', id]);
+    this.route.navigate(['/editCategory']);
+    this.dataService.setIdUsuarioEdit(id);
   }
 
   eliminarCategory(id: number) {
