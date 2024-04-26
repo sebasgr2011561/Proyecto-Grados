@@ -16,6 +16,7 @@ import { AccountBreadcrumbsComponent } from './account-breadcrumbs/account-bread
 import { AcountSidemenuComponent } from './acount-sidemenu/acount-sidemenu.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { UsermodalComponent } from './usermodal/usermodal.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     HeaderComponent,
     FooterComponent,
     SignmodalComponent,
+    UsermodalComponent,
     AccountBreadcrumbsComponent,
     BreadcrumbsComponent,
     AcountSidemenuComponent
@@ -44,7 +46,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     FooterComponent,
     AccountBreadcrumbsComponent,
     AcountSidemenuComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    UsermodalComponent
   ]
 })
 export class SharedModule { }
