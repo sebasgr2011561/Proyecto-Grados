@@ -95,7 +95,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   cargarUsuarios() {
-    this.api.getData('User').subscribe((data) => {
+    this.api.getFullData('User').subscribe((data) => {
       this.listaUsuarios = data.data;
     })
   }

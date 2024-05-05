@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,7 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class UsermodalComponent {
   public isCollapsed = true;
-  formData!: UntypedFormGroup;
+  userForm!: UntypedFormGroup;
   signupformData!:UntypedFormGroup;
   signInFormData!:UntypedFormGroup;
   signupPassfield!: boolean;
@@ -23,24 +23,52 @@ export class UsermodalComponent {
   userId:any;
   userName:any;
   jwtDecode:any;
+  bio:any;
+  img:any;
 
-  constructor(public formBuilder: UntypedFormBuilder, private modalService: NgbModal, private api: ApiService, private router: Router) { }
+  @Input() user = null;
+  userParameter = null;
+  @Output() onResult = new EventEmitter<any>();
+  roles: any;
+
+  constructor(public formBuilder: UntypedFormBuilder, 
+    private modalService: NgbModal, 
+    private api: ApiService,
+    private route: Router) { }
 
   ngOnInit(): void {
 
     // Validation
-    this.formData = this.formBuilder.group({
+    this.userForm = this.formBuilder.group({
+      uid: ['', [Validators.required]],
+      rol: ['', [Validators.required]],
       name: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      cellular: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
 
-    this.signupformData = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
+    this.cargarUsuario();
+    this.cargarRoles();
+  }
 
+  cargarRoles() {
+    this.api.getFullData('Role').subscribe((data) => {
+      this.roles = data.data;
+    })
+  }
+
+  cargarUsuario() {
+    this.api.getDataById('User', 4).subscribe((data) => {
+      this.userForm.controls['uid'].setValue(data.data.idUsuario);
+      this.userForm.controls['name'].setValue(data.data.nombres);
+      this.userForm.controls['lastname'].setValue(data.data.apellidos);
+      this.userForm.controls['cellular'].setValue(data.data.celular);
+      this.userForm.controls['email'].setValue(data.data.email);
+      this.userForm.controls['password'].setValue('');
+      this.bio = data.data.biografia;
+    })
   }
 
   /**
@@ -66,7 +94,7 @@ export class UsermodalComponent {
  * Returns form
  */
   get form() {
-    return this.formData.controls;
+    return this.userForm.controls;
   }
 
   /**
@@ -76,25 +104,45 @@ export class UsermodalComponent {
     return this.signupformData.controls;
   }
 
-  /**
- * submit signin form
- */
-  signin() {
-    if (this.formData.valid) {
-      const message = this.formData.get('email')!.value;
-      const pwd = this.formData.get('password')!.value;
-      this.modalService.dismissAll();
+  actualzarUsuario() {
+    let dataCreate = {
+      idRol: this.userForm.controls['rol'].value,
+      nombres: this.userForm.controls['name'].value,
+      apellidos: this.userForm.controls['lastname'].value,
+      celular: this.userForm.controls['cellular'].value,
+      email: this.userForm.controls['email'].value,
+      password: this.userForm.controls['password'].value,
+      biografia: this.bio,
+      estado: true
     }
-    this.submitted = true;
-  }
 
-  signup(){
-    if (this.signupformData.valid) {
-      const message = this.signupformData.get('email')!.value;
-      const pwd = this.signupformData.get('password')!.value;
-      this.modalService.dismissAll();
-    }
-    this.signupsubmit = true;
+    Swal.fire({
+      title: "¿Deseas guardar los cambios?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      denyButtonText: `No guardar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.updateData('User', 4, dataCreate).subscribe((data) => {
+          if (data.isSuccess) {
+            Swal.fire(data.message, "", "success");
+            this.closemodal();
+            window.location.reload();
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.message
+            });
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire("No se guardaron los cambios", "", "info");
+      }
+    })
+
+    this.submitted = true
   }
 
 

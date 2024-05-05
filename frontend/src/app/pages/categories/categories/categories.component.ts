@@ -33,7 +33,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   cargarCategories() {
-    this.api.getData('Category').subscribe((data) => {
+    this.api.getFullData('Category').subscribe((data) => {
+      console.log("Categorias: ", data.data)
       this.listCategories = data.data;
     })
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, AbstractControl } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ApiService } from 'src/app/services/api.service';
 
 // Data Get
 //import { product } from '../product/data';
@@ -20,8 +21,10 @@ export class AddproductComponent implements OnInit {
   selectedcategory: any;
   itemData!: UntypedFormGroup;
 
+  categorias: any;
 
-  constructor(private formBuilder: UntypedFormBuilder) {
+
+  constructor(private formBuilder: UntypedFormBuilder, private api: ApiService) {
     this.selectedcategory = 'ETH'
 
     this.userForm = this.formBuilder.group({
@@ -49,6 +52,14 @@ export class AddproductComponent implements OnInit {
       tags: ['', [Validators.required]],
       salefile: ['', [Validators.required]],
     });
+
+    this.cargarCategorias();
+  }
+
+  cargarCategorias() {
+    this.api.getFullData('Category').subscribe((data) => {
+      this.categorias = data.data;
+    })
   }
 
   /**

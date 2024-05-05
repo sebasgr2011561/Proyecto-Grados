@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit {
     document.documentElement.scrollTop = 0;
 
     //Fetch Data
-    this.products = product;
+    // this.products = product;
     this.sortfilter = 'title';
 
     // set small decimal point
@@ -33,8 +33,9 @@ export class ProductComponent implements OnInit {
   }
 
   cargarRecursos() {
-    this.api.getFullDataById('Course', 3).subscribe((data) => {
+    this.api.getFullData('Course').subscribe((data) => {
       console.log('Cursos: ', data.data)
+      this.products = data.data;
     })
   }
 
