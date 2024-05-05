@@ -16,7 +16,6 @@ export class ProductComponent implements OnInit {
   products: any;
   sortfilter: any;
   isDesc: boolean = false;
-  recursos: any = [];
 
   constructor(private api: ApiService) { }
 
@@ -34,9 +33,8 @@ export class ProductComponent implements OnInit {
   }
 
   cargarRecursos() {
-    this.api.getFullData('Course').subscribe((data) => {
+    this.api.getFullDataById('Course', 3).subscribe((data) => {
       console.log('Cursos: ', data.data)
-      this.recursos = data.data;
     })
   }
 

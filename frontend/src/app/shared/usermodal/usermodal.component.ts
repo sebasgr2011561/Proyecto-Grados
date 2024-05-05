@@ -7,12 +7,11 @@ import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
 @Component({
-  selector: 'app-signmodal',
-  templateUrl: './signmodal.component.html',
-  styleUrls: ['./signmodal.component.scss']
+  selector: 'app-usermodal',
+  templateUrl: './usermodal.component.html',
+  styleUrl: './usermodal.component.scss'
 })
-export class SignmodalComponent implements OnInit {
-
+export class UsermodalComponent {
   public isCollapsed = true;
   formData!: UntypedFormGroup;
   signupformData!:UntypedFormGroup;
@@ -25,23 +24,23 @@ export class SignmodalComponent implements OnInit {
   userName:any;
   jwtDecode:any;
 
-
   constructor(public formBuilder: UntypedFormBuilder, private modalService: NgbModal, private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
 
     // Validation
     this.formData = this.formBuilder.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
 
     this.signupformData = this.formBuilder.group({
       name: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+
   }
 
   /**
@@ -82,42 +81,9 @@ export class SignmodalComponent implements OnInit {
  */
   signin() {
     if (this.formData.valid) {
-      const username = this.formData.get('email')!.value;
+      const message = this.formData.get('email')!.value;
       const pwd = this.formData.get('password')!.value;
-
-      const loginData = {
-        username: username,
-        password: pwd
-      }
-
-      this.api.loginUser('Login', loginData).subscribe((data) => {
-        if (data.isSuccess) {
-          let token = data.data;
-          this.jwtDecode = jwtDecode(token);
-
-          let message = 'Bienvenido ' + this.jwtDecode.name;
-          Swal.fire(message);
-
-          localStorage.setItem("Token", token);
-          localStorage.setItem("userId", this.jwtDecode.nameid);
-          localStorage.setItem("userName", this.jwtDecode.name);
-          localStorage.setItem("idRol", this.jwtDecode.sid);
-
-          this.modalService.dismissAll();
-
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        } else {
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            confirmButtonText: 'Cerrar'
-          })
-        }
-
-      })
+      this.modalService.dismissAll();
     }
     this.submitted = true;
   }
@@ -130,5 +96,6 @@ export class SignmodalComponent implements OnInit {
     }
     this.signupsubmit = true;
   }
+
 
 }

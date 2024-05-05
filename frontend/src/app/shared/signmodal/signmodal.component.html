@@ -26,8 +26,7 @@
                 <div class="mb-3">
                   <label class="form-label" for="si-password">Contraseña</label>
                   <div class="password-toggle">
-                    <input class="form-control" [type]="fieldTextType ? 'text' : '*******'" id="si-password"
-                      formControlName="password" [ngClass]="{ 'is-invalid': submitted && form['password'].errors }">
+                    <input class="form-control" [type]="fieldTextType ? 'text' : 'password'" id="si-password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && form['password'].errors }">
 
                       @if(submitted && form['password'].errors){
                       <div class="invalid-feedback">
@@ -37,13 +36,14 @@
                     </div>
                   }
                     <label class="password-toggle-btn" aria-label="Show/hide password">
-                      <i class="mdi mdi-eye"></i>
+                     <!-- <i class="mdi mdi-eye"></i> -->
                       <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"
                         [ngClass]="fieldTextType ? 'mdi-eye-off-outline':'mdi-eye-off-outline'"
                         (click)="toggleFieldTextType()"></span>
                     </label>
                   </div>
                 </div>
+
                 <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Iniciar</button>
               </form>
             </ng-template>

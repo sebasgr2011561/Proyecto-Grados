@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { USUARIOS, Usuario } from './data';
 
 // Data Get
@@ -7,8 +7,9 @@ import { items } from './data';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UsermodalComponent } from 'src/app/shared/usermodal/usermodal.component';
 import { SettingComponent } from '../setting/setting.component';
-import { FormControl } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { SharingDataService } from 'src/app/services/data.service';
 
 @Component({
@@ -37,9 +38,35 @@ export class UsuariosComponent implements OnInit {
   solditem: any = [];
   listaUsuarios: any = [];
 
-  constructor(private api: ApiService, private route: Router, private dataService: SharingDataService) { }
+  public isCollapsed = true;
+  formData!: UntypedFormGroup;
+  signupformData!:UntypedFormGroup;
+  signInFormData!:UntypedFormGroup;
+  signupPassfield!: boolean;
+  fieldTextType:any;
+  submitted = false;
+  signupsubmit = false;
+  userId:any;
+  userName:any;
+  jwtDecode:any;
+
+  constructor(private api: ApiService, private route: Router, private dataService: SharingDataService, private modalService: NgbModal,public formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
+
+    //modal validations
+    this.formData = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
+
+    this.signupformData = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
+
 
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;
@@ -108,4 +135,61 @@ export class UsuariosComponent implements OnInit {
       }
     })
   }
+
+  openModal() {
+    // this.submitted = false;
+    this.modalService.open(UsermodalComponent, { size: 'md', centered: true });
+  }
+
+  closemodal() {
+    // this.submitted = false;
+    this.modalService.dismissAll();
+  }
+
+  toggleFieldTextType(){
+    this.fieldTextType = !this.fieldTextType
+  }
+
+    /**
+   * Password Hide/Show
+   */
+     togglesignupPassfield() {
+      this.signupPassfield = !this.signupPassfield;
+    }
+
+  /**
+ * Returns form
+ */
+  get form() {
+    return this.formData.controls;
+  }
+
+  /**
+ * Returns signup form
+ */
+   get signupform() {
+    return this.signupformData.controls;
+  }
+
+  /**
+ * submit signin form
+ */
+  signin() {
+    if (this.formData.valid) {
+      const message = this.formData.get('email')!.value;
+      const pwd = this.formData.get('password')!.value;
+      this.modalService.dismissAll();
+    }
+    this.submitted = true;
+  }
+
+  signup(){
+    if (this.signupformData.valid) {
+      const message = this.signupformData.get('email')!.value;
+      const pwd = this.signupformData.get('password')!.value;
+      this.modalService.dismissAll();
+    }
+    this.signupsubmit = true;
+  }
+
 }

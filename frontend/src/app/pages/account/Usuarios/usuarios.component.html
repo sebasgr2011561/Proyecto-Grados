@@ -34,7 +34,7 @@
                 <td>{{ usuario.celular }}</td>
                 <td>{{ usuario.email }}</td>
                 <td>
-                    <button style="margin: 10px;" type="button" class="btn btn-outline-warning" (click)="actualizarUsuario(usuario.idUsuario)"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button style="margin: 10px;" type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#showModal" (click)="openModal()"><i class="fa-solid fa-pen-to-square"></i></button>
                     <button type="button" class="btn btn-outline-danger" (click)="eliminarUsuario(usuario.idUsuario)"><i class="fa-solid fa-user-xmark"></i></button>
                 </td>
               </tr>
