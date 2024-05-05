@@ -63,14 +63,12 @@
             <div class="mb-md-5 mb-4 pb-md-0 pb-2">
               <div class="row gy-md-4 gy-3">
                   <div class="col-sm-6">
-                      <label class="form-label" for="details-category">Categoría</label>
-                      <select class="form-select" id="details-category" formControlName="category">
-                          <option disabled selected>Choose category</option>
-                          <option value="Art">Desarrollo front</option>
-                          <option value="Photography">Desarrollo back</option>
-                          <option value="Music">Bases de datos</option>
-                          <option value="Gaming">Pruebas</option>
-                      </select>
+                    <label class="form-label" for="profile-name">
+                      Categoría
+                    </label>
+                    <select id="profile-rol" class="form-control" formControlName="rol">
+                      <option *ngFor="let item of categorias" [value]="item.idCategoria" >{{ item.nombreCategoria }}</option>
+                    </select>
                   </div>
               </div>
             </div>
