@@ -37,6 +37,11 @@ namespace Application.Services
                 account.Password = BC.HashPassword(account.Password);
                 account.Estado = Convert.ToBoolean(StateTypes.Active);
 
+                if (requestDto.Imagen is not null)
+                {
+                    account.Imagen = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.USERS, requestDto.Imagen);
+                }
+
                 response.Data = await _unitOfWork.Login.CreateAsync(account);
 
                 if (response.Data)

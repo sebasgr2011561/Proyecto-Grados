@@ -2,6 +2,7 @@
 using Application.DTOs.Response;
 using AutoMapper;
 using Domain.Entities;
+using Domain.EntitiesDto;
 using Infrastructure.Commons.Bases.Response;
 
 namespace Application.Mappers
@@ -10,13 +11,13 @@ namespace Application.Mappers
     {
         public AssignmentMappingsProfile()
         {
-            CreateMap<Asignacion, AssignmentResponseDto>()
-                .ForMember(x => x.IdAsignacion, x => x.MapFrom(y => y.Id))
-                .ReverseMap();
+            //CreateMap<Asignacion, AssignmentResponseDto>()
+            //    .ForMember(x => x.IdAsignacion, x => x.MapFrom(y => y.Id))
+            //    .ReverseMap();
 
-            CreateMap<AssignmentResponseDto, Asignacion>()
-                .ForMember(x => x.Id, x => x.MapFrom(y => y.IdAsignacion))
-                .ReverseMap();
+            //CreateMap<AssignmentResponseDto, Asignacion>()
+            //    .ForMember(x => x.Id, x => x.MapFrom(y => y.IdAsignacion))
+            //    .ReverseMap();
 
             CreateMap<BaseEntityResponse<Asignacion>, BaseEntityResponse<AssignmentResponseDto>>()
                     .ReverseMap();
@@ -30,6 +31,9 @@ namespace Application.Mappers
             CreateMap<Asignacion, AssignmentSelectResponseDto>()
                     .ForMember(x => x.IdAsignacion, x => x.MapFrom(y => y.Id))
                     .ReverseMap();
+
+            CreateMap<AssignmentDto, AssignmentResponseDto>()
+                .ReverseMap();
         }
     }
 }

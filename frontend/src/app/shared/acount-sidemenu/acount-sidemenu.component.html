@@ -3,41 +3,65 @@
 <!-- Actual menu-->
 <div class="h-100 border-end mb-2">
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="d-lg-block collapse" id="account-menu">
-        <ul class="list-unstyled mb-0">
+        <ul class="list-unstyled mb-0" *ngIf="esAdministrador">
             <li class="border-bottom mb-0">
                 <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/editar">
-                    <!-- <i class="ci-settings "></i> -->
                     <i class="fa-solid fa-user opacity-60 me-2"></i>Mi perfil
                 </a>
             </li>
             <li class="border-bottom mb-0">
                 <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/roles">
-                        <!-- <i class="ci-image"></i> -->
                         <i class="fa-solid fa-user-tie opacity-60 me-2"></i>Roles
-                        <!-- <span class="fs-sm text-muted ms-auto">{{myitems.length}}</span> -->
                 </a>
               </li>
             <li class="border-bottom mb-0">
                 <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/usuarios">
-                    <!-- <i class="ci-view-list "></i> -->
                     <i class="fa-solid fa-users opacity-60 me-2"></i>Usuarios
                 </a>
             </li>
             <li class="border-bottom mb-0">
                 <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/categories">
-                    <!-- <i class="ci-heart "></i> -->
                     <i class="fa-solid fa-layer-group opacity-60 me-2"></i>Categorias
-                    <!-- <span class="fs-sm text-muted ms-auto">{{favorites.length}}</span> -->
                 </a>
             </li>
-            <!-- <li class="border-bottom mb-0">
+            <li class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/product">
+                    <i class="fa-solid fa-book-bookmark opacity-60 me-2"></i>Recursos
+                </a>
+            </li>
+        </ul>
+
+        <ul class="list-unstyled mb-0" *ngIf="esDocente">
+            <li class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/editar">
+                    <i class="fa-solid fa-user opacity-60 me-2"></i>Mi perfil
+                </a>
+            </li>
+            <li class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/categories">
+                    <i class="fa-solid fa-layer-group opacity-60 me-2"></i>Categorias
+                </a>
+            </li>
+            <li class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/product">
+                    <i class="fa-solid fa-book-bookmark opacity-60 me-2"></i>Recursos
+                </a>
+            </li>
+        </ul>
+
+        <ul class="list-unstyled mb-0" *ngIf="esEstudiante">
+            <li class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/editar">
+                    <i class="fa-solid fa-user opacity-60 me-2"></i>Mi perfil
+                </a>
+            </li>
+            <li class="border-bottom mb-0">
                 <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/routes">
                     <i class="fa-solid fa-route opacity-60 me-2"></i>Rutas
                 </a>
-            </li> -->
+            </li>
             <li class="border-bottom mb-0">
                 <a class="nav-link-style d-flex align-items-center px-4 py-3 menulist" routerLink="/product">
-                    <!-- <i class="fa-regular fa-id-badge "></i> -->
                     <i class="fa-solid fa-book-bookmark opacity-60 me-2"></i>Recursos
                 </a>
             </li>

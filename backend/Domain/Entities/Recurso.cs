@@ -12,7 +12,9 @@ public partial class Recurso : BaseEntity
     public string Descripcion { get; set; } = null!;
 
     public string? ImagenPortada { get; set; }
+    
     public int? Duracion { get; set; }
+    
     public double? Precio { get; set; }
 
     public int? IdCategoria { get; set; }

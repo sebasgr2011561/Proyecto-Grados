@@ -1,5 +1,7 @@
-﻿using Infrastructure.Persistence.Contexts;
+﻿using Infrastructure.FileStorage;
+using Infrastructure.Persistence.Contexts;
 using Infrastructure.Persistence.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Persistence.Repository
 {
@@ -15,8 +17,9 @@ namespace Infrastructure.Persistence.Repository
         public IPermitsRepository Permits { get; set; }
         public IQualificationsRepository Qualifications { get; set; }
         public ICategoryRepository Categories { get; private set; }
+        public IAzureStorage AzureStorage { get; private set; }
 
-        public UnitOfWork(EDucaTdaContext context)
+        public UnitOfWork(EDucaTdaContext context, IConfiguration configuration)
         {
             _context = context;
             Login = new LoginRepository(_context);
@@ -28,6 +31,7 @@ namespace Infrastructure.Persistence.Repository
             Permits = new PermitsRepository(_context);
             Qualifications = new QualificationsRepository(context);
             Categories = new CategoriesRepository(context);
+            AzureStorage = new AzureStorage(configuration);
         }
         public void Dispose()
         {
