@@ -15,6 +15,8 @@ public partial class EDucaTdaContext : DbContext
     public virtual DbSet<Calificacione> Calificaciones { get; set; }
 
     public virtual DbSet<Categorium> Categoria { get; set; }
+    
+    public virtual DbSet<Modulo> Modulos { get; set; }
 
     public virtual DbSet<Permiso> Permisos { get; set; }
 

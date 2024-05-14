@@ -109,7 +109,7 @@ export class SettingComponent implements OnInit {
       email: this.userForm.controls['email'].value,
       password: this.userForm.controls['password'].value,
       biografia: this.userForm.controls['bio'].value,
-      imagen: '',
+      imagen: this.imageURL,
       estado: true
     }
 
@@ -151,6 +151,7 @@ export class SettingComponent implements OnInit {
       this.imageURL = reader.result as string;
       document.querySelectorAll('#user_profile').forEach((element: any) => {
         element.src = this.imageURL;
+        debugger;
       });
     }
     reader.readAsDataURL(file)

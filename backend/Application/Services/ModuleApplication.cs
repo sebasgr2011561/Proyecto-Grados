@@ -2,53 +2,49 @@
 using Application.DTOs.Request;
 using Application.DTOs.Response;
 using Application.Interfaces;
-using Application.Validators.User;
+using Application.Validators.Module;
 using AutoMapper;
 using Domain.Entities;
+using FluentValidation;
 using Infrastructure.Commons.Bases.Request;
 using Infrastructure.Commons.Bases.Response;
 using Infrastructure.Persistence.Interfaces;
 using Utilities.Static;
-using BC = BCrypt.Net.BCrypt;
 
 namespace Application.Services
 {
-    public class UserApplication : IUserApplication
+    internal class ModuleApplication : IModuleApplication
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly UserValidator _validationRules;
+        private readonly ModuleValidator _validationRules;
 
-        public UserApplication(IMapper mapper, IUnitOfWork unitOfWork, UserValidator validationRules)
+        public ModuleApplication(IUnitOfWork unitOfWork, IMapper mapper, ModuleValidator validationRules)
         {
-            _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
             _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<bool>> CreateUser(UserRequestDto requestDto)
+        public async Task<BaseResponse<bool>> CreateModule(List<ModuleRequestDto> requestDto)
         {
             var response = new BaseResponse<bool>();
-            var validationResult = await _validationRules.ValidateAsync(requestDto);
+            //var validationResult = await _validationRules.ValidateAsync(requestDto);
 
-            if (!validationResult.IsValid)
+            //if (!validationResult.IsValid)
+            //{
+            //    response.IsSuccess = false;
+            //    response.Message = ReplyMessage.MESSAGE_VALIDATE;
+            //    response.Errors = validationResult.Errors;
+            //    return response;
+            //}
+
+            foreach (var request in requestDto)
             {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_VALIDATE;
-                response.Errors = validationResult.Errors;
-                return response;
+                var modulo = _mapper.Map<Modulo>(request);
+                modulo.Estado = Convert.ToBoolean(StateTypes.Active);
+                response.Data = await _unitOfWork.Modulos.CreateAsync(modulo);
             }
-
-            var user = _mapper.Map<Usuario>(requestDto);
-            user.Password = BC.HashPassword(requestDto.Password);
-            user.Estado = Convert.ToBoolean(StateTypes.Active);
-
-            if (requestDto.Imagen is not null)
-            {
-                user.Imagen = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.USERS, requestDto.Imagen);
-            }
-
-            response.Data = await _unitOfWork.User.CreateAsync(user);
 
             if (response.Data)
             {
@@ -64,12 +60,12 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> DeleteUser(int idUser)
+        public async Task<BaseResponse<bool>> DeleteModule(int idModulo)
         {
             var response = new BaseResponse<bool>();
-            var userUpdate = await GetUserById(idUser);
+            var categoryUpdate = await GetModuleById(idModulo);
 
-            if (userUpdate.Data is null)
+            if (categoryUpdate.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -77,7 +73,7 @@ namespace Application.Services
                 return response;
             }
 
-            response.Data = await _unitOfWork.User.DeleteAsync(idUser);
+            response.Data = await _unitOfWork.Modulos.DeleteAsync(idModulo);
 
             if (response.Data)
             {
@@ -93,15 +89,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<UserResponseDto>> GetUserById(int userId)
+        public async Task<BaseResponse<ModuleResponseDto>> GetModuleById(int idModulo)
         {
-            var response = new BaseResponse<UserResponseDto>();
-            var user = await _unitOfWork.User.GetByIdAsync(userId);
+            var response = new BaseResponse<ModuleResponseDto>();
+            var course = await _unitOfWork.Modulos.GetByIdAsync(idModulo);
 
-            if (user is not null)
+            if (course is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<UserResponseDto>(user);
+                response.Data = _mapper.Map<ModuleResponseDto>(course);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
             }
             else
@@ -113,37 +109,15 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<IEnumerable<UserSelectResponseDto>>> ListSelectUsers()
+        public async Task<BaseResponse<BaseEntityResponse<ModuleResponseDto>>> ListModules(BaseFiltersRequest filters)
         {
-            var response = new BaseResponse<IEnumerable<UserSelectResponseDto>>();
-            var users = await _unitOfWork.User.GetAllAsync();
+            var response = new BaseResponse<BaseEntityResponse<ModuleResponseDto>>();
+            var courses = await _unitOfWork.Modulos.ListModules(filters);
 
-            if (users is not null)
+            if (courses is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<IEnumerable<UserSelectResponseDto>>(users);
-                response.Message = ReplyMessage.MESSAGE_QUERY;
-
-                return response;
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
-            }
-
-            return response;
-        }
-
-        public async Task<BaseResponse<BaseEntityResponse<UserResponseDto>>> ListUsers(BaseFiltersRequest filters)
-        {
-            var response = new BaseResponse<BaseEntityResponse<UserResponseDto>>();
-            var users = await _unitOfWork.User.ListUsers(filters);
-
-            if (users is not null)
-            {
-                response.IsSuccess = true;
-                response.Data = _mapper.Map<BaseEntityResponse<UserResponseDto>>(users);
+                response.Data = _mapper.Map<BaseEntityResponse<ModuleResponseDto>>(courses);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
 
                 return response;
@@ -157,12 +131,34 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> UpdateUser(int idUser, UserRequestDto requestDto)
+        public async Task<BaseResponse<IEnumerable<ModuleSelectResponseDto>>> ListSelectModules()
+        {
+            var response = new BaseResponse<IEnumerable<ModuleSelectResponseDto>>();
+            var courses = await _unitOfWork.Modulos.GetAllAsync();
+
+            if (courses is not null)
+            {
+                response.IsSuccess = true;
+                response.Data = _mapper.Map<IEnumerable<ModuleSelectResponseDto>>(courses);
+                response.Message = ReplyMessage.MESSAGE_QUERY;
+
+                return response;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<bool>> UpdateModule(int idModulo, List<ModuleRequestDto> requestDto)
         {
             var response = new BaseResponse<bool>();
-            var userUpdate = await GetUserById(idUser);
+            var courseUpdate = await GetModuleById(idModulo);
 
-            if (userUpdate.Data is null)
+            if (courseUpdate.Data is null)
             {
                 response.IsSuccess = false;
                 response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
@@ -170,11 +166,9 @@ namespace Application.Services
                 return response;
             }
 
-            var user = _mapper.Map<Usuario>(requestDto);
-            user.Id = idUser;
-            user.Password = BC.HashPassword(requestDto.Password);
-            user.Estado = Convert.ToBoolean(StateTypes.Active);
-            response.Data = await _unitOfWork.User.UpdateAsync(user);
+            var modulo = _mapper.Map<Modulo>(requestDto);
+            modulo.Id = idModulo;
+            response.Data = await _unitOfWork.Modulos.UpdateAsync(modulo);
 
             if (response.Data)
             {

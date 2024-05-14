@@ -38,14 +38,14 @@ namespace API.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> CreateUser([FromBody] UserRequestDto userRequestDto)
+        public async Task<IActionResult> CreateUser([FromForm] UserRequestDto userRequestDto)
         {
             var response = await _userApplication.CreateUser(userRequestDto);
             return Ok(response);
         }
 
         [HttpPut("Update/{userId:int}")]
-        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserRequestDto userRequestDto)
+        public async Task<IActionResult> UpdateUser(int userId, [FromForm] UserRequestDto userRequestDto)
         {
             var response = await _userApplication.UpdateUser(userId, userRequestDto);
             return Ok(response);

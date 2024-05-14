@@ -13,6 +13,7 @@ namespace Infrastructure.Persistence.Interfaces
         IPermitsRepository Permits { get; }
         IQualificationsRepository Qualifications { get; }
         ICategoryRepository Categories { get; }
+        IModuloRepository Modulos { get; }
         IAzureStorage AzureStorage { get; }
 
         void SaveChanges();
