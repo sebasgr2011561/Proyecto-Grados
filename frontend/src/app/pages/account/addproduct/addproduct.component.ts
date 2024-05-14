@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, AbstractControl } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { RecursomodalComponent } from 'src/app/shared/recursomodal/recursomodal.component';
+
 
 // Data Get
 //import { product } from '../product/data';
@@ -23,8 +28,19 @@ export class AddproductComponent implements OnInit {
 
   categorias: any;
 
+  public isCollapsed = true;
+  formData!: UntypedFormGroup;
+  signupformData!:UntypedFormGroup;
+  signInFormData!:UntypedFormGroup;
+  signupPassfield!: boolean;
+  fieldTextType:any;
+  signupsubmit = false;
+  userId:any;
+  userName:any;
+  jwtDecode:any;
 
-  constructor(private formBuilder: UntypedFormBuilder, private api: ApiService) {
+
+  constructor(private route: Router, private modalService: NgbModal,private formBuilder: UntypedFormBuilder, private api: ApiService) {
     this.selectedcategory = 'ETH'
 
     this.userForm = this.formBuilder.group({
@@ -32,6 +48,8 @@ export class AddproductComponent implements OnInit {
         this.formBuilder.control(null)
       ])
     })
+
+
   }
 
   ngOnInit(): void {
@@ -54,6 +72,19 @@ export class AddproductComponent implements OnInit {
     });
 
     this.cargarCategorias();
+
+        //modal validations
+        this.formData = this.formBuilder.group({
+          name: ['', [Validators.required]],
+          email: ['', [Validators.required]],
+          password: ['', [Validators.required]]
+        });
+
+        this.signupformData = this.formBuilder.group({
+          name: ['', [Validators.required]],
+          email: ['', [Validators.required]],
+          password: ['', [Validators.required]]
+        });
   }
 
   cargarCategorias() {
@@ -65,8 +96,32 @@ export class AddproductComponent implements OnInit {
   /**
    * Form data get
    */
+  openModal() {
+    // this.submitted = false;
+    this.modalService.open(RecursomodalComponent, { size: 'lg', centered: true });
+  }
+
+  closemodal() {
+    // this.submitted = false;
+    this.modalService.dismissAll();
+  }
+
+  toggleFieldTextType(){
+    this.fieldTextType = !this.fieldTextType
+  }
+
+    /**
+   * Password Hide/Show
+   */
+     togglesignupPassfield() {
+      this.signupPassfield = !this.signupPassfield;
+    }
+
+  /**
+ * Returns form
+ */
   get form() {
-    return this.productForm.controls;
+    return this.formData.controls;
   }
 
   // File Upload
@@ -121,6 +176,24 @@ export class AddproductComponent implements OnInit {
   // Delete Item
   removeItem(index: any) {
     (this.userForm.get('sizes') as UntypedFormArray).removeAt(index);
+  }
+
+  signin() {
+    if (this.formData.valid) {
+      const message = this.formData.get('email')!.value;
+      const pwd = this.formData.get('password')!.value;
+      this.modalService.dismissAll();
+    }
+    this.submitted = true;
+  }
+
+  signup(){
+    if (this.signupformData.valid) {
+      const message = this.signupformData.get('email')!.value;
+      const pwd = this.signupformData.get('password')!.value;
+      this.modalService.dismissAll();
+    }
+    this.signupsubmit = true;
   }
 
 }

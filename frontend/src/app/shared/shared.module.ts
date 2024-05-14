@@ -17,6 +17,7 @@ import { AcountSidemenuComponent } from './acount-sidemenu/acount-sidemenu.compo
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { UsermodalComponent } from './usermodal/usermodal.component';
+import { RecursomodalComponent } from './recursomodal/recursomodal.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UsermodalComponent } from './usermodal/usermodal.component';
     UsermodalComponent,
     AccountBreadcrumbsComponent,
     BreadcrumbsComponent,
-    AcountSidemenuComponent
+    AcountSidemenuComponent,
+    RecursomodalComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { UsermodalComponent } from './usermodal/usermodal.component';
     AccountBreadcrumbsComponent,
     AcountSidemenuComponent,
     BreadcrumbsComponent,
-    UsermodalComponent
+    UsermodalComponent,
+    RecursomodalComponent
   ]
 })
 export class SharedModule { }
