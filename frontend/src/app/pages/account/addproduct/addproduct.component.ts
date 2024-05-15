@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { RecursomodalComponent } from 'src/app/shared/recursomodal/recursomodal.component';
+import { SharingDataService } from 'src/app/services/data.service';
 
 
 // Data Get
@@ -19,7 +20,7 @@ import { RecursomodalComponent } from 'src/app/shared/recursomodal/recursomodal.
 
 // Addproduct Component
 export class AddproductComponent implements OnInit {
-  productForm!: UntypedFormGroup;
+  recursoForm!: UntypedFormGroup;
   submitted = false;
 
   userForm: UntypedFormGroup;
@@ -39,8 +40,16 @@ export class AddproductComponent implements OnInit {
   userName:any;
   jwtDecode:any;
 
+  idRecurso = 0;
+  imgBase64!: string | undefined;
 
-  constructor(private route: Router, private modalService: NgbModal,private formBuilder: UntypedFormBuilder, private api: ApiService) {
+
+  constructor(private route: Router, 
+    private modalService: NgbModal,
+    private formBuilder: UntypedFormBuilder, 
+    private api: ApiService,
+    private dataApi: SharingDataService
+  ) {
     this.selectedcategory = 'ETH'
 
     this.userForm = this.formBuilder.group({
@@ -60,15 +69,15 @@ export class AddproductComponent implements OnInit {
     /**
      * Form Validation
      */
-    this.productForm = this.formBuilder.group({
-      ids: [''],
-      name: ['', [Validators.required]],
-      productss: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      standardliprice: ['', [Validators.required]],
-      extendedliprice: ['', [Validators.required]],
-      tags: ['', [Validators.required]],
-      salefile: ['', [Validators.required]],
+    this.recursoForm = this.formBuilder.group({
+      id: [''],
+      idProfesor: ['', [Validators.required]],
+      idCategoria: ['', [Validators.required]],
+      nombreRecurso: ['', [Validators.required]],
+      imagenPortada: [''],
+      descripcion: ['', [Validators.required]],
+      duracion: ['', [Validators.required]],
+      precio: ['', [Validators.required]]
     });
 
     this.cargarCategorias();
@@ -97,12 +106,11 @@ export class AddproductComponent implements OnInit {
    * Form data get
    */
   openModal() {
-    // this.submitted = false;
     this.modalService.open(RecursomodalComponent, { size: 'lg', centered: true });
+
   }
 
   closemodal() {
-    // this.submitted = false;
     this.modalService.dismissAll();
   }
 
@@ -140,14 +148,61 @@ export class AddproductComponent implements OnInit {
    * Save user
    */
   AddProduct() {
+
+    const formData = new FormData();
+
+    formData.append("IdProfesor", localStorage.getItem('userId')!);
+    formData.append("IdCategoria", this.recursoForm.controls['idCategoria'].value);
+    formData.append("NombreRecurso", this.recursoForm.controls['nombreRecurso'].value);
+    formData.append("ImagenRecurso", this.files[0]!);
+    formData.append("Descripcion", this.recursoForm.controls['descripcion'].value);
+    formData.append("Duracion", this.recursoForm.controls['duracion'].value);
+    formData.append("Precio", this.recursoForm.controls['precio'].value);
+
+    Swal.fire({
+      title: "¿Deseas guardar los cambios?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      denyButtonText: `No guardar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.createData('Course', formData).subscribe((data) => {
+          if (data.isSuccess) {
+            Swal.fire(data.message, "", "success");
+            this.idRecurso = data.data;
+            this.dataApi.idRecurso = data.data;
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.message
+            });
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire("No se guardaron los cambios", "", "info");
+      }
+    })
+
     this.submitted = true;
-  //  product.push(this.productForm.value);
   }
 
   files: File[] = [];
 
   onSelect(event: any) {
+
+    console.log('Fotos: ', this.files)
     this.files.push(...event.addedFiles);
+  }
+
+  toBase64(file: File) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    })
   }
 
   onRemove(event: any) {

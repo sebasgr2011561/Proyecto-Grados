@@ -34,7 +34,9 @@ export class UsermodalComponent {
   constructor(public formBuilder: UntypedFormBuilder, 
     private modalService: NgbModal, 
     private api: ApiService,
-    private route: Router) { }
+    private route: Router) { 
+      this.userId = localStorage.getItem('userId')
+    }
 
   ngOnInit(): void {
 
@@ -75,7 +77,6 @@ export class UsermodalComponent {
   * Close modal
   */
    closemodal() {
-    // this.submitted = false;
     this.modalService.dismissAll();
   }
 
@@ -105,16 +106,16 @@ export class UsermodalComponent {
   }
 
   actualzarUsuario() {
-    let dataCreate = {
-      idRol: this.userForm.controls['rol'].value,
-      nombres: this.userForm.controls['name'].value,
-      apellidos: this.userForm.controls['lastname'].value,
-      celular: this.userForm.controls['cellular'].value,
-      email: this.userForm.controls['email'].value,
-      password: this.userForm.controls['password'].value,
-      biografia: this.bio,
-      estado: true
-    }
+
+    const formData = new FormData();
+
+    formData.append("idRol", this.userForm.controls['rol'].value);
+    formData.append("nombres", this.userForm.controls['name'].value);
+    formData.append("apellidos", this.userForm.controls['lastname'].value);
+    formData.append("celular", this.userForm.controls['cellular'].value);
+    formData.append("email", this.userForm.controls['email'].value);
+    formData.append("password", this.userForm.controls['password'].value);
+    formData.append("biografia", this.userForm.controls['bio'].value);
 
     Swal.fire({
       title: "¿Deseas guardar los cambios?",
@@ -124,7 +125,7 @@ export class UsermodalComponent {
       denyButtonText: `No guardar`
     }).then((result) => {
       if (result.isConfirmed) {
-        this.api.updateData('User', 4, dataCreate).subscribe((data) => {
+        this.api.updateData('User', this.userId, formData).subscribe((data) => {
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success");
             this.closemodal();

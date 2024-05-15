@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -41,11 +41,13 @@ export class ApiService {
     }
 
     createData(controller: string, data: any) : Observable<any> { 
+        var header = new HttpHeaders().set("content-type", "multipart/form-data")
         const url = this.apiUrl + this.api + controller + '/Register';
         return this.http.post<any>(url, data);
     }
 
     updateData(controller: string, id: number, data: any) : Observable<any> { 
+        var header = new HttpHeaders().set("content-type", "multipart/form-data")
         const url = this.apiUrl + this.api + controller + '/Update/' + id;
         return this.http.put<any>(url, data);
     }
@@ -54,9 +56,6 @@ export class ApiService {
         const url = this.apiUrl + this.api + controller + '/Delete/' + id;
         return this.http.put<any>(url, id);
     }
-
-    // LOGIN
-    registerUser() {}
 
     loginUser(controller: string, userRequestData: any): Observable<any> {
         const urlLogin = this.apiUrl + this.api + controller + '/Generate';
