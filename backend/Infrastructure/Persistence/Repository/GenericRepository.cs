@@ -21,12 +21,15 @@ namespace Infrastructure.Persistence.Repository
             _entity = _context.Set<T>();
         }
 
-        public async Task<bool> CreateAsync(T entity)
+        public async Task<int> CreateAsync(T entity)
         {
             await _context.AddAsync(entity);
 
-            var recordsAffected = await _context.SaveChangesAsync();
-            return recordsAffected > 0;
+            await _context.SaveChangesAsync();
+
+            int idProperty = (int) entity.GetType().GetProperty("Id")?.GetValue(entity, null)!;
+
+            return idProperty;
         }
 
         public async Task<bool> DeleteAsync(int id)

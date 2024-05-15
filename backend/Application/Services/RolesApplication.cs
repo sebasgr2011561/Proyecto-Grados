@@ -25,9 +25,9 @@ namespace Application.Services
             _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<bool>> CreateRole(RoleRequestDto requestDto)
+        public async Task<BaseResponse<int>> CreateRole(RoleRequestDto requestDto)
         {
-            var response = new BaseResponse<bool>();
+            var response = new BaseResponse<int>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
 
             if (!validationResult.IsValid)
@@ -42,7 +42,7 @@ namespace Application.Services
             role.Estado = Convert.ToBoolean(StateTypes.Active);
             response.Data = await _unitOfWork.Roles.CreateAsync(role);
 
-            if (response.Data)
+            if (response.Data > 0)
             {
                 response.IsSuccess = true;
                 response.Message = ReplyMessage.MESSAGE_SAVE;

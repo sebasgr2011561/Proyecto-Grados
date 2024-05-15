@@ -44,6 +44,7 @@ namespace Infrastructure.Extensions
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IAzureStorage, AzureStorage>();
+            services.AddTransient<IFileStorageLocal, FileStorageLocal>();
 
             return services;
         }

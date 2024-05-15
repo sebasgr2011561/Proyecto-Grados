@@ -27,9 +27,9 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<BaseResponse<bool>> RegisterUser(UserRequestDto requestDto)
+        public async Task<BaseResponse<int>> RegisterUser(UserRequestDto requestDto)
         {
-            var response = new BaseResponse<bool>();
+            var response = new BaseResponse<int>();
 
             try
             {
@@ -44,7 +44,7 @@ namespace Application.Services
 
                 response.Data = await _unitOfWork.Login.CreateAsync(account);
 
-                if (response.Data)
+                if (response.Data > 0)
                 {
                     response.IsSuccess = true;
                     response.Message = ReplyMessage.MESSAGE_SAVE;

@@ -26,18 +26,9 @@ namespace Application.Services
             _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<bool>> CreateModule(List<ModuleRequestDto> requestDto)
+        public async Task<BaseResponse<int>> CreateModule(List<ModuleRequestDto> requestDto)
         {
-            var response = new BaseResponse<bool>();
-            //var validationResult = await _validationRules.ValidateAsync(requestDto);
-
-            //if (!validationResult.IsValid)
-            //{
-            //    response.IsSuccess = false;
-            //    response.Message = ReplyMessage.MESSAGE_VALIDATE;
-            //    response.Errors = validationResult.Errors;
-            //    return response;
-            //}
+            var response = new BaseResponse<int>();
 
             foreach (var request in requestDto)
             {
@@ -46,7 +37,7 @@ namespace Application.Services
                 response.Data = await _unitOfWork.Modulos.CreateAsync(modulo);
             }
 
-            if (response.Data)
+            if (response.Data > 0)
             {
                 response.IsSuccess = true;
                 response.Message = ReplyMessage.MESSAGE_SAVE;

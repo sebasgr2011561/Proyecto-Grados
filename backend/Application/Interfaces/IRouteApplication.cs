@@ -11,7 +11,7 @@ namespace Application.Interfaces
         Task<BaseResponse<BaseEntityResponse<RouteResponseDto>>> ListRoutes(BaseFiltersRequest filters);
         Task<BaseResponse<IEnumerable<RouteSelectResponseDto>>> ListSelectRoutes();
         Task<BaseResponse<RouteResponseDto>> GetRouteById(int idRoute);
-        Task<BaseResponse<bool>> CreateRoute(RouteRequestDto requestDto);
+        Task<BaseResponse<int>> CreateRoute(RouteRequestDto requestDto);
         Task<BaseResponse<bool>> UpdateRoute(int idRoute, RouteRequestDto requestDto);
         Task<BaseResponse<bool>> DeleteRoute(int idRoute);
     }

@@ -17,17 +17,19 @@ namespace Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly CourseValidator _validationRules;
+        private readonly IFileStorageLocalApplication _fileStorage;
 
-        public CoursesApplication(IUnitOfWork unitOfWork, IMapper mapper, CourseValidator validationRules)
+        public CoursesApplication(IUnitOfWork unitOfWork, IMapper mapper, CourseValidator validationRules, IFileStorageLocalApplication fileStorage)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _validationRules = validationRules;
+            _fileStorage = fileStorage;
         }
 
-        public async Task<BaseResponse<bool>> CreateCourse(CourseRequestDto requestDto)
+        public async Task<BaseResponse<int>> CreateCourse(CourseRequestDto requestDto)
         {
-            var response = new BaseResponse<bool>();
+            var response = new BaseResponse<int>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
 
             if (!validationResult.IsValid)
@@ -40,9 +42,16 @@ namespace Application.Services
 
             var course = _mapper.Map<Recurso>(requestDto);
             course.Estado = Convert.ToBoolean(StateTypes.Active);
+
+            if (requestDto.ImagenRecurso is not null)
+            {
+                //course.ImagenPortada = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+                course.ImagenPortada = await _fileStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+            }
+
             response.Data = await _unitOfWork.Courses.CreateAsync(course);
 
-            if (response.Data)
+            if (response.Data > 0)
             {
                 response.IsSuccess = true;
                 response.Message = ReplyMessage.MESSAGE_SAVE;

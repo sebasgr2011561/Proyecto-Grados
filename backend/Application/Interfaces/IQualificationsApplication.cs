@@ -11,7 +11,7 @@ namespace Application.Interfaces
         Task<BaseResponse<BaseEntityResponse<QualificationResponseDto>>> ListQualifications(BaseFiltersRequest filters);
         Task<BaseResponse<IEnumerable<QualificationSelectResponseDto>>> ListSelectQualifications();
         Task<BaseResponse<QualificationResponseDto>> GetQualificationById(int assignmentId);
-        Task<BaseResponse<bool>> CreateQualification(QualificationRequestDto requestDto);
+        Task<BaseResponse<int>> CreateQualification(QualificationRequestDto requestDto);
         Task<BaseResponse<bool>> UpdateQualification(int idQualification, QualificationRequestDto requestDto);
         Task<BaseResponse<bool>> DeleteQualification(int idQualification);
     }

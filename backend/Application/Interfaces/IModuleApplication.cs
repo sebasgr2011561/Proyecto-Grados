@@ -11,7 +11,7 @@ namespace Application.Interfaces
         Task<BaseResponse<BaseEntityResponse<ModuleResponseDto>>> ListModules(BaseFiltersRequest filters);
         Task<BaseResponse<IEnumerable<ModuleSelectResponseDto>>> ListSelectModules();
         Task<BaseResponse<ModuleResponseDto>> GetModuleById(int idModulo);
-        Task<BaseResponse<bool>> CreateModule(List<ModuleRequestDto> requestDto);
+        Task<BaseResponse<int>> CreateModule(List<ModuleRequestDto> requestDto);
         Task<BaseResponse<bool>> UpdateModule(int idModulo, List<ModuleRequestDto> requestDto);
         Task<BaseResponse<bool>> DeleteModule(int idModulo);
     }
