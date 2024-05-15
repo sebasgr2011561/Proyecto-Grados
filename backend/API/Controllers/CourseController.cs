@@ -45,14 +45,14 @@ namespace API.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> CreateCourse([FromBody] CourseRequestDto courseRequestDto)
+        public async Task<IActionResult> CreateCourse([FromForm] CourseRequestDto courseRequestDto)
         {
             var response = await _coursesApplication.CreateCourse(courseRequestDto);
             return Ok(response);
         }
 
         [HttpPut("Update/{CourseId:int}")]
-        public async Task<IActionResult> UpdateCourse(int CourseId, [FromBody] CourseRequestDto courseRequestDto)
+        public async Task<IActionResult> UpdateCourse(int CourseId, [FromForm] CourseRequestDto courseRequestDto)
         {
             var response = await _coursesApplication.UpdateCourse(CourseId, courseRequestDto);
             return Ok(response);

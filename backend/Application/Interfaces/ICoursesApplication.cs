@@ -12,7 +12,7 @@ namespace Application.Interfaces
         Task<BaseResponse<IEnumerable<CourseSelectResponseDto>>> ListSelectCourses();
         Task<BaseResponse<IEnumerable<CourseSelectResponseDto>>> ListSelectByProfesorId(int profesorId);
         Task<BaseResponse<CourseResponseDto>> GetCourseById(int CourseId);
-        Task<BaseResponse<bool>> CreateCourse(CourseRequestDto requestDto);
+        Task<BaseResponse<int>> CreateCourse(CourseRequestDto requestDto);
         Task<BaseResponse<bool>> UpdateCourse(int idCourse, CourseRequestDto requestDto);
         Task<BaseResponse<bool>> DeleteCourse(int idCourse);
     }

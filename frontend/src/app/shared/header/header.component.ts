@@ -94,7 +94,6 @@ export class HeaderComponent implements OnInit {
   * Open modal
   */
   openModal() {
-    // this.submitted = false;
     this.modalService.open(SignmodalComponent, { size: 'md', centered: true });
   }
 

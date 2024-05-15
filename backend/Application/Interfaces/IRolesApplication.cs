@@ -11,7 +11,7 @@ namespace Application.Interfaces
         Task<BaseResponse<BaseEntityResponse<RoleResponseDto>>> ListRoles(BaseFiltersRequest filters);
         Task<BaseResponse<IEnumerable<RoleSelectResponseDto>>> ListSelectRoles();
         Task<BaseResponse<RoleResponseDto>> GetRoleById(int idRole);
-        Task<BaseResponse<bool>> CreateRole(RoleRequestDto requestDto);
+        Task<BaseResponse<int>> CreateRole(RoleRequestDto requestDto);
         Task<BaseResponse<bool>> UpdateRole(int idRole, RoleRequestDto requestDto);
         Task<BaseResponse<bool>> DeleteRole(int idRole);
     }

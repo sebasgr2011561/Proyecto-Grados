@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Persistence.Interfaces
+﻿using Infrastructure.FileStorage;
+
+namespace Infrastructure.Persistence.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -11,6 +13,8 @@
         IPermitsRepository Permits { get; }
         IQualificationsRepository Qualifications { get; }
         ICategoryRepository Categories { get; }
+        IModuloRepository Modulos { get; }
+        IAzureStorage AzureStorage { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();

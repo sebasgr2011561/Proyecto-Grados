@@ -23,13 +23,25 @@
             <!-- Categoria -->
           </div>
           <!-- formulario creacion recurso -->
-          <form method="post" (ngSubmit)="AddProduct()" [formGroup]="productForm">
+          <form method="post" (ngSubmit)="AddProduct()" [formGroup]="recursoForm">
+            <div class="mb-md-5 mb-4 pb-md-0 pb-2">
+              <div class="row gy-md-4 gy-3">
+                  <div class="col-sm-6">
+                    <label class="form-label" for="profile-name">
+                      Categoría
+                    </label>
+                    <select id="profile-rol" class="form-control" formControlName="idCategoria">
+                      <option *ngFor="let item of categorias" [value]="item.idCategoria" >{{ item.nombreCategoria }}</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
 
             <div class="mb-3 pb-2">
               <label class="form-label" for="unp-product-name">
                 Nombre del Recurso
               </label>
-              <input class="form-control" type="text" id="unp-product-name" formControlName="name">
+              <input class="form-control" type="text" id="unp-product-name" formControlName="nombreRecurso">
               <div class="form-text">
                 Maximo 100 caracteres. No permitido HTML o Emojis.
               </div>
@@ -48,7 +60,6 @@
                       <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                   </ngx-dropzone-preview>
                   }
-                  <!-- <button class="file-drop-btn btn btn-outline-accent" type="button">Or select file</button> -->
               </ngx-dropzone>
               <p class="mb-4 fs-sm">Tipos de formatos permitidos: PNG, JPG, GIF, WEBP, MP3 or MP4. Tamaño max: 100mb.</p>
             </div>
@@ -57,42 +68,34 @@
               <label class="form-label" for="unp-product-description">
                 Descripcion del recurso
               </label>
-              <textarea class="form-control" rows="3" id="unp-product-description" formControlName="description"></textarea>
+              <textarea class="form-control" rows="3" id="unp-product-description" formControlName="descripcion"></textarea>
             </div>
-
-            <div class="mb-md-5 mb-4 pb-md-0 pb-2">
-              <div class="row gy-md-4 gy-3">
-                  <div class="col-sm-6">
-                    <label class="form-label" for="profile-name">
-                      Categoría
-                    </label>
-                    <select id="profile-rol" class="form-control" formControlName="rol">
-                      <option *ngFor="let item of categorias" [value]="item.idCategoria" >{{ item.nombreCategoria }}</option>
-                    </select>
-                  </div>
-              </div>
-            </div>
-
-            <div class="tab-pane fade mb-4 pb-2 show" id="price-fix" role="tabpanel">
-                      <button class="btn btn-primary d-block w-100" type="submit" data-bs-toggle="modal" data-bs-target="#showModal" (click)="openModal()">
-                        <i class="ci-cloud-upload fs-lg me-2"></i>
-                        Lecciones y modulos
-                      </button>
-
-          </div>
 
             <div class="mb-3 pb-2">
-              <label class="form-label" for="unp-product-files">
-                Documentos adicionales para el recurso (PDFS, IMG)
+              <label class="form-label" for="unp-product-name">
+                Duración
               </label>
-              <input class="form-control" id="unp-product-files" type="file" accept="image/png, image/gif, image/jpeg" formControlName="salefile" (change)="fileChange($event)">
-              <div class="form-text">Maximo tamaño permitido 1GB</div>
+              <input class="form-control" type="number" id="unp-product-name" formControlName="duracion">
             </div>
-            <button class="btn btn-primary d-block w-100" type="submit">
+
+            <div class="mb-3 pb-2">
+              <label class="form-label" for="unp-product-name">
+                Precio
+              </label>
+              <input class="form-control" type="number" id="unp-product-name" formControlName="precio">
+            </div>
+            <button class="btn btn-primary d-block w-100" type="submit" *ngIf="idRecurso === 0">
               <i class="ci-cloud-upload fs-lg me-2"></i>
-              Subir documento
+              Guardar
             </button>
           </form>
+
+          <div class="tab-pane fade mb-4 pb-2 show" id="price-fix" role="tabpanel" *ngIf="idRecurso > 0">
+            <button class="btn btn-primary d-block w-100" type="submit" data-bs-toggle="modal" data-bs-target="#showModal" (click)="openModal()">
+              <i class="ci-cloud-upload fs-lg me-2"></i>
+              Lecciones y modulos
+            </button>
+          </div>
         </div>
       </section>
     </div>

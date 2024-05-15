@@ -27,9 +27,9 @@ namespace Application.Mappers
             CreateMap<CourseRequestDto, Recurso>()
                 .ReverseMap();
 
-            CreateMap<Recurso, CourseRequestDto>()
-                .ForMember(x => x.IdRecurso, x => x.MapFrom(y => y.Id))
-                .ReverseMap();
+            //CreateMap<Recurso, CourseRequestDto>()
+            //    .ForMember(x => x.IdRecurso, x => x.MapFrom(y => y.Id))
+            //    .ReverseMap();
 
             CreateMap<Recurso, CourseSelectResponseDto>()
                 .ForMember(x => x.IdRecurso, x => x.MapFrom(y => y.Id))

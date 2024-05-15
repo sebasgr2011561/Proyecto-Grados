@@ -18,7 +18,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> RegisterUser([FromBody] UserRequestDto userRequestDto)
+        public async Task<IActionResult> RegisterUser([FromForm] UserRequestDto userRequestDto)
         {
             var response = await _loginApplication.RegisterUser(userRequestDto);
             return Ok(response);

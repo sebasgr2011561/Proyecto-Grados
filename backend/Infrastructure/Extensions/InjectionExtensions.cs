@@ -1,4 +1,5 @@
-﻿using Infrastructure.Persistence.Contexts;
+﻿using Infrastructure.FileStorage;
+using Infrastructure.Persistence.Contexts;
 using Infrastructure.Persistence.Interfaces;
 using Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,8 @@ namespace Infrastructure.Extensions
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IAzureStorage, AzureStorage>();
+            services.AddTransient<IFileStorageLocal, FileStorageLocal>();
 
             return services;
         }

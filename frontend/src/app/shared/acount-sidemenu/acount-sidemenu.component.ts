@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { collections } from 'src/app/pages/account/my-collection/data';
 import { favorite } from 'src/app/pages/account/favorite/data';
 import { items } from 'src/app/pages/account/my-item/data';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-acount-sidemenu',
@@ -18,8 +19,14 @@ export class AcountSidemenuComponent implements OnInit {
   favorites: any;
   collections: any;
   myitems: any;
+  idRol: any;
+  esAdministrador: any;
+  esDocente: any;
+  esEstudiante: any;
+  roles: any[] = [];
+  RolesEnum: any;
 
-  constructor() {
+  constructor(private api: ApiService) {
     // Fetch Data
     this.favorites = favorite
     this.collections = collections
@@ -27,6 +34,15 @@ export class AcountSidemenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.RolesEnum = {
+      Administrador: 1,
+      Docente: 2,
+      Estudiante: 3
+    }
+
+    this.idRol = +localStorage.getItem('idRol')!;
+
     setTimeout(() => {
       const pathName = window.location.pathname;
       const items = Array.from(document.querySelectorAll("a.menulist"));
@@ -35,6 +51,21 @@ export class AcountSidemenuComponent implements OnInit {
       });
       matchingMenuItem?.classList.add('active')
     }, 0);
+
+    this.cargarMenu();
+  }
+
+  cargarMenu() {
+    if (this.idRol === this.RolesEnum.Administrador) {
+      this.esAdministrador = true;
+      return;
+    } else if (this.idRol === this.RolesEnum.Docente) {
+      this.esDocente = true;
+      return;
+    } else {
+      this.esEstudiante = true;
+      return;
+    }
   }
 
 }

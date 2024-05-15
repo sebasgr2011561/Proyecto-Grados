@@ -48,7 +48,6 @@ export class SignmodalComponent implements OnInit {
   * Close modal
   */
    closemodal() {
-    // this.submitted = false;
     this.modalService.dismissAll();
   }
 

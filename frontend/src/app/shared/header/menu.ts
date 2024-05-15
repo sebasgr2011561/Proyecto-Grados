@@ -67,16 +67,10 @@ export const MENU_DOC: MenuItem[] = [
             },
             {
                 id: 3,
-                label: 'Rutas',
-                link: '',
+                label: 'Recursos',
+                link: '/product',
                 parentId: 11
             },
-            {
-                id: 4,
-                label: 'Recursos',
-                link: '',
-                parentId: 11
-            }
         ]
     }
 ]
@@ -96,7 +90,7 @@ export const MENU_EST: MenuItem[] = [
             {
                 id: 2,
                 label: 'Mis aprendizajes',
-                link: '',
+                link: '/product',
                 parentId: 11
             },
             {

@@ -8,7 +8,7 @@ namespace Infrastructure.Persistence.Interfaces
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
-        Task<bool> CreateAsync(T entity);
+        Task<int> CreateAsync(T entity);
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(int id);
         IQueryable<T> GetEntityQuery(Expression<Func<T, bool>>? filter = null);

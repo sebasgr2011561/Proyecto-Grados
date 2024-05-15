@@ -1,4 +1,6 @@
-﻿namespace Application.DTOs.Request
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Application.DTOs.Request
 {
     public class UserRequestDto
     {
@@ -9,7 +11,7 @@
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Biografia { get; set; }
-        public string? Imagen { get; set; }
+        public IFormFile? Imagen { get; set; }
         public bool Estado { get; set; }
     }
 }

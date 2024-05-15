@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, booleanAttribute } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -101,17 +101,17 @@ export class SettingComponent implements OnInit {
   }
 
   saveUser() {
-    let dataUpdate = {
-      idRol: this.userForm.controls['rol'].value,
-      nombres: this.userForm.controls['name'].value,
-      apellidos: this.userForm.controls['lastname'].value,
-      celular: this.userForm.controls['cellular'].value,
-      email: this.userForm.controls['email'].value,
-      password: this.userForm.controls['password'].value,
-      biografia: this.userForm.controls['bio'].value,
-      imagen: '',
-      estado: true
-    }
+
+    const formData = new FormData();
+
+    formData.append("idRol", this.userForm.controls['rol'].value);
+    formData.append("nombres", this.userForm.controls['name'].value);
+    formData.append("apellidos", this.userForm.controls['lastname'].value);
+    formData.append("celular", this.userForm.controls['cellular'].value);
+    formData.append("email", this.userForm.controls['email'].value);
+    formData.append("password", this.userForm.controls['password'].value);
+    formData.append("biografia", this.userForm.controls['bio'].value);
+    formData.append("imagen", this.imageURL!);
 
     Swal.fire({
       title: "¿Deseas guardar los cambios?",
@@ -121,7 +121,7 @@ export class SettingComponent implements OnInit {
       denyButtonText: `No guardar`
     }).then((result) => {
       if (result.isConfirmed) {
-        this.api.updateData('User', this.userId, dataUpdate).subscribe((data) => {
+        this.api.updateData('User', this.userId, formData).subscribe((data) => {
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success");
             this.route.navigate(['/usuarios']);
@@ -151,6 +151,7 @@ export class SettingComponent implements OnInit {
       this.imageURL = reader.result as string;
       document.querySelectorAll('#user_profile').forEach((element: any) => {
         element.src = this.imageURL;
+        debugger;
       });
     }
     reader.readAsDataURL(file)

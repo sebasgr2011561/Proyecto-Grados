@@ -26,9 +26,9 @@ namespace Application.Services
             _validationRules = validationRules;
         }
 
-        public async Task<BaseResponse<bool>> CreateUser(UserRequestDto requestDto)
+        public async Task<BaseResponse<int>> CreateUser(UserRequestDto requestDto)
         {
-            var response = new BaseResponse<bool>();
+            var response = new BaseResponse<int>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
 
             if (!validationResult.IsValid)
@@ -42,9 +42,15 @@ namespace Application.Services
             var user = _mapper.Map<Usuario>(requestDto);
             user.Password = BC.HashPassword(requestDto.Password);
             user.Estado = Convert.ToBoolean(StateTypes.Active);
+
+            if (requestDto.Imagen is not null)
+            {
+                user.Imagen = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.USERS, requestDto.Imagen);
+            }
+
             response.Data = await _unitOfWork.User.CreateAsync(user);
 
-            if (response.Data)
+            if (response.Data > 0)
             {
                 response.IsSuccess = true;
                 response.Message = ReplyMessage.MESSAGE_SAVE;

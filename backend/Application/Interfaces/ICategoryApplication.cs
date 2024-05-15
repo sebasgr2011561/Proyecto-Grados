@@ -11,7 +11,7 @@ namespace Application.Interfaces
         Task<BaseResponse<BaseEntityResponse<CategoryResponseDto>>> ListCategories(BaseFiltersRequest filters);
         Task<BaseResponse<IEnumerable<CategorySelectResponseDto>>> ListSelectCategories();
         Task<BaseResponse<CategoryResponseDto>> GetCategoryById(int categoryId);
-        Task<BaseResponse<bool>> CreateCategory(CategoryRequestDto requestDto);
+        Task<BaseResponse<int>> CreateCategory(CategoryRequestDto requestDto);
         Task<BaseResponse<bool>> UpdateCategory(int idCategory, CategoryRequestDto requestDto);
         Task<BaseResponse<bool>> DeleteCategory(int idCategory);
     }

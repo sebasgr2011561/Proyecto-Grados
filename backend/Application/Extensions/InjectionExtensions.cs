@@ -29,6 +29,10 @@ namespace Application.Extensions
             services.AddScoped<IRouteApplication, RouteApplication>();
             services.AddScoped<IQualificationsApplication, QualificationsApplication>();
             services.AddScoped<ICategoryApplication, CategoryApplication>();
+            services.AddScoped<IModuleApplication, ModuleApplication>();
+
+
+            services.AddTransient<IFileStorageLocalApplication, FileStorageLocalApplication>();
 
             return services;
         }

@@ -12,7 +12,9 @@ public partial class Recurso : BaseEntity
     public string Descripcion { get; set; } = null!;
 
     public string? ImagenPortada { get; set; }
+    
     public int? Duracion { get; set; }
+    
     public double? Precio { get; set; }
 
     public int? IdCategoria { get; set; }
@@ -26,5 +28,7 @@ public partial class Recurso : BaseEntity
     public virtual Usuario IdProfesorNavigation { get; set; } = null!;
 
     public virtual ICollection<Ruta> Ruta { get; set; } = new List<Ruta>();
+
+    public virtual ICollection<Modulo> Modulos { get; set; } = new List<Modulo>();
 
 }

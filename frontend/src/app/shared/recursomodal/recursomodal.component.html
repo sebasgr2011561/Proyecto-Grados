@@ -1,48 +1,41 @@
 <!-- Sign in / sign up modal-->
 <!-- <ng-template role="document" let-modal> -->
-  <div class="modal-content">
-    <div class="modal-header bg-light">
-      <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs card-header-tabs" role="tablist">
-        <li class="nav-item" [ngbNavItem]="1">
-          <a ngbNavLink class="nav-link fw-medium" href="javascript:void(0);" data-bs-toggle="tab" role="tab"
-            aria-selected="true" style="text-align: center;"><i class="ci-unlocked me-2 mt-n1"></i>Lecciones y modulos</a>
-          <ng-template ngbNavContent>
+<div class="modal-content">
+  <div class="modal-header bg-light">
+    <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs card-header-tabs" role="tablist">
+      <li class="nav-item" [ngbNavItem]="1">
+        <a ngbNavLink class="nav-link fw-medium" href="javascript:void(0);" data-bs-toggle="tab" role="tab"
+          aria-selected="true" style="text-align: center;"><i class="ci-unlocked me-2 mt-n1"></i>Lecciones y modulos</a>
+        <ng-template ngbNavContent>
 
-            <form (ngSubmit)="signin()" [formGroup]="formData" class="needs-validation tab-pane fade show"
-              id="signin-tab">
+          <form (ngSubmit)="signin()" [formGroup]="moduleForm" class="needs-validation tab-pane fade show"
+            id="signin-tab">
 
-
-              <div class="row gy-3 mb-4 pb-md-3 mb-2">
-
-                @for(size of getItemFormControls();track $index){
-                  <div class="row gy-md-4 gy-3 mb-3">
-                      <div class="col-sm-5">
-                          <input class="form-control" type="text" placeholder="Modulo 1" formControlName="sizes">
-                      </div>
-                      <div class="col-sm-5">
-                          <input class="form-control" type="text" placeholder="Link Referencia" formControlName="sizes">
-                      </div>
-                      <div class="col-sm-2 d-flex align-items-center">
-                          <a href="javascripts:void(0);" (click)="removeItem($index)"><i class="ci-trash me-2"></i><ins>Delete</ins></a>
-                      </div>
-                  </div>
-                  }
-                  <a href="javascripts:void(0);" (click)="addItem()"><i class="ci-add me-1"></i><ins>Add
-                    more</ins></a>
-
+            <div class="row gy-3 mb-4 pb-md-3 mb-2" formArrayName="modulos">
+              <div class="row gy-md-4 gy-3 mb-3" [formGroupName]="i"
+                *ngFor="let item of getItemFormControls(); let i = index">
+                <div class="col-sm-5">
+                  <input class="form-control" type="text" placeholder="Nombre modulo" formControlName="nombreModulo">
+                </div>
+                <div class="col-sm-5">
+                  <input class="form-control" type="text" placeholder="Link Referencia" formControlName="urlModulo">
+                </div>
+                <div class="col-sm-2 d-flex align-items-center">
+                  <a (click)="removeItem(i)"><i
+                      class="ci-trash me-2"></i><ins>Eliminar</ins></a>
+                </div>
               </div>
-              <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Enviar</button>
-            </form>
 
-
-          </ng-template>
-        </li>
-      </ul>
-      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="closemodal()"></button>
-    </div>
-    <div class="modal-body tab-content py-4">
-      <div [ngbNavOutlet]="nav"></div>
-    </div>
+              <a (click)="addItem()"><i class="ci-add me-1"></i><ins>Agregar otro</ins></a>
+            </div>
+            <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Enviar</button>
+          </form>
+        </ng-template>
+      </li>
+    </ul>
+    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="closemodal()"></button>
   </div>
-<!-- </ng-template> -->
-
+  <div class="modal-body tab-content py-4">
+    <div [ngbNavOutlet]="nav"></div>
+  </div>
+</div>

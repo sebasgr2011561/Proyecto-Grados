@@ -22,14 +22,15 @@ namespace Infrastructure.Persistence.Repository
             var response = new BaseEntityResponse<AssignmentDto>();
 
             var assignmentsByStudent = (from a in _context.Asignacions.ToList()
-                                        join c in _context.Recursos.ToList() on a.IdRecurso equals c.Id
-                                        join s in _context.Usuarios.ToList() on a.IdEstudiante equals s.Id
-                                        where s.Id == studentId
+                                        join r in _context.Recursos.ToList() on a.IdRecurso equals r.Id
+                                        where a.Id == studentId
                                         select new AssignmentDto
                                         {
-                                            IdAsignacion = a.Id,
-                                            NombreRecurso = c.NombreRecurso,
-                                            Descripcion = c.Descripcion,
+                                            NombreRecurso = r.NombreRecurso,
+                                            Descripcion = r.Descripcion,
+                                            ImagenPortada = r.ImagenPortada,
+                                            Duracion = r.Duracion,
+                                            Precio = r.Precio,
                                             FechaAsignacion = a.FechaAsignacion
                                         }).ToList();
 

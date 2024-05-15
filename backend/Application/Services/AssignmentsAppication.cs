@@ -45,9 +45,9 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> CreateAssignment(AssignmentRequestDto requestDto)
+        public async Task<BaseResponse<int>> CreateAssignment(AssignmentRequestDto requestDto)
         {
-            var response = new BaseResponse<bool>();
+            var response = new BaseResponse<int>();
             var validationResult = await _validationRules.ValidateAsync(requestDto);
 
             if (!validationResult.IsValid)
@@ -62,7 +62,7 @@ namespace Application.Services
             assignment.Estado = Convert.ToBoolean(StateTypes.Active);
             response.Data = await _unitOfWork.Assignments.CreateAsync(assignment);
 
-            if (response.Data)
+            if (response.Data > 0)
             {
                 response.IsSuccess = true;
                 response.Message = ReplyMessage.MESSAGE_SAVE;
