@@ -45,8 +45,8 @@ namespace Application.Services
 
             if (requestDto.ImagenRecurso is not null)
             {
-                //course.ImagenPortada = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
-                course.ImagenPortada = await _fileStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+                course.ImagenPortada = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+                //course.ImagenPortada = await _fileStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
             }
 
             response.Data = await _unitOfWork.Courses.CreateAsync(course);
@@ -200,8 +200,8 @@ namespace Application.Services
 
             if (requestDto.ImagenRecurso is not null)
             {
-                //course.ImagenPortada = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
-                course.ImagenPortada = await _fileStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+                course.ImagenPortada = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+                //course.ImagenPortada = await _fileStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
             }
 
 
