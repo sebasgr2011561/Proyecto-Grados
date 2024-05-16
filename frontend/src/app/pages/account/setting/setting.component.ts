@@ -19,6 +19,7 @@ export class SettingComponent implements OnInit {
   userForm!: UntypedFormGroup;
   userId: any;
   roles: any;
+  urlImage!: any;
 
   constructor(private formBuilder: UntypedFormBuilder, 
     private api: ApiService, 
@@ -90,6 +91,8 @@ export class SettingComponent implements OnInit {
       this.userForm.controls['email'].setValue(data.data.email);
       this.userForm.controls['password'].setValue('');
       this.userForm.controls['bio'].setValue(data.data.biografia);
+      this.urlImage = data.data.imagen;
+      localStorage.setItem('urImage', this.urlImage);
     })
   }
 

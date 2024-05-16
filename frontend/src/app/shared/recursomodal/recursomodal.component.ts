@@ -38,8 +38,9 @@ export class RecursomodalComponent {
   constructor(public formBuilder: UntypedFormBuilder, 
     private modalService: NgbModal, 
     private api: ApiService, 
-    private router: Router,
-    private dataApi: SharingDataService
+    private route: Router,
+    private dataApi: SharingDataService,
+    
   ) { }
 
   ngOnInit(): void {
@@ -121,6 +122,7 @@ export class RecursomodalComponent {
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success").then((result) => {
               if(result.isConfirmed) this.closemodal();
+              this.route.navigate(['/product'])
             });
           } else {
             Swal.fire({
