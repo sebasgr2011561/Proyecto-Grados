@@ -13,17 +13,32 @@ import Swal from 'sweetalert2';
 })
 export class IndexComponent implements OnInit {
   category: any;
-  restaurants: any;
-  review: any;
   courses: any;
 
   constructor(public router: Router, private api: ApiService) { }
 
   ngOnInit(): void {
-    this.category = categoryData
-    // this.restaurants = resturants
-    // this.review = Reviews
+    this.cargarCategorias();
+    this.cargarRecursos();
+    document.querySelector('.cart')?.classList.add('d-none')
+  }
 
+  cargarCategorias() {
+    this.api.getFullData('Category').subscribe((data) => {
+      if (data.isSuccess) {
+        this.category = data.data;
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: data.message,
+          icon: 'error',
+          confirmButtonText: 'Cerrar'
+        })
+      }
+    })
+  }
+
+  cargarRecursos() {
     this.api.getFullData('Course').subscribe((data) => {
       if (data.isSuccess) {
         this.courses = data.data;
@@ -36,8 +51,6 @@ export class IndexComponent implements OnInit {
         })
       }
     })
-
-    document.querySelector('.cart')?.classList.add('d-none')
   }
 
   /**

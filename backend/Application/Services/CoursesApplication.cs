@@ -197,6 +197,14 @@ namespace Application.Services
 
             var course = _mapper.Map<Recurso>(requestDto);
             course.Id = idCourse;
+
+            if (requestDto.ImagenRecurso is not null)
+            {
+                //course.ImagenPortada = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+                course.ImagenPortada = await _fileStorage.SaveFile(AzureContainers.COURSES, requestDto.ImagenRecurso);
+            }
+
+
             response.Data = await _unitOfWork.Courses.UpdateAsync(course);
 
             if (response.Data)

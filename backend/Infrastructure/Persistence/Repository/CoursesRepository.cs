@@ -14,7 +14,9 @@ namespace Infrastructure.Persistence.Repository
         public async Task<BaseEntityResponse<Recurso>> ListCoursers(BaseFiltersRequest request)
         {
             var response = new BaseEntityResponse<Recurso>();
-            var courses = GetEntityQuery();
+
+
+            var courses = request.Id > 0 ? GetEntityQuery().Where(x => x.IdCategoria == request.Id) : GetEntityQuery();
 
             if (request.NumFilter is not null && !string.IsNullOrEmpty(request.TextFilter))
             {
