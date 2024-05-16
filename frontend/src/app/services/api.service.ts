@@ -10,17 +10,24 @@ export class ApiService {
 
     api = "api/";
     apiUrl = environment.api;
+    bodyRequest: any;
 
-    bodyRequest: any = {
-        numPage: 1,
-        numRecordsPAge: 10,
-        order: 'asc',
-        sort: 'Id', 
-    };
+    
 
     constructor(private http: HttpClient) { }
 
-    getData(controller: string) : Observable<any> { 
+    getData(controller: string, id: number = 0) : Observable<any> { 
+
+        if (id !== 0) {
+            this.bodyRequest = {
+                numPage: 1,
+                numRecordsPAge: 10,
+                order: 'asc',
+                sort: 'Id', 
+                id: id
+            };   
+        }
+
         const url = this.apiUrl + this.api + controller + '/';
         return this.http.post<any>(url, this.bodyRequest);
     }
