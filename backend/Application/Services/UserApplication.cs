@@ -174,6 +174,12 @@ namespace Application.Services
             user.Id = idUser;
             user.Password = BC.HashPassword(requestDto.Password);
             user.Estado = Convert.ToBoolean(StateTypes.Active);
+
+            if (requestDto.Imagen is not null)
+            {
+                user.Imagen = await _unitOfWork.AzureStorage.SaveFile(AzureContainers.USERS, requestDto.Imagen);
+            }
+
             response.Data = await _unitOfWork.User.UpdateAsync(user);
 
             if (response.Data)

@@ -114,7 +114,9 @@ export class SettingComponent implements OnInit {
     formData.append("email", this.userForm.controls['email'].value);
     formData.append("password", this.userForm.controls['password'].value);
     formData.append("biografia", this.userForm.controls['bio'].value);
-    formData.append("imagen", this.imageURL!);
+    formData.append("imagen", this.imgFile);
+
+    debugger;
 
     Swal.fire({
       title: "¿Deseas guardar los cambios?",
@@ -146,9 +148,12 @@ export class SettingComponent implements OnInit {
 
   // File Upload
   imageURL: string | undefined;
+  imgFile!: File;
+
   fileChange(event: any) {
     let fileList: any = (event.target as HTMLInputElement);
     let file: File = fileList.files[0];
+    this.imgFile = fileList.files[0];
     const reader = new FileReader();
     reader.onload = () => {
       this.imageURL = reader.result as string;

@@ -15,7 +15,10 @@ export class AccountBreadcrumbsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('userName');
-    this.urlImage = localStorage.getItem('urImage');
+
+    setTimeout(() => {
+      this.userName = localStorage.getItem('userName');
+      this.urlImage = localStorage.getItem('urImage');
+    }, 1500);
   }
 }

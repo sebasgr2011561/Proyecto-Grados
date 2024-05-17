@@ -37,7 +37,8 @@ const routes: Routes = [
     path: 'restaurants', component: RestaurantsComponent
   },
   {
-    path: 'recurso', component: AuctionLiveComponent
+    path: 'recurso/:id', 
+    component: AuctionLiveComponent
   }
 
 ];

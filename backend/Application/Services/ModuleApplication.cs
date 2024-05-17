@@ -83,7 +83,9 @@ namespace Application.Services
         public async Task<BaseResponse<ModuleResponseDto>> GetModuleById(int idModulo)
         {
             var response = new BaseResponse<ModuleResponseDto>();
-            var course = await _unitOfWork.Modulos.GetByIdAsync(idModulo);
+            var courses = await _unitOfWork.Modulos.GetAllAsync();
+
+            var course = courses.Where(x => x.IdRecurso == idModulo);
 
             if (course is not null)
             {

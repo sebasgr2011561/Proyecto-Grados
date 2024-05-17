@@ -15,7 +15,7 @@
                     <div class="position-relative rounded-3 overflow-hidden
                     mb-lg-4 mb-2">
 
-                    <img class="rounded-circle mx-auto d-block" src="assets/img/marketplace/products/th080.jpg" alt="Avatar" >
+                    <img class="rounded-circle mx-auto d-block" [src]="course!.imagenPortada" alt="Avatar" >
 
                     </div>
                     <div class="pt-2 text-lg-start text-center">
@@ -37,15 +37,15 @@
                 <div class="col-lg-6">
                     <div class="ps-xl-5 ps-lg-3">
                         <!-- Meta -->
-                        <h2 class="h3 mb-3">Azure Devops</h2>
-                        <div class="d-flex align-items-center flex-wrap text-nowrap mb-sm-4 mb-3 fs-sm">
+                        <h2 class="h3 mb-3">{{ course.nombreRecurso }}</h2>
+                        <!-- <div class="d-flex align-items-center flex-wrap text-nowrap mb-sm-4 mb-3 fs-sm">
                             <div class="mb-2 me-sm-3 me-2 text-muted">
                                Oct 29, 2021
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row row-cols-sm-2 row-cols-1 gy-3 gx-4 mb-4 pb-md-2">
                             <!-- Creator -->
-                            <div class="col">
+                            <!-- <div class="col">
                                 <div class="card position-relative h-100">
                                     <div class="card-body p-3">
                                         <h3 class="h6 mb-2 fs-sm text-muted">Creador</h3>
@@ -58,16 +58,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- Collection -->
                         </div>
                         <!-- Description -->
                         <p class="mb-4 pb-md-2 fs-sm">
-                            Hendrerit interdum sit massa lobortis. Habitant
-                            faucibus lorem dui
-                            mauris. Pellentesque nunc, tortor quam consequat
-                            odio. Sed faucibus id rhoncus, scelerisque
-                            tristique ultricies nam.
+                            {{course.descripcion}}
                         </p>
                         <!-- Place a bid -->
                         <!-- Product info -->
@@ -76,219 +72,41 @@
                             <div class="mb-4" style="overflow-x: auto;">
                                 <ul ngbNav #nav="ngbNav" class="nav nav-tabs
                                     nav-fill flex-nowrap text-nowrap mb-1" role="tablist">
-                                    <li class="nav-item" [ngbNavItem]="1">
-                                        <a ngbNavLink class="nav-link" data-bs-toggle="tab" role="tab">
-                                            Details
-                                        </a>
-                                        <ng-template ngbNavContent>
-                                            <!-- Details -->
-                                            <div class="tab-pane fade show
-                                                active" id="details" role="tabpanel">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="d-flex
-                                                        flex-sm-row flex-column
-                                                        align-items-sm-center
-                                                        justify-content-between
-                                                        mb-2 fs-sm">
-                                                        <span>Contract Address</span>
-                                                        <div>
-                                                            <a class="text-decoration-none" href="javascript:void(0);">
-                                                                <span class="fw-medium
-                                                                    text-body">0x1dDB2C08s97...9Ec</span>
-                                                                <i class="ci-external-link
-                                                                    ms-3
-                                                                    text-accent"></i>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li class="d-flex
-                                                        flex-sm-row flex-column
-                                                        align-items-sm-center
-                                                        justify-content-between
-                                                        mb-2 fs-sm">
-                                                        <span>Token ID</span>
-                                                        <div>
-                                                            <a class="text-decoration-none" href="javascript:void(0);">
-                                                                <span class="text-body">8508550793340827...</span>
-                                                                <i class="ci-copy
-                                                                    ms-3
-                                                                    text-accent"></i>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                    <li class="d-flex
-                                                        flex-sm-row flex-column
-                                                        align-items-sm-center
-                                                        justify-content-between
-                                                        mb-2 fs-sm">
-                                                        <span>Token Standard</span>
-                                                        <div>
-                                                            <span class="text-body">ERC-1155</span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="d-flex
-                                                        flex-sm-row flex-column
-                                                        align-items-sm-center
-                                                        justify-content-between
-                                                        mb-2 fs-sm">
-                                                        <span>Blockchain</span>
-                                                        <div>
-                                                            <span class="text-body">Ethereum</span>
-                                                        </div>
-                                                    </li>
-                                                    <li class="d-flex
-                                                        flex-sm-row flex-column
-                                                        align-items-sm-center
-                                                        justify-content-between
-                                                        mb-2 fs-sm">
-                                                        <span>Metadata</span>
-                                                        <div>
-                                                            <span class="text-body">Editable</span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </ng-template>
-                                    </li>
                                     <li class="nav-item" [ngbNavItem]="2">
                                         <a ngbNavLink class="nav-link" data-bs-toggle="tab" role="tab">
-                                            Properties
+                                            Modulos
                                         </a>
                                         <ng-template ngbNavContent>
                                             <!-- Properties -->
                                             <div class="row row-cols-md-3
                                                 row-cols-2 g-3">
-                                                <div class="col">
+                                                <div class="col" *ngFor="let item of modulos">
                                                     <div class="card h-100">
                                                         <div class="card-body
                                                             p-3">
-                                                            <h6 class="mb-1
-                                                                fs-sm fw-normal
-                                                                text-muted">Artist</h6>
                                                             <h5 class="mb-1
                                                                 fs-sm">
                                                                 <a class="nav-link-style
-                                                                    text-primary" routerLink="/vendor">
-                                                                    &#64;foxnet_creator
+                                                                    text-primary" href="{{item.urlmodulo}}">
+                                                                    {{ item.nombreModulo}}
                                                                 </a>
                                                             </h5>
-                                                            <span class="fs-xs
-                                                                text-muted">
-                                                                0%
-                                                                rarity
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="card h-100">
-                                                        <div class="card-body
-                                                            p-3">
-                                                            <h6 class="mb-1
-                                                                fs-sm fw-normal
-                                                                text-muted">
-                                                                Asset size
-                                                                in bytes
-                                                            </h6>
-                                                            <h5 class="mb-1
-                                                                fs-sm">84624728</h5>
-                                                            <span class="fs-xs
-                                                                text-muted">
-                                                                0%
-                                                                rarity
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="card h-100">
-                                                        <div class="card-body
-                                                            p-3">
-                                                            <h6 class="mb-1
-                                                                fs-sm fw-normal
-                                                                text-muted">
-                                                                Asset
-                                                                type
-                                                            </h6>
-                                                            <h5 class="mb-1
-                                                                fs-sm">
-                                                                image /
-                                                                png
-                                                            </h5>
-                                                            <span class="fs-xs
-                                                                text-muted">
-                                                                15%
-                                                                rarity
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="card h-100">
-                                                        <div class="card-body
-                                                            p-3">
-                                                            <h6 class="mb-1
-                                                                fs-sm fw-normal
-                                                                text-muted">Category</h6>
-                                                            <h5 class="mb-1
-                                                                fs-sm">3D art</h5>
-                                                            <span class="fs-xs
-                                                                text-muted">
-                                                                12%
-                                                                rarity
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="card h-100">
-                                                        <div class="card-body
-                                                            p-3">
-                                                            <h6 class="mb-1
-                                                                fs-sm fw-normal
-                                                                text-muted">
-                                                                Year of
-                                                                release
-                                                            </h6>
-                                                            <h5 class="mb-1
-                                                                fs-sm">2021</h5>
-                                                            <span class="fs-xs
-                                                                text-muted">
-                                                                70%
-                                                                rarity
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="card h-100">
-                                                        <div class="card-body
-                                                            p-3">
-                                                            <h6 class="mb-1
-                                                                fs-sm fw-normal
-                                                                text-muted">Theme</h6>
-                                                            <h5 class="mb-1
-                                                                fs-sm">abstract</h5>
-                                                            <span class="fs-xs
-                                                                text-muted">
-                                                                9.5%
-                                                                rarity
-                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <span></span>
                                         </ng-template>
                                     </li>
-                                    <li class="nav-item" [ngbNavItem]="3">
+                                    <!-- <li class="nav-item" [ngbNavItem]="3">
                                         <a ngbNavLink class="nav-link" data-bs-toggle="tab" role="tab">
                                             Bid
                                             History
                                         </a>
                                         <ng-template ngbNavContent>
-                                            <!-- Bid History -->
+                                            
                                             <ul class="list-unstyled mb-0">
-                                                <!-- Bid -->
+                                                
                                                 <li class="d-flex
                                                     align-items-sm-center
                                                     align-items-start w-100 mb-3
@@ -331,7 +149,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <!-- Bid -->
+                                                
                                                 <li class="d-flex
                                                     align-items-sm-center
                                                     align-items-start w-100 mb-3
@@ -374,7 +192,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <!-- Bid -->
+                                                
                                                 <li class="d-flex
                                                     align-items-sm-center
                                                     align-items-start w-100">
@@ -424,9 +242,9 @@
                                             Provenance
                                         </a>
                                         <ng-template ngbNavContent>
-                                            <!-- Provenance -->
+                                            
                                             <ul class="list-unstyled mb-4">
-                                                <!-- Provenance item -->
+                                                
                                                 <li class="position-relative
                                                     mb-0 ps-4 pb-4
                                                     border-start">
@@ -449,7 +267,7 @@
                                                         9:36 am
                                                     </span>
                                                 </li>
-                                                <!-- Provenance item -->
+                                                
                                                 <li class="position-relative
                                                     mb-0 ps-4 pb-4
                                                     border-start">
@@ -472,7 +290,7 @@
                                                         11:20 am
                                                     </span>
                                                 </li>
-                                                <!-- Provenance item -->
+                                                
                                                 <li class="position-relative
                                                     mb-0 ps-4 pb-4
                                                     border-start">
@@ -495,7 +313,7 @@
                                                         6:29 pm
                                                     </span>
                                                 </li>
-                                                <!-- Provenance item -->
+                                                
                                                 <li class="position-relative
                                                     mb-0 ps-4 border-start">
                                                     <span class="d-inline-block
@@ -525,7 +343,7 @@
                                                 Load more
                                             </button>
                                         </ng-template>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                             <!-- Tabs content -->

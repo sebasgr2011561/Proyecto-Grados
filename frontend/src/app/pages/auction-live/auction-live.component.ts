@@ -8,6 +8,8 @@ import { favorite } from '../favorite/data';
 
 //Data Get
 import { collection } from './data';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-auction-live',
@@ -36,11 +38,18 @@ export class AuctionLiveComponent implements OnInit {
   myThumbnail: any;
   myFullresImage: any;
   auctiontime: any;
+  idRecurso!: number;
+  course: any;
+  modulos!: any[];
 
-  constructor() {
+  constructor(
+    private apiService: ApiService,
+    private route: ActivatedRoute) {
     this.name = 'zoom-image'
     this.myThumbnail = "https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
     this.myFullresImage = "https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
+
+    this.idRecurso = +this.route.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {
@@ -68,7 +77,23 @@ export class AuctionLiveComponent implements OnInit {
     // Date Set
     this.auctiontime = "12/12/2023 07:00:00 PM";
 
+    this.cargarRecurso();
+    this.cargarModulos();
 
+  }
+
+  cargarRecurso() {
+    this.apiService.getDataById('Course', this.idRecurso).subscribe((data) => {
+      this.course = data.data;
+      console.log('Category - Course: ', this.course);
+    })
+  }
+
+  cargarModulos() {
+    this.apiService.getData('Modules', this.idRecurso).subscribe((data) => {
+      this.modulos = data.data.items;
+      console.log('Category - Modulos: ', this.modulos);
+    })
   }
 
   ngAfterViewInit(): void {
