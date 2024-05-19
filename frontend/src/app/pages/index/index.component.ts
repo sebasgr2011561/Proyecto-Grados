@@ -53,6 +53,10 @@ export class IndexComponent implements OnInit {
     })
   }
 
+  redirectToAuctionLive(idRecurso: number) {
+    this.router.navigate(['/recurso', idRecurso]);
+  }
+
   /**
  * Swiper setting
  */
