@@ -131,10 +131,10 @@ namespace Application.Services
 
             var modulos = courses.Where(x => x.IdRecurso == moduleId).ToList();
 
-            if (courses is not null)
+            if (modulos is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<IEnumerable<ModuleSelectResponseDto>>(courses);
+                response.Data = _mapper.Map<IEnumerable<ModuleSelectResponseDto>>(modulos);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
 
                 return response;
