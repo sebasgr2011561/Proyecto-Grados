@@ -85,7 +85,7 @@ namespace Application.Services
             var response = new BaseResponse<ModuleResponseDto>();
             var courses = await _unitOfWork.Modulos.GetAllAsync();
 
-            var course = courses.Where(x => x.IdRecurso == idModulo);
+            var course = courses.Where(x => x.IdRecurso == idModulo).ToList();
 
             if (course is not null)
             {
@@ -124,10 +124,12 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<IEnumerable<ModuleSelectResponseDto>>> ListSelectModules()
+        public async Task<BaseResponse<IEnumerable<ModuleSelectResponseDto>>> ListSelectModules(int moduleId)
         {
             var response = new BaseResponse<IEnumerable<ModuleSelectResponseDto>>();
             var courses = await _unitOfWork.Modulos.GetAllAsync();
+
+            var modulos = courses.Where(x => x.IdRecurso == moduleId).ToList();
 
             if (courses is not null)
             {

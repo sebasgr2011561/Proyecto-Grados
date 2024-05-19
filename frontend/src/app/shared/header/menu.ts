@@ -24,24 +24,6 @@ export const MENU_ADMIN: MenuItem[] = [
                 label: 'Usuarios',
                 link: '/usuarios',
                 parentId: 11
-            },
-            {
-                id: 4,
-                label: 'Categorias',
-                link: '/categories',
-                parentId: 11
-            },
-            {
-                id: 5,
-                label: 'Rutas',
-                link: '/routes',
-                parentId: 11
-            },
-            {
-                id: 6,
-                label: 'Recursos',
-                link: '/courses',
-                parentId: 11
             }
         ]
     }

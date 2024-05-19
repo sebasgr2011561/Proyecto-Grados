@@ -23,10 +23,10 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("Select")]
-        public async Task<IActionResult> ListSelectCategories()
+        [HttpGet("Select/{moduleId:int}")]
+        public async Task<IActionResult> ListSelectModules(int moduleId)
         {
-            var response = await _moduleApplication.ListSelectModules();
+            var response = await _moduleApplication.ListSelectModules(moduleId);
             return Ok(response);
         }
 

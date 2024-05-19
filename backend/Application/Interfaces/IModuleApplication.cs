@@ -9,7 +9,7 @@ namespace Application.Interfaces
     public interface IModuleApplication
     {
         Task<BaseResponse<BaseEntityResponse<ModuleResponseDto>>> ListModules(BaseFiltersRequest filters);
-        Task<BaseResponse<IEnumerable<ModuleSelectResponseDto>>> ListSelectModules();
+        Task<BaseResponse<IEnumerable<ModuleSelectResponseDto>>> ListSelectModules(int moduleId);
         Task<BaseResponse<ModuleResponseDto>> GetModuleById(int idModulo);
         Task<BaseResponse<int>> CreateModule(List<ModuleRequestDto> requestDto);
         Task<BaseResponse<bool>> UpdateModule(int idModulo, List<ModuleRequestDto> requestDto);

@@ -116,7 +116,7 @@
             <div class="fs-sm me-2">
               <!-- Pagination <span class="fs-xs ms-1">Duracion: {{cat.sale}}</span>-->
             </div>
-            <div class="bg-faded-accent text-accent rounded-1 py-1 px-2">Duracion: {{cat.duracion}} minutos</div>
+            <div class="bg-faded-accent text-accent rounded-1 py-1 px-2">Duracion: {{cat.duracion}} Horas</div>
           </div>
         </div>
       </div>
@@ -165,11 +165,11 @@
             <h5 class="h6 mb-3 pb-3 border-bottom"><i
                 class="ci-announcement text-muted fs-lg align-middle mt-n1 me-2"></i>Información</h5>
             <h6 class="fs-sm mb-2">Duración:</h6>
-            <p class="fs-sm">{{productdetail.duracion}} minutos</p>
+            <p class="fs-sm">{{productdetail.duracion}} Horas</p>
             <h6 class="fs-sm mb-2">Precio:</h6>
             <p class="fs-sm">{{productdetail.precio | currency}}</p>
           </div>
-          <div *ngIf="idProfesor !== 2">
+          <div *ngIf="idRol === 3">
             <button class="btn btn-primary btn-shadow d-block w-100" type="submit"
             (click)="modal.dismiss('Cross click')"><i class="ci-cart fs-lg me-2"></i>Suscribirme</button>
           </div>

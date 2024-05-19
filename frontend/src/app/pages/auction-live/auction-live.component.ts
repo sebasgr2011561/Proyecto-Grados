@@ -41,6 +41,7 @@ export class AuctionLiveComponent implements OnInit {
   idRecurso!: number;
   course: any;
   modulos!: any[];
+  idPerfil!: number;
 
   constructor(
     private apiService: ApiService,
@@ -50,6 +51,7 @@ export class AuctionLiveComponent implements OnInit {
     this.myFullresImage = "https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
 
     this.idRecurso = +this.route.snapshot.paramMap.get('id')!;
+    this.idPerfil = +localStorage.getItem('idRol')!;
   }
 
   ngOnInit(): void {
@@ -79,7 +81,6 @@ export class AuctionLiveComponent implements OnInit {
 
     this.cargarRecurso();
     this.cargarModulos();
-
   }
 
   cargarRecurso() {
@@ -90,8 +91,8 @@ export class AuctionLiveComponent implements OnInit {
   }
 
   cargarModulos() {
-    this.apiService.getData('Modules', this.idRecurso).subscribe((data) => {
-      this.modulos = data.data.items;
+    this.apiService.getFullData('Modules', this.idRecurso).subscribe((data) => {
+      this.modulos = data.data;
       console.log('Category - Modulos: ', this.modulos);
     })
   }

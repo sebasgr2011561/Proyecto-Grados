@@ -30,7 +30,7 @@ export class CategoryComponent implements OnInit {
   selectedCategory: any;
   itemicon: any;
   isDesc: boolean = false;
-  idProfesor!: number;
+  idRol!: number;
 
   // Table data
   CategoryList!: Observable<CategoryModel[]>;
@@ -49,6 +49,7 @@ export class CategoryComponent implements OnInit {
 
     this.idCategory = +this.route.snapshot.paramMap.get('id')!;
     
+    this.idRol = +localStorage.getItem('idRol')!;
   }
 
   redirectToAuctionLive(idRecurso: number) {
@@ -57,8 +58,6 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
 
     this.cargarRecursos();
-    this.idProfesor = +localStorage.getItem('idRol')!;
-
 
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;

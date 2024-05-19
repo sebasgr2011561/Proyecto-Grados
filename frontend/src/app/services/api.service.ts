@@ -32,8 +32,14 @@ export class ApiService {
         return this.http.post<any>(url, this.bodyRequest);
     }
 
-    getFullData(controller: string) : Observable<any> { 
-        const url = this.apiUrl + this.api + controller + '/select';
+    getFullData(controller: string, id: number = 0) : Observable<any> { 
+        let url = '';
+        if (id === 0) {
+            url = this.apiUrl + this.api + controller + '/select';    
+        } else {
+            url = this.apiUrl + this.api + controller + '/select/' + id;
+        }
+        
         return this.http.get<any>(url)
     }
 
