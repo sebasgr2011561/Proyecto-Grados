@@ -54,7 +54,8 @@
         <div class="row">
             @for(course of courses;track $index){
             <div class="col-md-4 col-sm-6 mb-grid-gutter">
-                <a class="card border-0 shadow" (click)="redirectToAuctionLive(course.idRecurso)" ><img class="card-img-top" src="{{course.imagenPortada}}" alt="{{course.descripcion}}">
+                <a class="card border-0 shadow" (click)="redirectToAuctionLive(course.idRecurso)" >
+                    <img class="card-img-top" src="{{course.imagenPortada}}" alt="{{course.descripcion}}">
                     <div class="card-body py-4 text-center">
                         <h3 class="h5 mt-1">{{course.nombreRecurso}}</h3>
                     </div>
