@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbCollapseModule, NgbNavModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +42,8 @@ import { RecursomodalComponent } from './recursomodal/recursomodal.component';
     ReactiveFormsModule,
     ScrollToModule.forRoot()
   ],
-  providers: [LanguageService],
+  providers: [LanguageService, 
+    DatePipe],
   exports: [
     HeaderComponent,
     FooterComponent,

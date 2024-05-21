@@ -16,8 +16,13 @@ export class ProductComponent implements OnInit {
   products: any;
   sortfilter: any;
   isDesc: boolean = false;
+  idRolEstudiante!: number;
+  userId!: number;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService) { 
+    this.idRolEstudiante = +localStorage.getItem('idRol')!;
+    this.userId = +localStorage.getItem('userId')!;
+  }
 
   ngOnInit(): void {
 
@@ -33,10 +38,17 @@ export class ProductComponent implements OnInit {
   }
 
   cargarRecursos() {
-    this.api.getFullData('Course').subscribe((data) => {
-      console.log('Cursos: ', data.data)
-      this.products = data.data;
-    })
+    if (this.idRolEstudiante !== 3) {
+      this.api.getFullData('Course').subscribe((data) => {
+        console.log('Cursos: ', data.data)
+        this.products = data.data;
+      })
+    } else {
+      this.api.getDataAssignments("Assignment", this.userId).subscribe((data) => {
+        console.log('Cursos Asignados: ', data.data)
+        this.products = data.data;
+      })
+    }
   }
 
   //remove from products

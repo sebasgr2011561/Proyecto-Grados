@@ -16,6 +16,11 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
+    getDataAssignments(controller: string, id: number):Observable<any> {
+        const url = this.apiUrl + this.api + controller + '/AssignmentsByStudent/' + id;
+        return this.http.get<any>(url)
+    }
+
     getData(controller: string, id: number = 0) : Observable<any> { 
 
         if (id !== 0) {

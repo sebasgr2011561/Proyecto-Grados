@@ -14,14 +14,14 @@ namespace Infrastructure.Extensions
         {
             var assembly = typeof(EDucaTdaContext).Assembly.FullName;
 
-            var ConnectionId = Convert.ToInt32(configuration.GetConnectionString("ConnectionId"));
+            var ConnectionId = Convert.ToInt32(configuration.GetConnectionString("IdConnection"));
 
             if (ConnectionId == 0)
             {
                 // PersistenceConnection
                 services.AddDbContext<EDucaTdaContext>(
                 option => option.UseSqlServer(
-                    configuration.GetConnectionString("PersitenceConnection"),
+                    configuration.GetConnectionString("Persistence"),
                     b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
             }
             else if (ConnectionId == 1)
@@ -29,15 +29,7 @@ namespace Infrastructure.Extensions
                 // LocalConnection
                 services.AddDbContext<EDucaTdaContext>(
                 option => option.UseSqlServer(
-                    configuration.GetConnectionString("LocalConnection"),
-                    b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
-            } 
-            else
-            {
-                // AzureConnection
-                services.AddDbContext<EDucaTdaContext>(
-                option => option.UseSqlServer(
-                    configuration.GetConnectionString("AzureConnection"),
+                    configuration.GetConnectionString("Azure"),
                     b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
             }
 

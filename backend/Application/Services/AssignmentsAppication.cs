@@ -5,9 +5,11 @@ using Application.Interfaces;
 using Application.Validators.Assignments;
 using AutoMapper;
 using Domain.Entities;
+using Domain.EntitiesDto;
 using Infrastructure.Commons.Bases.Request;
 using Infrastructure.Commons.Bases.Response;
 using Infrastructure.Persistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Utilities.Static;
 
 namespace Application.Services
@@ -147,15 +149,32 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<IEnumerable<AssignmentSelectResponseDto>>> ListSelectAssignments()
+        public async Task<BaseResponse<IEnumerable<AssignmentSelectResponseDto>>> ListSelectAssignments(int studentId)
         {
             var response = new BaseResponse<IEnumerable<AssignmentSelectResponseDto>>();
+
             var assignments = await _unitOfWork.Assignments.GetAllAsync();
+            var courses = await _unitOfWork.Courses.GetAllAsync();
+
+            var assignmentsByStudent = (from a in assignments
+                                        join r in courses on a.IdRecurso equals r.Id
+                                        where a.IdEstudiante == studentId
+                                        select new AssignmentSelectResponseDto
+                                        {
+                                            IdAsignacion = a.Id,
+                                            IdRecurso = a.IdRecurso,
+                                            ImagenPortada = r.ImagenPortada,
+                                            NombreRecurso = r.NombreRecurso,
+                                            Descripcion = r.Descripcion,
+                                            Duracion = r.Duracion,
+                                            FechaAsignacion = a.FechaAsignacion
+                                        }).ToList();
+
 
             if (assignments is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<IEnumerable<AssignmentSelectResponseDto>>(assignments);
+                response.Data = _mapper.Map<IEnumerable<AssignmentSelectResponseDto>>(assignmentsByStudent);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
 
                 return response;

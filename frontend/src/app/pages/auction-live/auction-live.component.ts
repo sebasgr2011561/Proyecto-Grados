@@ -10,6 +10,8 @@ import { favorite } from '../favorite/data';
 import { collection } from './data';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auction-live',
@@ -42,16 +44,23 @@ export class AuctionLiveComponent implements OnInit {
   course: any;
   modulos!: any[];
   idPerfil!: number;
+  idUsuario!: number;
+  myDate: any = new Date();
 
   constructor(
-    private apiService: ApiService,
-    private route: ActivatedRoute) {
+    private api: ApiService,
+    private route: ActivatedRoute,
+    private datePipe: DatePipe
+  ) {
     this.name = 'zoom-image'
     this.myThumbnail = "https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
     this.myFullresImage = "https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
 
     this.idRecurso = +this.route.snapshot.paramMap.get('id')!;
     this.idPerfil = +localStorage.getItem('idRol')!;
+    this.idUsuario = +localStorage.getItem('userId')!;
+
+    this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
   }
 
   ngOnInit(): void {
@@ -84,14 +93,14 @@ export class AuctionLiveComponent implements OnInit {
   }
 
   cargarRecurso() {
-    this.apiService.getDataById('Course', this.idRecurso).subscribe((data) => {
+    this.api.getDataById('Course', this.idRecurso).subscribe((data) => {
       this.course = data.data;
       console.log('Category - Course: ', this.course);
     })
   }
 
   cargarModulos() {
-    this.apiService.getFullData('Modules', this.idRecurso).subscribe((data) => {
+    this.api.getFullData('Modules', this.idRecurso).subscribe((data) => {
       this.modulos = data.data;
       console.log('Category - Modulos: ', this.modulos);
     })
@@ -189,6 +198,39 @@ export class AuctionLiveComponent implements OnInit {
   addfavorite(id: any) {
     this.morecollection[id].is_like = '1'
     favorite.push(this.morecollection[id])
+  }
+
+  suscribirme() {
+
+    let data = {
+      idEstudiante: this.idUsuario,
+      idRecurso: this.idRecurso,
+      fechaAsignacion: this.myDate
+    }
+
+    Swal.fire({
+      title: "¿Deseas suscribirte a este curso?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      denyButtonText: `No guardar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.createData('Assignment', data).subscribe((data) => {
+          if (data.isSuccess) {
+            Swal.fire(data.message, "", "success");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.message
+            });
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire("No se guardaron los cambios", "", "info");
+      }
+    })
   }
 
 }

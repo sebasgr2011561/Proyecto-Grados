@@ -13,12 +13,6 @@ namespace API.Extensions
                 Version = "v1",
                 Description = "E-duca TdeA API 2023",
                 TermsOfService = new Uri("https://opensource.org/licenses/NIT"),
-                Contact = new OpenApiContact
-                {
-                    Name = "Hamilton DevTech",
-                    Email = "hamiltonrenmordev@gmail.com",
-                    Url = new Uri("https://hamiltondevtech.com/contacto/")
-                },
                 License = new OpenApiLicense
                 {
                     Name = "License",
