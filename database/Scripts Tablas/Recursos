@@ -1,0 +1,41 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Recursos](
+	[IdRecurso] [int] IDENTITY(1,1) NOT NULL,
+	[IdProfesor] [int] NOT NULL,
+	[IdCategoria] [int] NOT NULL,
+	[NombreRecurso] [nvarchar](100) NOT NULL,
+	[Descripcion] [nvarchar](max) NOT NULL,
+	[ImagenPortada] [nvarchar](max) NULL,
+	[Duracion] [int] NULL,
+	[Precio] [float] NULL,
+	[Estado] [bit] NOT NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Recursos] ADD  CONSTRAINT [PK_Recursos] PRIMARY KEY CLUSTERED 
+(
+	[IdRecurso] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [IX_Recursos_IdCategoria] ON [dbo].[Recursos]
+(
+	[IdCategoria] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, DROP_EXISTING = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [IX_Recursos_IdProfesor] ON [dbo].[Recursos]
+(
+	[IdProfesor] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, DROP_EXISTING = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Recursos]  WITH CHECK ADD  CONSTRAINT [FK_Recursos_Categoria] FOREIGN KEY([IdCategoria])
+REFERENCES [dbo].[Categoria] ([IdCategoria])
+GO
+ALTER TABLE [dbo].[Recursos] CHECK CONSTRAINT [FK_Recursos_Categoria]
+GO
+ALTER TABLE [dbo].[Recursos]  WITH CHECK ADD  CONSTRAINT [FK_Recursos_Usuarios] FOREIGN KEY([IdProfesor])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[Recursos] CHECK CONSTRAINT [FK_Recursos_Usuarios]
+GO

@@ -4,6 +4,10 @@ import { product } from './data';
 // Sweet Alert
 import Swal from 'sweetalert2';
 import { ApiService } from 'src/app/services/api.service';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CalificacionmodalComponent } from 'src/app/shared/calificacionmodal/calificacionmodal.component';
+import { SharingDataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-product',
@@ -19,7 +23,11 @@ export class ProductComponent implements OnInit {
   idRolEstudiante!: number;
   userId!: number;
 
-  constructor(private api: ApiService) { 
+  constructor(private api: ApiService,
+    private route: Router,
+    private modalService: NgbModal,
+    private dataApi: SharingDataService
+  ) { 
     this.idRolEstudiante = +localStorage.getItem('idRol')!;
     this.userId = +localStorage.getItem('userId')!;
   }
@@ -51,6 +59,10 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  editproduct(id:number) {
+    this.route.navigate(['/addproduct', id]);
+  }
+
   //remove from products
   removeproduct(id: any) {
     Swal.fire({
@@ -75,4 +87,9 @@ export class ProductComponent implements OnInit {
   }
 
   // Sort
+  openModal(id: number) {
+    console.log('IdCurso: ', id)
+    this.dataApi.idRecurso = id;
+    this.modalService.open(CalificacionmodalComponent, { size: 'md', centered: true });
+  }
 }

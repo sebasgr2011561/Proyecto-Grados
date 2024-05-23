@@ -11,7 +11,7 @@ namespace Infrastructure.FileStorage
 
         public AzureStorage(IConfiguration configuration)
         {
-            _connetionString = configuration.GetConnectionString("AzureStorage")!;
+            _connetionString = configuration.GetConnectionString("Storage")!;
         }
 
         public async Task<string> EditFile(string container, IFormFile file, string route)

@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecursomodalComponent } from 'src/app/shared/recursomodal/recursomodal.component';
 import { SharingDataService } from 'src/app/services/data.service';
 
@@ -40,15 +40,20 @@ export class AddproductComponent implements OnInit {
   userName:any;
   jwtDecode:any;
 
-  idRecurso = 0;
+  idRecurso: number  = 0;
+  idRecursoParam: number  = 0;
+  idRol: number = 0;
   imgBase64!: string | undefined;
+  messageButton!: string | undefined;
 
+  isActive = true;
 
   constructor(private route: Router, 
     private modalService: NgbModal,
     private formBuilder: UntypedFormBuilder, 
     private api: ApiService,
-    private dataApi: SharingDataService
+    private dataApi: SharingDataService,
+    private router: ActivatedRoute
   ) {
     this.selectedcategory = 'ETH'
 
@@ -58,11 +63,19 @@ export class AddproductComponent implements OnInit {
       ])
     })
 
+    this.idRol = +localStorage.getItem('idRol')!;
+    this.idRecursoParam = +this.router.snapshot.paramMap.get('id')!;
 
+    if (this.idRecursoParam === 0) {
+      this.messageButton = "Guardar recurso";
+    } else {
+      this.messageButton = "Actualizar recurso";
+    }
   }
 
   ngOnInit(): void {
 
+    
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;
 
@@ -82,18 +95,32 @@ export class AddproductComponent implements OnInit {
 
     this.cargarCategorias();
 
-        //modal validations
-        this.formData = this.formBuilder.group({
-          name: ['', [Validators.required]],
-          email: ['', [Validators.required]],
-          password: ['', [Validators.required]]
-        });
+    if (this.idRecursoParam !== 0) {
+      this.cargarRecurso(); 
+    }
 
-        this.signupformData = this.formBuilder.group({
-          name: ['', [Validators.required]],
-          email: ['', [Validators.required]],
-          password: ['', [Validators.required]]
-        });
+    //modal validations
+    this.formData = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
+
+    this.signupformData = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
+  }
+
+  cargarRecurso() {
+    this.api.getDataById('Course', this.idRecursoParam).subscribe((data) => {
+      this.recursoForm.controls['nombreRecurso'].setValue(data.data.nombreRecurso);
+      this.recursoForm.controls['imagenPortada'].setValue(data.data.imagenPortada);
+      this.recursoForm.controls['descripcion'].setValue(data.data.descripcion);
+      this.recursoForm.controls['duracion'].setValue(data.data.duracion);
+      this.recursoForm.controls['precio'].setValue(data.data.precio);
+    })
   }
 
   cargarCategorias() {
@@ -106,8 +133,8 @@ export class AddproductComponent implements OnInit {
    * Form data get
    */
   openModal() {
+    this.dataApi.idRecurso = this.idRecursoParam;
     this.modalService.open(RecursomodalComponent, { size: 'lg', centered: true });
-
   }
 
   closemodal() {
@@ -159,31 +186,59 @@ export class AddproductComponent implements OnInit {
     formData.append("Duracion", this.recursoForm.controls['duracion'].value);
     formData.append("Precio", this.recursoForm.controls['precio'].value);
 
-    Swal.fire({
-      title: "¿Deseas guardar los cambios?",
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "Guardar",
-      denyButtonText: `No guardar`
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.api.createData('Course', formData).subscribe((data) => {
-          if (data.isSuccess) {
-            Swal.fire(data.message, "", "success");
-            this.idRecurso = data.data;
-            this.dataApi.idRecurso = data.data;
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: data.message
-            });
-          }
-        })
-      } else if (result.isDenied) {
-        Swal.fire("No se guardaron los cambios", "", "info");
-      }
-    })
+    if (this.idRecursoParam === 0) {
+      Swal.fire({
+        title: "¿Deseas guardar los cambios?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Guardar",
+        denyButtonText: `No guardar`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.api.createData('Course', formData).subscribe((data) => {
+            if (data.isSuccess) {
+              Swal.fire(data.message, "", "success");
+              this.idRecurso = data.data;
+              this.dataApi.idRecurso = data.data;
+              this.isActive = false;
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: data.message
+              });
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire("No se guardaron los cambios", "", "info");
+        }
+      })
+    } else {
+      Swal.fire({
+        title: "¿Deseas guardar los cambios?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Guardar",
+        denyButtonText: `No guardar`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.api.updateData('Course', this.idRecursoParam, formData).subscribe((data) => {
+            if (data.isSuccess) {
+              Swal.fire(data.message, "", "success");
+              this.isActive = false;
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: data.message
+              });
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire("No se guardaron los cambios", "", "info");
+        }
+      })
+    }
 
     this.submitted = true;
   }

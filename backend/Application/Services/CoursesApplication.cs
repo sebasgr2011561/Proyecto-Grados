@@ -197,6 +197,7 @@ namespace Application.Services
 
             var course = _mapper.Map<Recurso>(requestDto);
             course.Id = idCourse;
+            course.Estado = Convert.ToBoolean(StateTypes.Active);
 
             if (requestDto.ImagenRecurso is not null)
             {

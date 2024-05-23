@@ -203,6 +203,7 @@ namespace Application.Services
 
             var assignment = _mapper.Map<Asignacion>(requestDto);
             assignment.Id = idAssignment;
+            assignment.Estado = Convert.ToBoolean(StateTypes.Active);
             response.Data = await _unitOfWork.Assignments.UpdateAsync(assignment);
 
             if (response.Data)

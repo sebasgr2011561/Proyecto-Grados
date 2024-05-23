@@ -164,6 +164,7 @@ namespace Application.Services
 
             var course = _mapper.Map<Categorium>(requestDto);
             course.Id = idCategory;
+            course.Estado = Convert.ToBoolean(StateTypes.Active);
             response.Data = await _unitOfWork.Categories.UpdateAsync(course);
 
             if (response.Data)

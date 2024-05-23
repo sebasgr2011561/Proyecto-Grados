@@ -85,12 +85,12 @@ namespace Application.Services
             var response = new BaseResponse<ModuleResponseDto>();
             var courses = await _unitOfWork.Modulos.GetAllAsync();
 
-            var course = courses.Where(x => x.IdRecurso == idModulo).ToList();
+            var course = courses.Where(x => x.Id == idModulo).ToList();
 
             if (course is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<ModuleResponseDto>(course);
+                response.Data = _mapper.Map<ModuleResponseDto>(course[0]);
                 response.Message = ReplyMessage.MESSAGE_QUERY;
             }
             else
@@ -151,32 +151,40 @@ namespace Application.Services
         public async Task<BaseResponse<bool>> UpdateModule(int idModulo, List<ModuleRequestDto> requestDto)
         {
             var response = new BaseResponse<bool>();
-            var courseUpdate = await GetModuleById(idModulo);
 
-            if (courseUpdate.Data is null)
+            foreach (var item in requestDto)
             {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
+                var courseUpdate = await GetModuleById(item.IdModulo);
 
-                return response;
-            }
+                if (courseUpdate.Data is null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
 
-            var modulo = _mapper.Map<Modulo>(requestDto);
-            modulo.Id = idModulo;
-            response.Data = await _unitOfWork.Modulos.UpdateAsync(modulo);
+                    return response;
+                }
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = ReplyMessage.MESSAGE_UPDATE;
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = ReplyMessage.MESSAGE_FAILED;
+                var modulo = _mapper.Map<Modulo>(item);
+                modulo.Id = item.IdModulo;
+                modulo.Estado = Convert.ToBoolean(StateTypes.Active);
+                response.Data = await _unitOfWork.Modulos.UpdateAsync(modulo);
+
+                if (response.Data)
+                {
+                    response.IsSuccess = true;
+                    response.Message = ReplyMessage.MESSAGE_UPDATE;
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = ReplyMessage.MESSAGE_FAILED;
+                }
+
+                
             }
 
             return response;
+
         }
     }
 }

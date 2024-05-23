@@ -38,8 +38,10 @@ const routes: Routes = [
   },
   {
     path: 'addproduct', component: AddproductComponent
-  }
-  ,
+  },
+  {
+    path: 'addproduct/:id', component: AddproductComponent
+  },
   {
     path: 'product', component: ProductComponent
   }

@@ -17,6 +17,7 @@ export class SharingDataService {
     public get idRecurso(): number {
         return this._idRecurso;
     }
+    
     public set idRecurso(value: number) {
         this._idRecurso = value;
     }

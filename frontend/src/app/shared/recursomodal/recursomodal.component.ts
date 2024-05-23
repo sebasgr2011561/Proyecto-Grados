@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, AbstractControl, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { SharingDataService } from 'src/app/services/data.service';
 
@@ -34,18 +34,28 @@ export class RecursomodalComponent {
   userName: any;
 
   listModulos: any[] = [];
+  idRecursoParam: number  = 0;
 
   constructor(public formBuilder: UntypedFormBuilder, 
     private modalService: NgbModal, 
     private api: ApiService, 
     private route: Router,
     private dataApi: SharingDataService,
+    private router: ActivatedRoute
     
-  ) { }
+  ) { 
+
+    this.idRecursoParam = this.dataApi.idRecurso;
+  }
 
   ngOnInit(): void {
 
     this.crearFormulario();
+
+    console.log('idRecurso: ', this.idRecursoParam)
+    if (this.idRecursoParam !== 0) {
+      this.cargarModulos();
+    }
 
     // Validation
     this.formData = this.formBuilder.group({
@@ -59,6 +69,18 @@ export class RecursomodalComponent {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
+
+  cargarModulos() {
+    this.api.getFullData('Modules', this.idRecursoParam).subscribe((data) => {
+      for (let i = 0; i < data.data.length; i++) {
+        this.addItem();
+        const element = data.data[i];
+        (this.moduleForm.controls['modulos'] as FormArray).at(i).get('idModulo')?.setValue(element.idModulo);
+        (this.moduleForm.controls['modulos'] as FormArray).at(i).get('nombreModulo')?.setValue(element.nombreModulo);
+        (this.moduleForm.controls['modulos'] as FormArray).at(i).get('urlModulo')?.setValue(element.urlmodulo);
+      }
+    })
   }
 
   crearFormulario() {
@@ -103,46 +125,84 @@ export class RecursomodalComponent {
  * submit signin form
  */
   signin() {
-    let idRecurso = this.dataApi.idRecurso;
+
+    let idRecurso = this.idRecursoParam === 0 ? this.dataApi.idRecurso : this.idRecursoParam;
     let modulos = this.moduleForm.value['modulos'];
 
     for (let index = 0; index < modulos.length; index++) {
       modulos[index].idRecurso = idRecurso;
     }
 
-    Swal.fire({
-      title: "¿Deseas guardar los cambios?",
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "Guardar",
-      denyButtonText: `No guardar`
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.api.createData('Modules', modulos).subscribe((data) => {
-          if (data.isSuccess) {
-            Swal.fire(data.message, "", "success").then((result) => {
-              if(result.isConfirmed) this.closemodal();
-              this.route.navigate(['/product'])
-            });
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: data.message
-            });
-          }
-        })
-      } else if (result.isDenied) {
-        Swal.fire("No se guardaron los cambios", "", "info");
-      }
-    })
+    if (this.idRecursoParam === 0) {
+      Swal.fire({
+        title: "¿Deseas guardar los cambios?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Guardar",
+        denyButtonText: `No guardar`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.api.createData('Modules', modulos).subscribe((data) => {
+            if (data.isSuccess) {
+              Swal.fire(data.message, "", "success").then((result) => {
+                if(result.isConfirmed) this.closemodal();
+                this.route.navigate(['/product'])
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: data.message
+              });
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire("No se guardaron los cambios", "", "info");
+        }
+      })
+    } else {
+      Swal.fire({
+        title: "¿Deseas guardar los cambios?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Guardar",
+        denyButtonText: `No guardar`
+      }).then((result) => {
+        let moduleId = modulos[0].idModulo;
+        if (result.isConfirmed) {
+          this.api.updateData('Modules', moduleId, modulos).subscribe((data) => {
+            if (data.isSuccess) {
+              Swal.fire(data.message, "", "success").then((result) => {
+                if(result.isConfirmed) this.closemodal();
+                this.route.navigate(['/product'])
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: data.message
+              });
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire("No se guardaron los cambios", "", "info");
+        }
+      })
+    }
   }
 
   signup() { }
   
   // Delete Item
   removeItem(index: any) {
-    (this.moduleForm.get('modulos') as UntypedFormArray).removeAt(index);
+    if (this.idRecursoParam !== 0) {
+      this.api.deleteData('Modules', index).subscribe((data) => {
+        console.log('Message: ', data.message);
+        (this.moduleForm.get('modulos') as UntypedFormArray).removeAt(index);
+      })
+    } else {
+      (this.moduleForm.get('modulos') as UntypedFormArray).removeAt(index);
+    }
   }
 
   getItemFormControls(): AbstractControl[] {
@@ -153,6 +213,7 @@ export class RecursomodalComponent {
   addItem(): void {
     (this.moduleForm.controls['modulos'] as FormArray).push(
       new FormGroup({
+        idModulo: new FormControl(''),
         idRecurso: new FormControl(''),
         nombreModulo: new FormControl('', Validators.required),
         urlModulo: new FormControl('', Validators.required)

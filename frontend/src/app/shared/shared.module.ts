@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { UsermodalComponent } from './usermodal/usermodal.component';
 import { RecursomodalComponent } from './recursomodal/recursomodal.component';
+import { CalificacionmodalComponent } from './calificacionmodal/calificacionmodal.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RecursomodalComponent } from './recursomodal/recursomodal.component';
     AccountBreadcrumbsComponent,
     BreadcrumbsComponent,
     AcountSidemenuComponent,
-    RecursomodalComponent
+    RecursomodalComponent,
+    CalificacionmodalComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { RecursomodalComponent } from './recursomodal/recursomodal.component';
     AcountSidemenuComponent,
     BreadcrumbsComponent,
     UsermodalComponent,
-    RecursomodalComponent
+    RecursomodalComponent,
+    CalificacionmodalComponent
   ]
 })
 export class SharedModule { }

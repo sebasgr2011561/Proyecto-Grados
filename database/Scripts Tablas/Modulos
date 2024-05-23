@@ -1,0 +1,23 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Modulos](
+	[IdModulo] [int] IDENTITY(1,1) NOT NULL,
+	[IdRecurso] [int] NOT NULL,
+	[NombreModulo] [nvarchar](100) NOT NULL,
+	[Descripcion] [nvarchar](max) NULL,
+	[URLModulo] [nvarchar](255) NOT NULL,
+	[Estado] [bit] NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Modulos] ADD PRIMARY KEY CLUSTERED 
+(
+	[IdModulo] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Modulos]  WITH CHECK ADD  CONSTRAINT [FK_Modulos_Recursos] FOREIGN KEY([IdRecurso])
+REFERENCES [dbo].[Recursos] ([IdRecurso])
+GO
+ALTER TABLE [dbo].[Modulos] CHECK CONSTRAINT [FK_Modulos_Recursos]
+GO
