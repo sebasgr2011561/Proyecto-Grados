@@ -78,7 +78,7 @@ export const MENU_EST: MenuItem[] = [
             {
                 id: 3,
                 label: 'Mis rutas de aprendizaje',
-                link: '',
+                link: '/mis-rutas',
                 parentId: 11
             }
         ]

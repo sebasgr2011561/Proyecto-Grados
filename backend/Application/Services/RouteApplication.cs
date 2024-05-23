@@ -127,10 +127,12 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<IEnumerable<RouteSelectResponseDto>>> ListSelectRoutes()
+        public async Task<BaseResponse<IEnumerable<RouteSelectResponseDto>>> ListSelectRoutes(int userId = 0)
         {
             var response = new BaseResponse<IEnumerable<RouteSelectResponseDto>>();
-            var routes = await _unitOfWork.Routes.GetAllAsync();
+            var routesAll = await _unitOfWork.Routes.GetAllAsync();
+
+            var routes = userId == 0 ? routesAll : routesAll.Where(x => x.IdEstudiante == userId);
 
             if (routes is not null)
             {

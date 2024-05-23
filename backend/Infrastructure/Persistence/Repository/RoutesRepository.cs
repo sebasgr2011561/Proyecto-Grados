@@ -25,9 +25,6 @@ namespace Infrastructure.Persistence.Repository
                     case 1:
                         routes = routes.Where(x => x.IdEstudiante.Equals(filtersRequest.TextFilter));
                         break;
-                    case 2:
-                        routes = routes.Where(x => x.IdRecurso.Equals(filtersRequest.TextFilter));
-                        break;
                 }
             }
 

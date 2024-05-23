@@ -24,8 +24,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleModule } from './roles/roles.module';
 import { CategoryModule } from './categories/category.module';
-import { AuctionLiveComponent } from './auction-live/auction-live.component';
+import { RutasModule } from './route/route.module';
 
+import { AuctionLiveComponent } from './auction-live/auction-live.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AuctionLiveComponent } from './auction-live/auction-live.component';
     AccountModule,
     RoleModule,
     CategoryModule,
+    RutasModule,
     NgbTooltipModule,
     NgbProgressbarModule,
     ScrollToModule.forRoot()

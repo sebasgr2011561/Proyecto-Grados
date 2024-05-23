@@ -15,6 +15,7 @@ namespace Application.Mappers
                 .ReverseMap();
 
             CreateMap<RouteResponseDto, Ruta>()
+                .ForMember(x => x.Id, x => x.MapFrom(y => y.IdRoute))
                     .ReverseMap();
 
             CreateMap<BaseEntityResponse<Ruta>, BaseEntityResponse<RouteResponseDto>>()

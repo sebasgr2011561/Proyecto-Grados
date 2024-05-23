@@ -8,6 +8,8 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AuctionLiveComponent } from './auction-live/auction-live.component';
+import { RoutesComponent } from './route/routes/routes.component';
+import { AddRoutesComponent } from './route/add-routes/add-routes.component';
 
 
 
@@ -39,6 +41,18 @@ const routes: Routes = [
   {
     path: 'recurso/:id', 
     component: AuctionLiveComponent
+  },
+  {
+    path: 'mis-rutas',
+    component: RoutesComponent
+  },
+  {
+    path: 'nueva-ruta',
+    component: AddRoutesComponent
+  },
+  {
+    path: 'editar-ruta/:id',
+    component: AddRoutesComponent
   }
 
 ];

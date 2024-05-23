@@ -1,16 +1,16 @@
-import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { AddRoutesComponent } from "./add-routes/add-routes.component";
+import { RoutesComponent } from "./routes/routes.component";
+import { CommonModule } from "@angular/common";
 import { SharedModule } from "src/app/shared/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbNavModule, NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgxDropzoneModule } from "ngx-dropzone";
-import { AddRolesComponent } from "./add-roles/add-roles.component";
-import { RolesComponent } from "./roles/roles.component";
 
 @NgModule({
     declarations: [
-        AddRolesComponent,
-        RolesComponent
+        AddRoutesComponent,
+        RoutesComponent
     ],
     imports: [
         CommonModule,
@@ -22,4 +22,4 @@ import { RolesComponent } from "./roles/roles.component";
         NgxDropzoneModule
     ]
 })
-export class RoleModule { }
+export class RutasModule { }

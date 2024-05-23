@@ -30,6 +30,13 @@ namespace API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("Select/{userId:int}")]
+        public async Task<IActionResult> ListSelectCourses(int userId)
+        {
+            var response = await _routeApplication.ListSelectRoutes(userId);
+            return Ok(response);
+        }
+
         [HttpGet("{assignmentId:int}")]
         public async Task<IActionResult> GetCourseById(int assignmentId)
         {

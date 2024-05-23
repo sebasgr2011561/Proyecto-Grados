@@ -48,6 +48,11 @@ export class ApiService {
         return this.http.get<any>(url)
     }
 
+    getFullDataSelect(controller: string, id: number = 0) : Observable<any> { 
+        let url = this.apiUrl + this.api + controller + '/select/' + id;
+        return this.http.get<any>(url)
+    }
+
     getFullDataById(controller: string, id:number) : Observable<any> { 
         const url = this.apiUrl + this.api + controller + '/SelectByProfesorId/' + id;
         return this.http.get<any>(url)

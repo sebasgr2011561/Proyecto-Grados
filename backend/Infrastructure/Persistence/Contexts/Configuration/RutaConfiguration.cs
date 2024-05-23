@@ -19,11 +19,6 @@ namespace Infrastructure.Persistence.Contexts.Configuration
                 .HasForeignKey(d => d.IdEstudiante)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Rutas_Usuarios");
-
-            builder.HasOne(d => d.IdRecursoNavigation).WithMany(p => p.Ruta)
-                .HasForeignKey(d => d.IdRecurso)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Rutas_Recursos");
         }
     }
 }
