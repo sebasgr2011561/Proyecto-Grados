@@ -45,6 +45,10 @@ export class RolesComponent implements OnInit {
     this.dataService.setIdUsuarioEdit(id);
   }
 
+  newRoles() {
+    this.route.navigate(['newRoles']);
+  }
+
   eliminarRol(id: number) {
     this.api.deleteData('Role', id).subscribe((data) => {
       if (data.isSuccess) {
