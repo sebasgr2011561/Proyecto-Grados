@@ -19,6 +19,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { UsermodalComponent } from './usermodal/usermodal.component';
 import { RecursomodalComponent } from './recursomodal/recursomodal.component';
 import { CalificacionmodalComponent } from './calificacionmodal/calificacionmodal.component';
+import { AsociarModalComponent } from './asociarmodal/asociarmodal.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CalificacionmodalComponent } from './calificacionmodal/calificacionmoda
     BreadcrumbsComponent,
     AcountSidemenuComponent,
     RecursomodalComponent,
-    CalificacionmodalComponent
+    CalificacionmodalComponent,
+    AsociarModalComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { CalificacionmodalComponent } from './calificacionmodal/calificacionmoda
     BreadcrumbsComponent,
     UsermodalComponent,
     RecursomodalComponent,
-    CalificacionmodalComponent
+    CalificacionmodalComponent,
+    AsociarModalComponent
   ]
 })
 export class SharedModule { }

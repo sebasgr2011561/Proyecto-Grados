@@ -7,6 +7,7 @@ export class SharingDataService {
     data: Array<any> = [];
     idUsuarioEdit: number = 0;
     private _idRecurso!: number;
+    private _idRecursoParam!: number;
 
     constructor() { }
 
@@ -20,5 +21,13 @@ export class SharingDataService {
     
     public set idRecurso(value: number) {
         this._idRecurso = value;
+    }
+
+    public get idRecursoParam(): number {
+        return this._idRecursoParam;
+    }
+    
+    public set idRecursoParam(value: number) {
+        this._idRecursoParam = value;
     }
 }

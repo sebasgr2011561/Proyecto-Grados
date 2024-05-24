@@ -58,7 +58,7 @@
                       <i class="ci-edit text-info"></i>
                     </button>
                     <button class="btn bg-faded-danger btn-icon" type="button" data-bs-toggle="tooltip"
-                      ngbTooltip="Eliminar" (click)="removeproduct($index)">
+                      ngbTooltip="Eliminar" (click)="removeproduct(data.idRecurso)">
                       <i class="ci-trash text-danger"></i>
                     </button>
                   </div>
@@ -88,10 +88,14 @@
                   <div class="d-flex justify-content-center justify-content-sm-start pt-3">
                     <button class="btn bg-faded-info btn-icon me-2" type="button" 
                       ngbTooltip="Calificar" data-bs-toggle="modal" data-bs-target="#showModal" (click)="openModal(data.idRecurso)">
+                      <i class="ci-star text-info"></i>
+                    </button>
+                    <button class="btn bg-faded-info btn-icon me-2" type="button" 
+                      ngbTooltip="Asociar a ruta" data-bs-toggle="modal" data-bs-target="#showModal" (click)="openModalAsociar(data.idRecurso)">
                       <i class="ci-edit text-info"></i>
                     </button>
                   </div>
-
+                  
                 </div>
               </div>
             }

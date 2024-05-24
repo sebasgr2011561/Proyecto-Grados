@@ -35,6 +35,7 @@ export class RecursomodalComponent {
 
   listModulos: any[] = [];
   idRecursoParam: number  = 0;
+  idRecurso!: number;
 
   constructor(public formBuilder: UntypedFormBuilder, 
     private modalService: NgbModal, 
@@ -45,7 +46,7 @@ export class RecursomodalComponent {
     
   ) { 
 
-    this.idRecursoParam = this.dataApi.idRecurso;
+    this.idRecursoParam = this.dataApi.idRecursoParam;
   }
 
   ngOnInit(): void {
@@ -130,6 +131,7 @@ export class RecursomodalComponent {
     let modulos = this.moduleForm.value['modulos'];
 
     for (let index = 0; index < modulos.length; index++) {
+      modulos[index].idModulo = 0;
       modulos[index].idRecurso = idRecurso;
     }
 

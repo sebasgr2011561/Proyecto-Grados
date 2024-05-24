@@ -44,7 +44,7 @@ export const MENU_DOC: MenuItem[] = [
             {
                 id: 2,
                 label: 'Categorias',
-                link: '',
+                link: '/categories',
                 parentId: 11
             },
             {

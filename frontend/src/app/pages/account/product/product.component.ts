@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalificacionmodalComponent } from 'src/app/shared/calificacionmodal/calificacionmodal.component';
 import { SharingDataService } from 'src/app/services/data.service';
+import { AsociarModalComponent } from 'src/app/shared/asociarmodal/asociarmodal.component';
 
 @Component({
   selector: 'app-product',
@@ -65,25 +66,18 @@ export class ProductComponent implements OnInit {
 
   //remove from products
   removeproduct(id: any) {
-    Swal.fire({
-      title: 'Estas seguro ?',
-      text: '¿Estás seguro de eliminar este producto ?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: 'green',
-      cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'Si, Eliminar!',
-    }).then((result) => {
-      if (result.value) {
+    this.api.deleteData('Course', id).subscribe((data) => {
+      if (data.isSuccess) {
+        Swal.fire(data.message, "", "success");
+        this.cargarRecursos();
+      } else {
         Swal.fire({
-          title: 'Eliminado!',
-          text: 'Su curso ha sido eliminado.',
-          confirmButtonColor: '#364574',
-          icon: 'success',
+          icon: "error",
+          title: "Oops...",
+          text: data.message
         });
-        this.products.splice(id, 1);
       }
-    });
+    })
   }
 
   // Sort
@@ -91,5 +85,11 @@ export class ProductComponent implements OnInit {
     console.log('IdCurso: ', id)
     this.dataApi.idRecurso = id;
     this.modalService.open(CalificacionmodalComponent, { size: 'md', centered: true });
+  }
+
+  openModalAsociar(id: number) {
+    console.log('IdCurso: ', id)
+    this.dataApi.idRecurso = id;
+    this.modalService.open(AsociarModalComponent, { size: 'md', centered: true });
   }
 }
