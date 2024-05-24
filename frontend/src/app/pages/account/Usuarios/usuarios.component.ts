@@ -136,8 +136,9 @@ export class UsuariosComponent implements OnInit {
     })
   }
 
-  openModal() {
+  openModal(id: number) {
     // this.submitted = false;
+    this.dataService.idUsuarioEdit = id;
     this.modalService.open(UsermodalComponent, { size: 'md', centered: true });
   }
 

@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { SharingDataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-usermodal',
@@ -34,8 +35,10 @@ export class UsermodalComponent {
   constructor(public formBuilder: UntypedFormBuilder, 
     private modalService: NgbModal, 
     private api: ApiService,
-    private route: Router) { 
-      this.userId = localStorage.getItem('userId')
+    private route: Router,
+    private dataService: SharingDataService
+  ) { 
+      this.userId = this.dataService.idUsuarioEdit;
     }
 
   ngOnInit(): void {
@@ -62,7 +65,7 @@ export class UsermodalComponent {
   }
 
   cargarUsuario() {
-    this.api.getDataById('User', 4).subscribe((data) => {
+    this.api.getDataById('User', this.userId).subscribe((data) => {
       this.userForm.controls['uid'].setValue(data.data.idUsuario);
       this.userForm.controls['name'].setValue(data.data.nombres);
       this.userForm.controls['lastname'].setValue(data.data.apellidos);
@@ -115,7 +118,6 @@ export class UsermodalComponent {
     formData.append("celular", this.userForm.controls['cellular'].value);
     formData.append("email", this.userForm.controls['email'].value);
     formData.append("password", this.userForm.controls['password'].value);
-    formData.append("biografia", this.userForm.controls['bio'].value);
 
     Swal.fire({
       title: "¿Deseas guardar los cambios?",

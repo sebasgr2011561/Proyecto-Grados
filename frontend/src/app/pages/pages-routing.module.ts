@@ -10,6 +10,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { AuctionLiveComponent } from './auction-live/auction-live.component';
 import { RoutesComponent } from './route/routes/routes.component';
 import { AddRoutesComponent } from './route/add-routes/add-routes.component';
+import { RolesComponent } from './roles/roles/roles.component';
+import { AddRolesComponent } from './roles/add-roles/add-roles.component';
 
 
 
@@ -53,6 +55,15 @@ const routes: Routes = [
   {
     path: 'editar-ruta/:id',
     component: AddRoutesComponent
+  },
+  {
+    path: 'roles', component: RolesComponent
+  },
+  {
+      path: 'newRoles', component: AddRolesComponent
+  },
+  {
+      path: 'editRoles', component: AddRolesComponent
   }
 
 ];
