@@ -46,6 +46,8 @@ export class AuctionLiveComponent implements OnInit {
   idPerfil!: number;
   idUsuario!: number;
   myDate: any = new Date();
+  subscribedCourses!: any[];
+  botonSuscrito!: boolean;
 
   constructor(
     private api: ApiService,
@@ -59,6 +61,9 @@ export class AuctionLiveComponent implements OnInit {
     this.idRecurso = +this.route.snapshot.paramMap.get('id')!;
     this.idPerfil = +localStorage.getItem('idRol')!;
     this.idUsuario = +localStorage.getItem('userId')!;
+
+    let subscribedCoursesString = localStorage.getItem('subscribedCourses')!;
+    this.subscribedCourses = JSON.parse(subscribedCoursesString);
 
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
   }
@@ -90,19 +95,26 @@ export class AuctionLiveComponent implements OnInit {
 
     this.cargarRecurso();
     this.cargarModulos();
+    this.buscarCursosInscritos();
+  }
+
+  buscarCursosInscritos() {
+    this.subscribedCourses.forEach(element => {
+      if (element.idRecurso === this.idRecurso) {
+        this.botonSuscrito = true; 
+      }
+    });
   }
 
   cargarRecurso() {
     this.api.getDataById('Course', this.idRecurso).subscribe((data) => {
       this.course = data.data;
-      console.log('Category - Course: ', this.course);
     })
   }
 
   cargarModulos() {
     this.api.getFullData('Modules', this.idRecurso).subscribe((data) => {
       this.modulos = data.data;
-      console.log('Category - Modulos: ', this.modulos);
     })
   }
 
@@ -219,6 +231,7 @@ export class AuctionLiveComponent implements OnInit {
         this.api.createData('Assignment', data).subscribe((data) => {
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success");
+            this.botonSuscrito = true
           } else {
             Swal.fire({
               icon: "error",

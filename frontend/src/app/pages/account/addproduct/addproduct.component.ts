@@ -248,8 +248,6 @@ export class AddproductComponent implements OnInit {
   files: File[] = [];
 
   onSelect(event: any) {
-
-    console.log('Fotos: ', this.files)
     this.files.push(...event.addedFiles);
   }
 

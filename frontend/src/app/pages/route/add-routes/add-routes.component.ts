@@ -40,8 +40,6 @@ export class AddRoutesComponent implements OnInit {
   }
 
   consultarRuta() {
-    console.log('ConsultarRuta')
-    
     this.api.getDataById('Route', this.idRuta).subscribe((data) => {
       this.rutaForm.controls['id'].setValue(data.data.idRoute);
       this.rutaForm.controls['nombreRuta'].setValue(data.data.nombreRuta);

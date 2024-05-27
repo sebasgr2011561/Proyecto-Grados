@@ -99,13 +99,11 @@ export class CategoryComponent implements OnInit {
   cargarRecursos() {
     this.apiService.getData('Course', this.idCategory).subscribe((data) => {
       this.products = data.data.items;
-      console.log('Category - Products: ', this.products);
     })
   }
 
   openModal(content: any, i: any) {
     this.productdetail = this.products[i]
-    console.log('Products Details: ', this.productdetail);
     this.modalService.open(content, { size: 'lg', centered: true });
   }
 

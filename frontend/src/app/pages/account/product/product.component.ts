@@ -49,12 +49,10 @@ export class ProductComponent implements OnInit {
   cargarRecursos() {
     if (this.idRolEstudiante !== 3) {
       this.api.getFullData('Course').subscribe((data) => {
-        console.log('Cursos: ', data.data)
         this.products = data.data;
       })
     } else {
       this.api.getDataAssignments("Assignment", this.userId).subscribe((data) => {
-        console.log('Cursos Asignados: ', data.data)
         this.products = data.data;
       })
     }
@@ -82,13 +80,11 @@ export class ProductComponent implements OnInit {
 
   // Sort
   openModal(id: number) {
-    console.log('IdCurso: ', id)
     this.dataApi.idRecurso = id;
     this.modalService.open(CalificacionmodalComponent, { size: 'md', centered: true });
   }
 
   openModalAsociar(id: number) {
-    console.log('IdCurso: ', id)
     this.dataApi.idRecurso = id;
     this.modalService.open(AsociarModalComponent, { size: 'md', centered: true });
   }

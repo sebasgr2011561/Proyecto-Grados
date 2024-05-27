@@ -50,10 +50,7 @@ export class RecursomodalComponent {
   }
 
   ngOnInit(): void {
-
     this.crearFormulario();
-
-    console.log('idRecurso: ', this.idRecursoParam)
     if (this.idRecursoParam !== 0) {
       this.cargarModulos();
     }
@@ -199,7 +196,6 @@ export class RecursomodalComponent {
   removeItem(index: any) {
     if (this.idRecursoParam !== 0) {
       this.api.deleteData('Modules', index).subscribe((data) => {
-        console.log('Message: ', data.message);
         (this.moduleForm.get('modulos') as UntypedFormArray).removeAt(index);
       })
     } else {

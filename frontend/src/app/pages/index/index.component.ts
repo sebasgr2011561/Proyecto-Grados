@@ -15,12 +15,29 @@ export class IndexComponent implements OnInit {
   category: any;
   courses: any;
 
-  constructor(public router: Router, private api: ApiService) { }
+  idRol!: number;
+  idUsuario!: number;
+  subscribedCourses!: any[];
+
+  constructor(public router: Router, private api: ApiService) { 
+    this.idRol = +localStorage.getItem('idRol')!;
+    this.idUsuario = +localStorage.getItem('userId')!;
+  }
 
   ngOnInit(): void {
     this.cargarCategorias();
     this.cargarRecursos();
+    if (this.idRol === 3) {
+      this.cargarRecursosSuscritos(); 
+    }
     document.querySelector('.cart')?.classList.add('d-none')
+  }
+
+  cargarRecursosSuscritos() {
+    this.api.getDataAssignments("Assignment", this.idUsuario).subscribe((data) => {
+      this.subscribedCourses = data.data;
+      localStorage.setItem('subscribedCourses', JSON.stringify(this.subscribedCourses))
+    })
   }
 
   cargarCategorias() {
