@@ -48,7 +48,7 @@ export class ProductComponent implements OnInit {
 
   cargarRecursos() {
     if (this.idRolEstudiante !== 3) {
-      this.api.getFullData('Course').subscribe((data) => {
+      this.api.getFullData('Course', this.userId, this.idRolEstudiante).subscribe((data) => {
         this.products = data.data;
       })
     } else {

@@ -37,12 +37,18 @@ export class ApiService {
         return this.http.post<any>(url, this.bodyRequest);
     }
 
-    getFullData(controller: string, id: number = 0) : Observable<any> { 
+    getFullData(controller: string, idUser: number = 0, idRol: number = 0) : Observable<any> { 
         let url = '';
-        if (id === 0) {
+
+        if (idRol === 2) {
+            url = this.apiUrl + this.api + controller + '/SelectByProfesorId/' + idUser;
+            return this.http.get<any>(url);
+        }
+
+        if (idUser === 0) {
             url = this.apiUrl + this.api + controller + '/select';    
         } else {
-            url = this.apiUrl + this.api + controller + '/select/' + id;
+            url = this.apiUrl + this.api + controller + '/select/' + idUser;
         }
         
         return this.http.get<any>(url)
