@@ -12,6 +12,8 @@ public partial class EDucaTdaContext : DbContext
 
     public virtual DbSet<Asignacion> Asignacions { get; set; }
 
+    public virtual DbSet<AsociacionRuta> AsociacionRutas { get; set; }
+
     public virtual DbSet<Calificacione> Calificaciones { get; set; }
 
     public virtual DbSet<Categorium> Categoria { get; set; }

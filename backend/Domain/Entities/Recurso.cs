@@ -21,6 +21,8 @@ public partial class Recurso : BaseEntity
 
     public virtual ICollection<Asignacion> Asignacions { get; set; } = new List<Asignacion>();
 
+    public virtual ICollection<AsociacionRuta> AsociacionRutas { get; set; } = new List<AsociacionRuta>();
+
     public virtual ICollection<Calificacione> Calificaciones { get; set; } = new List<Calificacione>();
 
     public virtual Categorium? IdCategoriaNavigation { get; set; }

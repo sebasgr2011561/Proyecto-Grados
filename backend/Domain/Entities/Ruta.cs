@@ -10,4 +10,6 @@ public partial class Ruta : BaseEntity
     public string? NombreRuta { get; set; }
 
     public virtual Usuario IdEstudianteNavigation { get; set; } = null!;
+
+    public virtual ICollection<AsociacionRuta> AsociacionRutas { get; set; } = new List<AsociacionRuta>();
 }
