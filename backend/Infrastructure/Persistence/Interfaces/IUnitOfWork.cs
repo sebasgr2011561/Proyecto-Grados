@@ -8,6 +8,7 @@ namespace Infrastructure.Persistence.Interfaces
         IUserRepository User { get; }
         ICoursesRepository Courses { get; }
         IAssignmentsRepository Assignments { get; }
+        IAsociacionRutaRepository AsociacionRuta { get; }
         IRolesRepository Roles { get; }
         IRoutesRepository Routes { get; }
         IPermitsRepository Permits { get; }

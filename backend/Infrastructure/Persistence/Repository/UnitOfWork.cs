@@ -12,6 +12,7 @@ namespace Infrastructure.Persistence.Repository
         public IUserRepository User { get; private set; }
         public ICoursesRepository Courses { get; private set; }
         public IAssignmentsRepository Assignments { get; private set; }
+        public IAsociacionRutaRepository AsociacionRuta { get; private set; }
         public IRolesRepository Roles { get; private set; }
         public IRoutesRepository Routes { get; private set; }
         public IPermitsRepository Permits { get; set; }
@@ -33,6 +34,7 @@ namespace Infrastructure.Persistence.Repository
             Qualifications = new QualificationsRepository(context);
             Categories = new CategoriesRepository(context);
             Modulos = new ModuloRepository(context);
+            AsociacionRuta = new AsociacionRutaRepository(context);
             AzureStorage = new AzureStorage(configuration);
         }
         public void Dispose()

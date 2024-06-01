@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 namespace Infrastructure.Persistence.Interfaces
 {
-	public interface IAsociacionRutaRepository
+	public interface IAsociacionRutaRepository : IGenericRepository<AsociacionRuta>
 	{
 
 	}

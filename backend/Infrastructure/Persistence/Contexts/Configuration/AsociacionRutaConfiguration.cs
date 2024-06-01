@@ -10,7 +10,7 @@ namespace Infrastructure.Persistence.Contexts.Configuration
         public void Configure(EntityTypeBuilder<AsociacionRuta> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Id).HasColumnName("IdAsignacion");
+            builder.Property(e => e.Id).HasColumnName("IdAsociacionRuta");
 
             builder.ToTable("AsociacionRuta");
 

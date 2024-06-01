@@ -18,7 +18,7 @@ export class AsociarModalComponent {
   userId!: number;
 
   constructor(private api: ApiService, private modalService: NgbModal, public fb: UntypedFormBuilder,
-    private dataApi: SharingDataService, private datePipe: DatePipe) { 
+    private dataApi: SharingDataService) { 
       this.userId = +localStorage.getItem('userId')!;
     }
 
@@ -36,14 +36,12 @@ export class AsociarModalComponent {
     })
   }
 
-  calificarRecurso() {
+  asociarRecurso() {
     let idRecurso = this.dataApi.idRecurso;
-    let myDate = new Date();
 
     let data = {
-      idEstudiante: this.userId,
-      idRecurso: idRecurso,
-      fechaAsignacion: +this.calificacionForm.controls['rutaAprendizaje'].value
+      idRuta: +this.calificacionForm.controls['rutaAprendizaje'].value,
+      idRecurso: idRecurso
     }
 
     Swal.fire({
@@ -54,7 +52,7 @@ export class AsociarModalComponent {
       denyButtonText: `No guardar`
     }).then((result) => {
       if (result.isConfirmed) {
-        this.api.createData('Qualification', data).subscribe((data) => {
+        this.api.createData('AsociacionRuta', data).subscribe((data) => {
           if (data.isSuccess) {
             Swal.fire(data.message, "", "success");
             this.closemodal();

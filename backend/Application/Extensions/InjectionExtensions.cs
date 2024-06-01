@@ -30,6 +30,7 @@ namespace Application.Extensions
             services.AddScoped<IQualificationsApplication, QualificationsApplication>();
             services.AddScoped<ICategoryApplication, CategoryApplication>();
             services.AddScoped<IModuleApplication, ModuleApplication>();
+            services.AddScoped<IAsociacionRutaApplication, AsociacionRutaApplication>();
 
 
             services.AddTransient<IFileStorageLocalApplication, FileStorageLocalApplication>();
