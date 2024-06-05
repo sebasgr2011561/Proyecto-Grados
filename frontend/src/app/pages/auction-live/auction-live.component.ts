@@ -3,7 +3,6 @@ import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 // Swiper Slider
-// import { SwiperOptions } from 'swiper';
 import { favorite } from '../favorite/data';
 
 //Data Get

@@ -4,6 +4,8 @@ using Domain.Entities;
 using Infrastructure.Commons.Bases.Response;
 using Infrastructure.Persistence.Contexts;
 using Infrastructure.Persistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Utilities.Static;
 
 namespace Infrastructure.Persistence.Repository
 {
@@ -16,49 +18,34 @@ namespace Infrastructure.Persistence.Repository
             _context = context;
         }
 
-        public async Task<BaseEntityResponse<Dashboard>> InfoDashboard(int idProfesor)
+        public async Task<IEnumerable<Dashboard>> InfoDashboardActive(int idProfesor)
         {
-            var response = new BaseEntityResponse<Dashboard>();
+            IEnumerable<Dashboard> dataDashboard = (from a in _context.Asignacions
+                                                    join r in _context.Recursos on a.IdRecurso equals r.Id 
+                                                    where r.IdProfesor == idProfesor && a.Estado == Convert.ToBoolean(StateTypes.Active)
+                                                    group r by new { r.NombreRecurso } into estudiantes
+                                                    select new Dashboard
+                                                    {
+                                                        EstudiantesRegistrados = estudiantes.Count(),
+                                                        NombreRecurso = estudiantes.Key.NombreRecurso
+                                                    }).ToList();
 
-            var infoDashboard = (from a in _context.Asignacions.ToList()
-                                 join r in _context.Recursos.ToList() on r.IdRecurso equals a.IdRecurso)
+            return dataDashboard;
+        }
 
+        public async Task<IEnumerable<Dashboard>> InfoDashboardInactive(int idProfesor)
+        {
+            IEnumerable<Dashboard> dataDashboard = (from a in _context.Asignacions
+                                                    join r in _context.Recursos on a.IdRecurso equals r.Id
+                                                    where r.IdProfesor == idProfesor && a.Estado == Convert.ToBoolean(StateTypes.Inactive)
+                                                    group r by new { r.NombreRecurso } into estudiantes
+                                                    select new Dashboard
+                                                    {
+                                                        EstudiantesRegistrados = estudiantes.Count(),
+                                                        NombreRecurso = estudiantes.Key.NombreRecurso
+                                                    }).ToList();
 
-                                 from a in _context.Asignacions.ToList()
-                                join r in _context.Recursos.ToList() on 
-                                where r.IdProfesor == idProfesor
-                                select new Dashboard()
-                                {
-                                    EstudiantesRegistrados = 
-                                    NombreRecurso = r.NombreRecurso
-                                }
-
-
-
-
-
-
-            var courses = request.Id > 0 ? GetEntityQuery().Where(x => x.IdCategoria == request.Id) : GetEntityQuery();
-
-            if (request.NumFilter is not null && !string.IsNullOrEmpty(request.TextFilter))
-            {
-                switch (request.NumFilter)
-                {
-                    case 1:
-                        courses = courses.Where(x => x.NombreRecurso!.Contains(request.TextFilter));
-                        break;
-                }
-            }
-
-            if (request.StateFilter is not null)
-            {
-                courses = courses.Where(x => x.Estado.Equals(request.StateFilter));
-            }
-            if (request.Sort is null) request.Sort = "Id";
-
-            response.TotalRecords = await courses.CountAsync();
-            response.Items = await Ordering(request, courses, !(bool)request.Download!).ToListAsync();
-            return response;
+            return dataDashboard;
         }
     }
 }

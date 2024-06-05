@@ -6,7 +6,8 @@ namespace Infrastructure.Persistence.Interfaces
 {
 	public interface IDashboardRepository
     {
-        Task<BaseEntityResponse<Dashboard>> InfoDashboard(int idProfesor);
+        Task<IEnumerable<Dashboard>> InfoDashboardActive(int idProfesor);
+        Task<IEnumerable<Dashboard>> InfoDashboardInactive(int idProfesor);
     }
 }
 

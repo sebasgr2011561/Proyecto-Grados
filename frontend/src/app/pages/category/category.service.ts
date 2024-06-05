@@ -132,29 +132,6 @@ export class CategoryService {
 
     // 2. filter
     countries = countries.filter(country => matches(country, searchTerm, this.pipe));
-    // 5. Status Filter
-    // if (status) {
-    //   countries = countries.filter(country => country.status == status);
-    // }
-    // else {
-    //   countries = countries;
-    // }
-
-    // 3. payment Filter
-    // if (payment) {
-    //   countries = countries.filter(country => country.payment == payment);
-    // }
-    // else {
-    //   countries = countries;
-    // }
-
-    // 4. Date Filter       
-    // if (date) {
-    //   countries = countries.filter(country => this.datePipe.transform(country.orderDate, "yyyy-MM-dd") == this.datePipe.transform(date, "yyyy-MM-dd"));
-    // }
-    // else {
-    //   countries = countries;
-    // }
 
     const total = countries.length;
 

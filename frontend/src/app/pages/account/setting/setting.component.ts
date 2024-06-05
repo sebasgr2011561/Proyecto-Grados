@@ -116,8 +116,6 @@ export class SettingComponent implements OnInit {
     formData.append("biografia", this.userForm.controls['bio'].value);
     formData.append("imagen", this.imgFile);
 
-    debugger;
-
     Swal.fire({
       title: "¿Deseas guardar los cambios?",
       showDenyButton: true,
@@ -159,7 +157,6 @@ export class SettingComponent implements OnInit {
       this.imageURL = reader.result as string;
       document.querySelectorAll('#user_profile').forEach((element: any) => {
         element.src = this.imageURL;
-        debugger;
       });
     }
     reader.readAsDataURL(file)

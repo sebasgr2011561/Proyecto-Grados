@@ -133,7 +133,6 @@ export class AddproductComponent implements OnInit {
    * Form data get
    */
   openModal() {
-    debugger;
     this.dataApi.idRecurso = this.idRecurso;
     this.dataApi.idRecursoParam = this.idRecursoParam
     this.modalService.open(RecursomodalComponent, { size: 'lg', centered: true });

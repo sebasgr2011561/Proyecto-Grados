@@ -37,18 +37,24 @@ export const MENU_DOC: MenuItem[] = [
         subItems: [
             {
                 id: 1,
+                label: 'Dashboard',
+                link: '/dashboard/docente',
+                parentId: 11
+            },
+            {
+                id: 2,
                 label: 'Mi perfil',
                 link: '/editar',
                 parentId: 11
             },
             {
-                id: 2,
+                id: 3,
                 label: 'Categorias',
                 link: '/categories',
                 parentId: 11
             },
             {
-                id: 3,
+                id: 4,
                 label: 'Recursos',
                 link: '/product',
                 parentId: 11

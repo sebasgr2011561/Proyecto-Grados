@@ -3,7 +3,7 @@ import { ChartType } from "./sales.model";
 const linewithDataChart: ChartType = {
     chart: {
         height: 380,
-        type: 'line',
+        type: 'bar',
         zoom: {
             enabled: false,
         },
@@ -11,7 +11,7 @@ const linewithDataChart: ChartType = {
             show: false,
         },
     },
-    colors: ["#4e54c8"],
+    colors: ["green"],
     dataLabels: {
         enabled: false,
     },
@@ -20,8 +20,8 @@ const linewithDataChart: ChartType = {
         curve: 'smooth'
     },
     series: [{
-        name: "High - 2018",
-        data: [0, 100, 200, 150, 50, 0, 0, 50, 0, 50, 50, 50, 0, 100, 0]
+        name: "",
+        data: []
     }
     ],
     grid: {
@@ -39,11 +39,11 @@ const linewithDataChart: ChartType = {
         },
     },
     xaxis: {
-        categories: ["22 Jul", "", "24 Jul", "", "26 Jul", "", "28 Jul", "", "30 Jul", "", "01 Aug", "", "03 Aug", "", "05 Aug"]
+        categories: []
     },
     yaxis: {
         min: 0,
-        max: 200,
+        max: 0,
     },
     legend: {
         position: 'top',
@@ -91,21 +91,10 @@ const OrderCountChart: ChartType = {
         curve: 'smooth'
     },
     series: [{
-        name: "High - 2018",
-        data: [0, 2, 4, 3, 1, 0, 0, 1, 0, 1, 1, 1, 0, 2, 0]
+        name: "",
+        data: []
     }
     ],
-    // grid: {
-    //     row: {
-    //         colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-    //         opacity: 1,
-    //     },
-    //     column: {
-    //         colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-    //         opacity: 1,
-    //     },
-    //     borderColor: '#4e54c8',
-    // },
     markers: {
         style: "inverted",
         size: 6,

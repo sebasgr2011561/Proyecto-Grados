@@ -75,25 +75,6 @@ export class CategoryComponent implements OnInit {
       { label: 'Market', link: '/' },
       { label: 'Inside category', active: true, link: '/category' }
     ];
-
-    /**
-    * fetches data
-    */
-    // setTimeout(() => {
-    //   debugger;
-    //   this.CategoryList.subscribe(x => {
-    //     this.products = Object.assign([], x);
-    //   });
-    //   document.getElementById('elmLoader')?.classList.add('d-none')
-    // }, 1200)
-
-    // // set decimal point to small
-    // setTimeout(() => {
-    //   document.querySelectorAll(".price").forEach((e) => {
-    //     let txt = e.innerHTML.split(".")
-    //     e.innerHTML = txt[0] + ".<small>" + txt[1] + "</small>"
-    //   })
-    // }, 0);
   }
 
   cargarRecursos() {

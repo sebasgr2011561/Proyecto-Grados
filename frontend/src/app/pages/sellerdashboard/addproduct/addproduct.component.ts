@@ -50,12 +50,7 @@ export class AddproductComponent implements OnInit {
     let fileList: any = event.target as HTMLInputElement;
     console.log(fileList)
     let file: File = fileList.files[0];
-    console.log(file)
-    // document.getElementById('');
-    // this.productForm.patchValue({
-    //   salefile: file.name
-    // });
-    // console.log( this.productForm)
+    console.log(file);
     const reader = new FileReader();
     reader.onload = () => {
       this.imageURL = reader.result as string;

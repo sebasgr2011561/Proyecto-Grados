@@ -31,7 +31,7 @@ namespace Application.Extensions
             services.AddScoped<ICategoryApplication, CategoryApplication>();
             services.AddScoped<IModuleApplication, ModuleApplication>();
             services.AddScoped<IAsociacionRutaApplication, AsociacionRutaApplication>();
-
+            services.AddScoped<IDashboardApplication, DashboardApplication>();
 
             services.AddTransient<IFileStorageLocalApplication, FileStorageLocalApplication>();
 

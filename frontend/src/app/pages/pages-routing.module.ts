@@ -66,7 +66,7 @@ const routes: Routes = [
       path: 'editRoles', component: AddRolesComponent
   },
   {
-    path: 'sellerdashboard', loadChildren: () => import('./sellerdashboard/sellerdashboard.module').then(m => m.SellerdashboardModule)
+    path: 'dashboard', loadChildren: () => import('./sellerdashboard/sellerdashboard.module').then(m => m.SellerdashboardModule)
   },
 
 ];

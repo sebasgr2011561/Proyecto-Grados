@@ -15,7 +15,9 @@ namespace Infrastructure.Persistence.Interfaces
         IQualificationsRepository Qualifications { get; }
         ICategoryRepository Categories { get; }
         IModuloRepository Modulos { get; }
+        IDashboardRepository Dashboard { get; }
         IAzureStorage AzureStorage { get; }
+
 
         void SaveChanges();
         Task SaveChangesAsync();

@@ -19,6 +19,7 @@ namespace Infrastructure.Persistence.Repository
         public IQualificationsRepository Qualifications { get; set; }
         public ICategoryRepository Categories { get; private set; }
         public IModuloRepository Modulos { get; private set; }
+        public IDashboardRepository Dashboard { get; private set; }
         public IAzureStorage AzureStorage { get; private set; }
 
         public UnitOfWork(EDucaTdaContext context, IConfiguration configuration)
@@ -35,6 +36,7 @@ namespace Infrastructure.Persistence.Repository
             Categories = new CategoriesRepository(context);
             Modulos = new ModuloRepository(context);
             AsociacionRuta = new AsociacionRutaRepository(context);
+            Dashboard = new DashboardRepository(context);
             AzureStorage = new AzureStorage(configuration);
         }
         public void Dispose()

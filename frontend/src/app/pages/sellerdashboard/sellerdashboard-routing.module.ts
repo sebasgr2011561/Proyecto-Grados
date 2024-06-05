@@ -10,7 +10,7 @@ import { PayoutComponent } from './payout/payout.component';
 
 const routes: Routes = [
   {
-    path: 'sales', component: SalesComponent
+    path: 'docente', component: SalesComponent
   },
   {
     path: 'product', component: ProductComponent

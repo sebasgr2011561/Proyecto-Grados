@@ -90,4 +90,14 @@ export class ApiService {
         const urlLogin = this.apiUrl + this.api + controller + '/Generate';
         return this.http.post<any>(urlLogin, userRequestData);
     }
+
+    getDashboardActive(controller: string, idPRofesor: number): Observable<any> {
+        const url = this.apiUrl + this.api + controller + '/SelectInfoDashboardActive/' + idPRofesor;
+        return this.http.get<any>(url);
+    }
+
+    getDashboardInactive(controller: string, idPRofesor: number): Observable<any> {
+        const url = this.apiUrl + this.api + controller + '/SelectInfoDashboardInactive/' + idPRofesor;
+        return this.http.get<any>(url);
+    }
 }
